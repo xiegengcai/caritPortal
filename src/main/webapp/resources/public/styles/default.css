@@ -1,0 +1,141 @@
+body {
+	text-align: left;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #3f3f3f;
+}
+
+#label {
+	width: 60px;
+	display: block;
+}
+
+.mustInput {color: #ff0000}
+
+input,textarea {
+	width: 150px;
+	border: 1px solid #ccc;
+	padding: 2px;
+}
+
+.pagination input {
+	width: 30px;
+}
+.pagination select{
+	width: 40px;
+}
+.easyui-accordion ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 5px 10px;
+}
+
+.easyui-accordion ul li {
+	padding: 0px;
+}
+
+.easyui-accordion ul li a {
+	line-height: 24px;
+}
+
+.easyui-accordion ul li div {
+	margin: 2px 0px;
+	padding-left: 10px;
+	padding-top: 2px;
+}
+
+.easyui-accordion ul li div.hover {
+	border: 1px dashed #99BBE8;
+	background: #E0ECFF;
+	cursor: pointer;
+}
+
+.easyui-accordion ul li div.hover a {
+	color: #416AA3;
+}
+
+.easyui-accordion ul li div.selected {
+	border: 1px solid #99BBE8;
+	background: #E0ECFF;
+	cursor: default;
+}
+
+.easyui-accordion ul li div.selected a {
+	color: #416AA3;
+	font-weight: bold;
+}
+
+FORM TABLE {
+	width: 100%;
+	padding: 5px 10px;
+	word-spacing:  pre-wrap;
+}
+
+.dataGrid {
+	width: 100%;
+	background: #EFEFEF;
+	padding: 5px 10px;
+	background: #EFEFEF;
+}
+
+.dataGrid tr {
+	border: 1px solid #CCC;
+}
+
+div.fileinputs {  
+    position: relative;  
+}  
+  
+div.fakefile {  
+    position: absolute;  
+    top: 0px;  
+    left: 0px;  
+    z-index: 1; 
+}  
+  
+input.file {  
+    position: relative;  
+    text-align: right;  
+    -moz-opacity:0 ;  
+    filter:alpha(opacity: 0);
+	width:250px;
+    opacity: 0;  
+    z-index: 2;  
+}
+.starBright_left{
+	background-image: url("../images/star_left_pressed.png");
+	width:12px;
+	height:24px;
+	display:inline-block; 
+	cursor: pointer;
+}
+.starBright_right{
+	background-image: url("../images/star_right_pressed.png");
+	width:12px;
+	height:24px;
+	display:inline-block;
+	cursor: pointer;
+}
+.starDark_left{
+	background-image: url("../images/star_left_normal.png");
+	width:12px;
+	height:24px;
+	display:inline-block;
+	cursor: pointer; 
+}
+.starDark_right{
+	background-image: url("../images/star_right_normal.png");
+	width:12px;
+	height:24px;
+	display:inline-block; 
+	cursor: pointer;
+}
+#logout{
+	width: 60px;
+	height: 28px;
+	background: #A4A4A4;
+	cursor: pointer;
+	font-size: 14px;
+}
+#logout:hover{
+	background: #cdcdcd;
+}
