@@ -3,6 +3,7 @@ package cn.com.carit.portal.bean;
 public class Menu extends BaseBean {
 	
 	private String code;
+	private String url;
 	private Integer parentId;
 	private Integer level;
 	private Integer displayIndex;
@@ -13,6 +14,13 @@ public class Menu extends BaseBean {
 	}
 	public void setCode(String code) {
 		this.code = code;
+	}
+	
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	public Integer getParentId() {
 		return parentId;
@@ -37,6 +45,13 @@ public class Menu extends BaseBean {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	@Override
+	public String toString() {
+		return "Menu [code=" + code + ", parentId=" + parentId + ", level="
+				+ level + ", displayIndex=" + displayIndex + ", remark="
+				+ remark + ", id=" + id + ", createTime=" + createTime
+				+ ", updateTime=" + updateTime + "]";
 	}
 	
 }

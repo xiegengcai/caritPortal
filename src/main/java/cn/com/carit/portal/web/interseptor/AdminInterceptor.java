@@ -12,7 +12,7 @@ import cn.com.carit.portal.bean.AdminUser;
 
 /**
  * 后台系统拦截器
- * @author <a href="mailto:xiegengcai@gmail.com">Ivan Xie</a>
+ * @author <a href="mailto:xiegengcai@gmail.com">Gengcai Xie</a>
  *
  */
 public class AdminInterceptor extends HandlerInterceptorAdapter{
@@ -31,7 +31,6 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 		}
 		// 初始化附件配置
 		AttachmentUtil.init(hostPath);
-		log.debug(request.getLocale().getCountry()+"_"+request.getLocale().getLanguage());
 		log.debug("Request for: "+uri);
 		if (uri.indexOf("admin")!=-1) { // 管理员相关URL
 			AdminUser user=(AdminUser) request.getSession().getAttribute(

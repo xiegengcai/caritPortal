@@ -157,4 +157,17 @@ public class AdminUser extends BaseBean implements Serializable {
 	public void setRoles(String roles) {
 		this.roles = roles;
 	}
+	@Override
+	public String toString() {
+		return "AdminUser [email=" + email + ", password=" + password
+				+ ", nickName=" + nickName + ", realName=" + realName
+				+ ", gender=" + gender + ", mobile=" + mobile
+				+ ", officePhone=" + officePhone + ", lastLoginTime="
+				+ lastLoginTime + ", lastLoginIp=" + lastLoginIp + ", remark="
+				+ remark + ", lastLoginTimeStart=" + lastLoginTimeStart
+				+ ", lastLoginTimeEnd=" + lastLoginTimeEnd + ", roles=" + roles
+				+ ", id=" + id + ", createTime=" + createTime + ", updateTime="
+				+ updateTime + "]";
+	}
+	
 }

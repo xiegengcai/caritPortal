@@ -1,9 +1,8 @@
-package cn.com.carit.portal.dao;
+package cn.com.carit.portal.service;
 
 import java.util.List;
 
-public interface MenuDao<Menu> extends BaseDao<Menu> {
-	
+public interface MenuService<Menu> extends BaseService<Menu> {
 	/**
 	 * 按父级菜单查询
 	 * @param parentId
@@ -22,5 +21,4 @@ public interface MenuDao<Menu> extends BaseDao<Menu> {
 	 * @return
 	 */
 	List<Menu> querySubMenus();
-	
 }

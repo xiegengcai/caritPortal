@@ -75,5 +75,5 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<context:component-scan base-package="cn.com.carit.portal.service.*" />
-
+	
 </beans>

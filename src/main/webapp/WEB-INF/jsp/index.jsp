@@ -1,14 +1,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jsp/commons/taglibs.jsp"%>
+<%@include file="/WEB-INF/jsp/commons/taglibs.jsp"%>
 <!DOCTYPE HTML>
 <html>
     <head>
        <%@ include file="/WEB-INF/jsp/commons/meta.jsp"%>
     </head>
     <body>
-    	<%@ include file="/WEB-INF/jsp/commons/header.jsp"%>
-    	<jsp:include page="/WEB-INF/jsp/commons/header.jsp">
-    		<jsp:param value="0" name="menuIndex"/>
+    	<jsp:include page="/WEB-INF/jsp/commons/header.jsp" flush="true">
+    		<jsp:param value="1" name="menuIndex"/>
     	</jsp:include>
         <div id="main">
 		<div class="ym-wrapper">
@@ -16,30 +15,48 @@
 				<div class="ym-grid slides-container">图片轮播区</div>
 				<section class="box info">
 					<div class="ym-grid linearize-level-1">
-						<div class="ym-g66 ym-gl">
+						<div class="ym-grid ym-gl">
 	
 							<div class="ym-grid linearize-level-2">
-								<article class="ym-g50 ym-gl">
+								<article class="ym-g33 ym-gl">
 									<div class="ym-gbox-left">
-										<h4>Here's a box</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-										<a class="ym-button ym-next" href="#">Read More</a> </div>
+										<h4 class="newsTitle"><spring:message code="title.industry.news"/></h4>
+										<ul class="indexNewsContainer">
+										<c:forEach items="${industryNewsList}" var="news" varStatus="stat">
+											<li><a href="#">${news.title}</a></li>
+										</c:forEach>
+										</ul>
+										<a class="ym-button ym-next" href="#"><spring:message code="botton.read.more"/></a> </div>
 								</article>
-								<article class="ym-g50 ym-gr">
+								<article class="ym-g33 ym-gl">
 									<div class="ym-gbox">
-										<h4>And another box</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-										<a class="ym-button ym-next" href="#">Read More</a> </div>
+										<h4 class="newsTitle"><spring:message code="title.company.news"/></h4>
+										<ul class="indexNewsContainer">
+										<c:forEach items="${companyNewsList}" var="news" varStatus="stat">
+											<li><a href="#">${news.title}</a></li>
+										</c:forEach>
+										</ul>
+										<a class="ym-button ym-next" href="#"><spring:message code="botton.read.more"/></a> </div>
+								</article>
+								
+								<article class="ym-g33 ym-gl">
+									<div class="ym-gbox">
+										<h4 class="newsTitle"><spring:message code="title.product.news"/></h4>
+										<ul class="indexNewsContainer">
+										</ul>
+										<a class="ym-button ym-next" href="#"><spring:message code="botton.read.more"/></a> </div>
 								</article>
 							</div>
 	
 						</div>
+						<!-- 
 						<article class="ym-g33 ym-gr">
 							<div class="ym-gbox-right secondary">
 								<h4>This box is aligned with the sidebar</h4>
 								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
 							</div>
 						</article>
+						 -->
 					</div>
 				</section>
 	

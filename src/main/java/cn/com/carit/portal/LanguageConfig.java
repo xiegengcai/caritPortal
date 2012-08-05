@@ -8,58 +8,52 @@ import org.springframework.util.StringUtils;
 
 /**
  * 语言配置
- * @author ivan
+ * @author <a href="mailto:xiegengcai@gmail.com">Gengcai Xie</a>
  *
  */
 public class LanguageConfig {
 
-	public static Map<String, String> cache=new HashMap<String, String>();
+	public static Map<String, Locale> cache=new HashMap<String, Locale>();
 	
 	static {
 		// 中文地区
-		cache.put("CN", "zh");// 简体中文
+		cache.put("cn", Locale.SIMPLIFIED_CHINESE);// 简体中文
 		
-		cache.put("TW", "zh");// 繁体中文
+		cache.put("tw", Locale.TRADITIONAL_CHINESE);// 繁体中文
 		
 		// 英文地区
-		cache.put("US", "en");//美国
+		cache.put("en", Locale.US);//美国
 		
 		// 俄语地区
-		cache.put("RU", "ru");//俄罗斯
+		cache.put("ru", new Locale("ru", "RU"));//俄罗斯
 		
 		//法语地区
-		cache.put("FR", "fr");//法语
+		cache.put("fr", Locale.FRANCE);//法语
 		
 		// 德语
-		cache.put("DE", "de");
+		cache.put("de", Locale.GERMANY);
 		
 		// 意大利语
-		cache.put("IT", "it");
+		cache.put("it", Locale.ITALY);
 		
 		//日语
-		cache.put("JP", "ja");
+		cache.put("ja", Locale.JAPAN);
 		
 		//韩语
-		cache.put("KR", "ko");
+		cache.put("ko", Locale.KOREA);
 		
 	}
 	
 	/**
-	 * 根据国家地区ISO代码返回 Locale
-	 * @param country
+	 * ISO语言代码<br>
+	 * @param languageCode
 	 * @return
 	 */
-	public static Locale getLocale(String country){
-		if (StringUtils.hasText(country)) {
-			String lang=cache.get(country.toUpperCase());
-			if (StringUtils.hasText(lang)) {
-				return new Locale(lang, country);
-			} else if ("HK".equalsIgnoreCase(country)){// 香港
-				return Locale.TRADITIONAL_CHINESE;
-			} else if ("MO".equalsIgnoreCase(country)){// 澳门
-				return Locale.TRADITIONAL_CHINESE;
-			} else if ("SG".equalsIgnoreCase(country)){ //新加坡
-				return Locale.TRADITIONAL_CHINESE;
+	public static Locale getLocale(String languageCode){
+		if (StringUtils.hasText(languageCode)) {
+			Locale locale=cache.get(languageCode);
+			if (locale!=null) {
+				return locale;
 			}
 		}
 		return Locale.US;

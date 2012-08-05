@@ -29,6 +29,13 @@ public interface BaseDao<T> {
 	int delete(final int id);
 	
 	/**
+	 * 批量删除
+	 * @param ids
+	 * @return
+	 */
+	int batchDelete(final String ids);
+	
+	/**
 	 * 按Id查询
 	 * @param id
 	 * @return
@@ -55,4 +62,14 @@ public interface BaseDao<T> {
 	 * @return
 	 */
 	List<T> queryAll();
+	
+	/**
+	 * 构建where子句
+	 * @param args
+	 * @param argTypes
+	 * @param t
+	 * @return
+	 */
+	String buildWhere(List<Object> args, List<Integer> argTypes,
+			T t);
 }

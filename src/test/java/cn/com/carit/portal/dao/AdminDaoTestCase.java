@@ -34,7 +34,8 @@ public class AdminDaoTestCase extends BaseTestCase{
 	
 	@Test
 	public void queryById(){
-		adminUserDao.queryById(1);
+		AdminUser t = adminUserDao.queryById(1);
+		System.out.println(t);
 	}
 	
 	@Test
@@ -54,10 +55,10 @@ public class AdminDaoTestCase extends BaseTestCase{
 	
 	@Test
 	public void testQueryByExemple(){
-		AdminUser simple=new AdminUser();
-		simple.setEmail("test@test.com");
-		adminUserDao.queryByExemple(simple);
-		adminUserDao.queryByExemple(simple, new DataGridModel());
+		AdminUser sample=new AdminUser();
+		sample.setEmail("test@test.com");
+		adminUserDao.queryByExemple(sample);
+		adminUserDao.queryByExemple(sample, new DataGridModel());
 	}
 
 	@Test

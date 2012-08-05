@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/jsp/commons/taglibs.jsp"%>
 <!-- 页眉 -->
 <ul class="ym-skiplinks">
 	<li><a class="ym-skip" href="#nav">Skip to navigation (Press Enter)</a></li>
@@ -15,11 +16,12 @@
 	<div class="ym-wrapper">
 		<div class="ym-hlist">
 			<ul>
-				<li class="active"><strong><spring:message code="Menu.home"/></strong></li>
-				<li><a href="#"><spring:message code="Menu.about_us"/></a></li>
-				<li><a href="#"><spring:message code="Menu.product_show"/></a></li>
-				<li><a href="#"><spring:message code="Menu.contact_us"/></a></li>
-				<li><a href="#"><spring:message code="Menu.bbs"/></a></li>
+			<c:forEach items="${menuTree}" var="menu" varStatus="stat">
+				<c:choose>
+				  <c:when test="${param.menuIndex eq stat.count}"><li class="active"><strong><spring:message code="Menu.${menu.code}"/></strong></li></c:when>
+				  <c:otherwise><li><a href="${menu.url}"><spring:message code="Menu.${menu.code}"/></a></li></c:otherwise>
+				</c:choose>
+			</c:forEach>
 			</ul>
 			<form class="ym-searchform">
 				<input class="ym-searchfield" type="search" placeholder="Search..." />

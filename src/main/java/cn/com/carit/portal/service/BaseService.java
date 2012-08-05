@@ -22,6 +22,13 @@ public interface BaseService<T> {
 	int delete(final int id);
 	
 	/**
+	 * 批量删除
+	 * @param ids
+	 * @return
+	 */
+	int batchDelete(final String ids);
+	
+	/**
 	 * 按Id查询
 	 * @param id
 	 * @return

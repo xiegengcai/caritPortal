@@ -31,11 +31,9 @@ public class AdminUserServiceImpl implements AdminUserService<AdminUser> {
 			t.setPassword(MD5Util.md5Hex(t.getEmail()+MD5Util.md5Hex(password)+MD5Util.DISTURBSTR));
 		}
 		if (t.getId()>0) {
-			int id=adminUserDao.add(t);
-			t.setId(id);
-			return 1;
-		} else {
 			return adminUserDao.update(t);
+		} else {
+			return adminUserDao.add(t);
 		}
 	}
 
@@ -45,6 +43,15 @@ public class AdminUserServiceImpl implements AdminUserService<AdminUser> {
 			throw new IllegalArgumentException("id must be bigger than 0...");
 		}
 		return adminUserDao.delete(id);
+	}
+	
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Override
+	public int batchDelete(String ids) {
+		if (StringUtils.hasText(ids)) {
+			return adminUserDao.batchDelete(ids);
+		}
+		return 0;
 	}
 
 	@Override

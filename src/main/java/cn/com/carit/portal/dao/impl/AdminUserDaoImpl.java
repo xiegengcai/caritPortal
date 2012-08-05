@@ -1,18 +1,12 @@
 package cn.com.carit.portal.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -56,27 +50,20 @@ public class AdminUserDaoImpl extends BaseDaoImpl implements
 				+ ", office_phone" + ", mobile" + ") values (" + " ?" + ", ?"
 				+ ", ?" + ", ?" + ", ?" + ", now()" + ", now()" + ", ?" + ", ?"
 				+ ", ?" + ", ?" + ")";
-		log.debug(String.format("\n%1$s\n", sql));
-		KeyHolder gkHolder = new GeneratedKeyHolder();
-		jdbcTemplate.update(new PreparedStatementCreator() {
-			@Override
-			public PreparedStatement createPreparedStatement(Connection con)
-					throws SQLException {
-				PreparedStatement ps = con.prepareStatement(sql,
-						Statement.RETURN_GENERATED_KEYS);
-				ps.setString(1, t.getEmail());
-				ps.setString(2, t.getPassword());
-				ps.setString(3, t.getNickName());
-				ps.setString(4, t.getRealName());
-				ps.setByte(5, t.getGender());
-				ps.setInt(6, t.getStatus());
-				ps.setString(7, t.getRemark());
-				ps.setString(8, t.getOfficePhone());
-				ps.setString(9, t.getMobile() == null ? "" : t.getMobile().toString());
-				return ps;
-			}
-		}, gkHolder);
-		return gkHolder.getKey().intValue();
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
+		return jdbcTemplate.update(sql
+				, t.getEmail()
+				, t.getPassword()
+				, t.getNickName()
+				, t.getRealName()
+				, t.getGender()
+				, t.getStatus()
+				, t.getRemark()
+				, t.getOfficePhone()
+				, t.getMobile() == null ? "" : t.getMobile()
+			);
 	}
 
 	@Override
@@ -130,21 +117,36 @@ public class AdminUserDaoImpl extends BaseDaoImpl implements
 		}
 		sql.append(" where id=?");
 		val.add(t.getId());
-		log.debug(String.format("\n%1$s\n", sql));
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
 		return jdbcTemplate.update(sql.toString(), val.toArray());
 	}
 
 	@Override
 	public int delete(int id) {
 		String sql = "delete from t_admin_user where id=?";
-		log.debug(String.format("\n%1$s\n", sql));
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
 		return jdbcTemplate.update(sql, id);
+	}
+
+	@Override
+	public int batchDelete(String ids) {
+		String sql="delete from t_admin_user where id in("+ids+")";
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
+		return jdbcTemplate.update(sql);
 	}
 
 	@Override
 	public AdminUser queryById(int id) {
 		String sql = "select * from t_admin_user where id=?";
-		log.debug(String.format("\n%1$s\n", sql));
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
 		return query(sql, id, rowMapper);
 	}
 
@@ -152,7 +154,9 @@ public class AdminUserDaoImpl extends BaseDaoImpl implements
 	@Override
 	public AdminUser queryByEmail(String email) {
 		String sql = "select * from t_admin_user where email=?";
-		log.debug(String.format("\n%1$s\n", sql));
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
 		return query(sql, email, rowMapper);
 	}
 
@@ -167,7 +171,9 @@ public class AdminUserDaoImpl extends BaseDaoImpl implements
 		sql.append(whereSql);
 		String countSql = "select count(1) from t_admin_user where 1=1"
 				+ whereSql;
-		log.debug(String.format("\n%1$s\n", countSql));
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", countSql));
+		}
 		int totalRow = queryForInt(countSql, args, argTypes);
 		// 更新
 		jsonPage.setTotal(totalRow);
@@ -178,13 +184,17 @@ public class AdminUserDaoImpl extends BaseDaoImpl implements
 					.append(StringUtil.splitFieldWords(dgm.getSort()))
 					.append(" ").append(dgm.getOrder());
 
+		} else {
+			sql.append(" order by update_time desc");
 		}
 		sql.append(" limit ?, ?");
 		args.add(jsonPage.getStartRow());
 		args.add(jsonPage.getPageSize());
 		argTypes.add(Types.INTEGER);
 		argTypes.add(Types.INTEGER);
-		log.debug(String.format("\n%1$s\n", sql));
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
 		jsonPage.setRows(query(sql.toString(), args, argTypes, rowMapper));
 		return jsonPage;
 	}
@@ -196,18 +206,24 @@ public class AdminUserDaoImpl extends BaseDaoImpl implements
 		List<Object> args = new ArrayList<Object>();
 		List<Integer> argTypes = new ArrayList<Integer>();
 		sql.append(buildWhere(args, argTypes, t));
-		log.debug(String.format("\n%1$s\n", sql));
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
 		return query(sql.toString(), args, argTypes, rowMapper);
 	}
 
 	@Override
 	public List<AdminUser> queryAll() {
 		String sql="select * from t_admin_user";
-		log.debug(String.format("\n%1$s\n", sql));
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
 		return jdbcTemplate.query(sql, rowMapper);
 	}
 
-	private String buildWhere(List<Object> args, List<Integer> argTypes,
+
+	@Override
+	public String buildWhere(List<Object> args, List<Integer> argTypes,
 			AdminUser t) {
 		StringBuilder sql = new StringBuilder();
 		if (StringUtils.hasText(t.getEmail())) {
@@ -283,7 +299,9 @@ public class AdminUserDaoImpl extends BaseDaoImpl implements
 			args.add(nickName);
 			argTypes.add(Types.VARCHAR);
 		}
-		log.debug(String.format("\n%1$s\n", sql));
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
 		try {
 			return queryForInt(sql, args, argTypes);
 		} catch (Exception e) {
