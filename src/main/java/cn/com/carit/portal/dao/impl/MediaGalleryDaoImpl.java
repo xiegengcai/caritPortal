@@ -202,7 +202,7 @@ public class MediaGalleryDaoImpl extends BaseDaoImpl
 			argTypes.add(Types.VARCHAR);
 		}
 		if (t.getStatus()!=null) {
-			sql.append(", status=?");
+			sql.append(" and status=?");
 			args.add(t.getStatus());
 			argTypes.add(Types.INTEGER);
 		}

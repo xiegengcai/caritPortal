@@ -96,7 +96,7 @@ public class ProductReleaseDaoImpl extends BaseDaoImpl implements
 			sql.append(", status=?");
 			val.add(t.getStatus());
 		}
-		sql.append("where id=?");
+		sql.append(" where id=?");
 		val.add(t.getId());
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("\n%1$s\n", sql));
