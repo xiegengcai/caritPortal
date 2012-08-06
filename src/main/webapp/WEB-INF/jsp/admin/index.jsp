@@ -1,11 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/commons/taglibs.jsp"%>
+<%@ include file="/WEB-INF/jsp/commons/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<title>中通福瑞应用市场——后台管理</title>
+		<title>中通福瑞国际企业网——后台管理</title>
 		<%@ include file="/WEB-INF/jsp/commons/easyui.jsp"%>
 		<script type="text/javascript" src="${ctx}/resources/public/scripts/default.js" ></script>
 		<script>
@@ -27,32 +27,19 @@
 	</head>
 
 	<body class="easyui-layout">
-		<div region="north" border="false" style="height:50px;overflow:hidden;">
-			<div style="padding:10px;text-align: right;">
-				<span>${adminUser.nickName}，您上次登录时间是：${adminUser.lastLoginTime}，IP地址是：${adminUser.lastLoginIp}</span>
-				<button id="logout">退 出</button>
-			</div>
-		</div>
 		<div region="west" split="true" title="导航菜单" style="width: 180px;overflow:hidden;" icon="icon-redo">
 	        <div id="menu" class="easyui-accordion" fit="true" border="false">
 	            <div title="系统管理" style="overflow:auto;" icon="icon-edit">
                     <ul>
-                        <li>
-                             <div><a target="mainFrame" href="<c:url value="/admin/user"/>">用户管理</a></div>
-                             <div><a target="mainFrame" href="<c:url value="/admin/app/catalog"/>">类别管理</a></div>
-                        </li>
+                        <li><div><a target="mainFrame" href="">语言管理</a></div></li>
+                        <li><div><a target="mainFrame" href="${ctx}/admin/menu">菜单管理</a></div></li>
+						<li><div><a target="mainFrame" href="">账号管理</a></div></li>
+						<li><div><a target="mainFrame" href="">车型管理</a></div></li>
+						<li><div><a target="mainFrame" href="">媒体库</a></div></li>
+						<li><div><a target="mainFrame" href="">新闻管理</a></div></li>
+						<li><div><a target="mainFrame" href="">产品管理</a></div></li>
+						<li><div><a href="${ctx}/back/logout">退出</a></div></li>
                     </ul>
-	            </div>
-	            <div title="产品管理" style="padding: 10px;" icon="icon-edit">
-                    <ul>
-                        <li>
-                            <div>
-                                <a target="mainFrame" href="#">产品管理</a></div>
-                        </li>
-                    </ul>
-	            </div>
-	            <div title="关于" icon="icon-help">
-	                <h4>EntWebSite Ver 1.0</h4>
 	            </div>
 	        </div>
 	    </div>

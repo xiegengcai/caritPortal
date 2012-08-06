@@ -16,7 +16,8 @@ input,textarea {
 	border: 1px solid #ccc;
 	padding: 2px;
 }
-
+span {display:-moz-inline-box; display:inline-block;}
+label {display:-moz-inline-box; display:inline-block;}
 .pagination input {
 	width: 30px;
 }

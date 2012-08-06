@@ -43,7 +43,7 @@ public class MenuDaoImpl extends BaseDaoImpl implements MenuDao<Menu> {
 	public int add(Menu t) {
 		String sql="insert into t_menu (code, parent_id, level, display_index"
 				+ ", remark, status, create_time, update_time)"
-				+ " values(?, ?, ?, ?, ?, ?, ?, now(), now())";
+				+ " values(?, ?, ?, ?, ?, ?, now(), now())";
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("\n%1$s\n", sql));
 		}

@@ -1,11 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/commons/taglibs.jsp"%>
-<!DOCTYPE HTML>
-<<html>
+<!DOCTYPE html>
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
 		<title>中通福瑞应用市场——后台管理</title>
-		<%@ include file="/WEB-INF/views/commons/easyui.jsp"%>
+		<%@ include file="/WEB-INF/jsp/commons/easyui.jsp"%>
 		<script type="text/javascript">
 		$(function (){
 			// 检测是否是超时在iframe显示登录页
@@ -37,7 +37,7 @@
 		    			$.messager.alert('提示', '密码错误！', 'info');
 					}else if(data==1){
 						//登录成功
-						location.href='${ctx}/admin'
+						location.href='${ctx}/admin/index'
 					} else {
 						$.messager.alert('异常', '后台系统异常', 'error');
 					}

@@ -1,3 +1,5 @@
+<link rel="shortcut icon" href="${ctx }/resources/favicon.ico" type="image/x-icon">
+<link rel="icon" href="${ctx }/resources/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/jquery-easyui-1.3/themes/default/easyui.css"/>">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/jquery-easyui-1.3/themes/icon.css"/>">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/public/styles/default.css"/>">

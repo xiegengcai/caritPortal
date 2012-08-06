@@ -61,7 +61,7 @@ public class IndexController {
 	
 	private void doLocalIndex(Model model, String language){
 		// 切换语言
-		localeResolver.setDefaultLocale(LanguageConfig.getLocale(language));
+		localeResolver.setDefaultLocale(LanguageConfig.getInstance().getLocale(language));
 		// 设置语言参数
 		model.addAttribute("language", language);
 		// 设置菜单列表
@@ -72,5 +72,8 @@ public class IndexController {
 		// 设置对应语言的公司新闻
 		model.addAttribute("companyNewsList", newsService.queryNews(
 				News.NEWS_TYPE_COMPANY, language, Constants.INDEX_SHOW_LIMIT));
+		// 支持语言列表
+		model.addAttribute("supportLanguages"
+				, CacheManager.getInstance().getSupportLanguages());
 	}
 }

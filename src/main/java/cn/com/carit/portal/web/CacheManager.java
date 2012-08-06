@@ -14,11 +14,13 @@ import cn.com.carit.portal.bean.Catalog;
 import cn.com.carit.portal.bean.Menu;
 import cn.com.carit.portal.bean.News;
 import cn.com.carit.portal.bean.ProductRelease;
+import cn.com.carit.portal.bean.SupportLanguage;
 import cn.com.carit.portal.bean.TreeNode;
 import cn.com.carit.portal.service.CatalogService;
 import cn.com.carit.portal.service.MenuService;
 import cn.com.carit.portal.service.NewsService;
 import cn.com.carit.portal.service.ProductReleaseService;
+import cn.com.carit.portal.service.SupportLanguageService;
 
 public class CacheManager {
 	private final Logger logger=Logger.getLogger(getClass());
@@ -30,6 +32,8 @@ public class CacheManager {
 	private CatalogService<Catalog> catalogService;
 	
 	private ProductReleaseService<ProductRelease> productReleaseService;
+	
+	private SupportLanguageService<SupportLanguage> supportLanguageService;
 
 	private List<TreeNode> menuTree;
 	
@@ -38,6 +42,8 @@ public class CacheManager {
 	private List<Catalog> allCatalogList;
 	
 	private Map<Integer, ProductRelease> allProductReleaseCache;
+	
+	private List<SupportLanguage> supportLanguages;
 	
 	public static class CacheHolder {
 		private static final CacheManager INSTANCE = new CacheManager();
@@ -51,6 +57,7 @@ public class CacheManager {
 		newsService = (NewsService<News>) ctx.getBean("newsServiceImpl");
 		catalogService = (CatalogService<Catalog>) ctx.getBean("catalogServiceImpl");
 		productReleaseService = (ProductReleaseService<ProductRelease>) ctx.getBean("productReleaseServiceImpl");
+		supportLanguageService = (SupportLanguageService<SupportLanguage>) ctx.getBean("supportLanguageServiceImpl");
 		
 		menuTree=new ArrayList<TreeNode>();
 		buildMenuTree();
@@ -63,6 +70,9 @@ public class CacheManager {
 		
 		allProductReleaseCache=new ConcurrentHashMap<Integer, ProductRelease>();
 		buildProductReleases();
+		
+		refreshSupportLanguages();
+		
 		logger.info(" init cache end ...");
 	}
 	
@@ -70,11 +80,15 @@ public class CacheManager {
 		return CacheHolder.INSTANCE;
 	}
 	
+	/**
+	 * 刷新缓存
+	 */
 	public void refreshCache(){
 		refreshMenu();
 		refreshNews();
 		refreshCatalogs();
 		refreshProducts();
+		refreshSupportLanguages();
 	}
 	
 	public void refreshMenu(){
@@ -160,4 +174,14 @@ public class CacheManager {
 		return allCatalogList;
 	}
 	
+	public void refreshSupportLanguages(){
+		SupportLanguage sample=new SupportLanguage();
+		sample.setStatus(Constants.STATUS_VALID);
+		supportLanguages=supportLanguageService.queryByExemple(sample);
+	}
+
+	public List<SupportLanguage> getSupportLanguages() {
+		return supportLanguages;
+	}
+
 }

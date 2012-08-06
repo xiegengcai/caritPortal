@@ -5,7 +5,6 @@ public class Constants {
 	public static final int PAGE_SIZE=10;
 	public static final int STATUS_VALID=1;
 	public static final int STATUS_INVALID=0;
-	public static final int STATUS_LOCKED=2;
 	public static final String DATE_TIME_FORMATTER="yyyy-MM-dd HH:mm:ss";
 	public static final String DATE_FORMATTER="yyyy-MM-dd";
 	public static final String DATE_SHORT_FORMATTER="yyyy-M-d";

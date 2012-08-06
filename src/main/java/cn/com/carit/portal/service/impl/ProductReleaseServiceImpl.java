@@ -94,4 +94,16 @@ public class ProductReleaseServiceImpl implements
 		return productReleaseDao.queryProductRelease(language, limit);
 	}
 
+	@Override
+	public List<ProductRelease> queryTopProductRelease(String language,
+			int limit) {
+		if (!StringUtils.hasText(language)) {
+			throw new IllegalArgumentException("language must be not empty ...");
+		}
+		if (limit<1) {
+			throw new IllegalArgumentException("limit must be bigger than 0 ...");
+		}
+		return productReleaseDao.queryTopProductRelease(language, limit);
+	}
+
 }

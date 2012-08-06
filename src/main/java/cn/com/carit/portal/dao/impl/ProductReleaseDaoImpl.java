@@ -250,4 +250,15 @@ public class ProductReleaseDaoImpl extends BaseDaoImpl implements
 			, rowMapper);
 	}
 
+	@Override
+	public List<ProductRelease> queryTopProductRelease(String language,
+			int limit) {
+		String sql="select * from t_product_release where language=? and top=? and status=? order by update_time desc limit ?";
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
+		return jdbcTemplate.query(sql, new Object[]{language, 1, Constants.STATUS_VALID, limit}
+			, rowMapper);
+	}
+
 }

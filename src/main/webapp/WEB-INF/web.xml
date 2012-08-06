@@ -86,22 +86,18 @@
 	</context-param>
 
 	<welcome-file-list>
-		<welcome-file>/html/index.html</welcome-file>
-		<!-- 
-		 <welcome-file>/cn/16</welcome-file>
-		 -->
 	</welcome-file-list>
 	<!-- Error Page定义 -->
 	<error-page>
 		<error-code>500</error-code>
-		<location>/WEB-INF/views/commons/timeout.jsp</location>
+		<location>/WEB-INF/jsp/commons/timeout.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/views/commons/timeout.jsp</location>
+		<location>/WEB-INF/jsp/commons/timeout.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>403</error-code>
-		<location>/WEB-INF/views/commons/timeout.jsp</location>
+		<location>/WEB-INF/jsp/commons/timeout.jsp</location>
 	</error-page>
 </web-app>

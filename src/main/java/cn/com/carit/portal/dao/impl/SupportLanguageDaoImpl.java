@@ -13,64 +13,64 @@ import org.springframework.util.StringUtils;
 import cn.com.carit.common.utils.DataGridModel;
 import cn.com.carit.common.utils.JsonPage;
 import cn.com.carit.common.utils.StringUtil;
-import cn.com.carit.portal.bean.Catalog;
-import cn.com.carit.portal.dao.CatalogDao;
+import cn.com.carit.portal.bean.SupportLanguage;
+import cn.com.carit.portal.dao.SupportLanguageDao;
 
 @Repository
-public class CatalogDaoImpl extends BaseDaoImpl implements CatalogDao<Catalog> {
-	
-	private final RowMapper<Catalog> rowMapper = new RowMapper<Catalog>() {
+public class SupportLanguageDaoImpl extends BaseDaoImpl implements
+		SupportLanguageDao<SupportLanguage> {
+
+	private final RowMapper<SupportLanguage> rowMapper = new RowMapper<SupportLanguage>() {
 		
 		@Override
-		public Catalog mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Catalog t=new Catalog();
+		public SupportLanguage mapRow(ResultSet rs, int rowNum) throws SQLException {
+			SupportLanguage t = new SupportLanguage();
 			t.setId(rs.getInt("id"));
-			t.setCatalogCode(rs.getString("catalog_code"));
-			t.setDescription(rs.getString("description"));
-			t.setDisplayIndex(rs.getInt("display_index"));
+			t.setIsoCode(rs.getString("iso_code"));
+			t.setConfigKey(rs.getString("config_key"));
+			t.setName(rs.getString("name"));
 			t.setStatus(rs.getInt("status"));
 			t.setUpdateTime(rs.getTimestamp("update_time"));
 			t.setCreateTime(rs.getTimestamp("create_time"));
 			return t;
 		}
 	};
+	
 	@Override
-	public int add(Catalog t) {
-		String sql="insert into t_catalog (catalog_code, description, display_index, status"
-				+", create_time, update_time) values(?, ?, ?, ?, now(), now())";
+	public int add(SupportLanguage t) {
+		String sql="insert t_support_language into(iso_code, config_key, name"
+				+ ", status, update_time, create_time) values(?, ?, ?, ?, now(), now())";
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("\n%1$s\n", sql));
 		}
 		return jdbcTemplate.update(sql
-				, t.getCatalogCode()
-				, t.getDescription()
-				, t.getDisplayIndex()
+				, t.getIsoCode()
+				, t.getConfigKey()
+				, t.getName()
 				, t.getStatus()
 			);
 	}
 
 	@Override
-	public int update(Catalog t) {
-		StringBuilder sql=new StringBuilder("update t_catalog set update_time=new()");
-		List<Object> val = new ArrayList<Object>();
-		if (StringUtils.hasText(t.getCatalogCode())) {
-			sql.append(", catalog_code=?");
-			val.add(t.getCatalogCode());
+	public int update(SupportLanguage t) {
+		StringBuilder sql=new StringBuilder("update t_support_language set update_time=now()");
+		List<Object> val=new ArrayList<Object>();
+		if (StringUtils.hasText(t.getIsoCode())) {
+			sql.append(", iso_code=?");
+			val.add(t.getIsoCode());
 		}
-		if (StringUtils.hasText(t.getDescription())) {
-			sql.append(", description=?");
-			val.add(t.getDescription());
+		if (StringUtils.hasText(t.getConfigKey())) {
+			sql.append(", config_key=?");
+			val.add(t.getConfigKey());
 		}
-		if (t.getDisplayIndex()!=null) {
-			sql.append(", display_index=?");
-			val.add(t.getDisplayIndex());
+		if (StringUtils.hasText(t.getName())) {
+			sql.append(", name=?");
+			val.add(t.getName());
 		}
 		if (t.getStatus()!=null) {
 			sql.append(", status=?");
 			val.add(t.getStatus());
 		}
-		sql.append(" where id=?");
-		val.add(t.getId());
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("\n%1$s\n", sql));
 		}
@@ -79,7 +79,7 @@ public class CatalogDaoImpl extends BaseDaoImpl implements CatalogDao<Catalog> {
 
 	@Override
 	public int delete(int id) {
-		String sql="delete from t_catalog where id=?";
+		String sql="delete from t_support_language where id=?";
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("\n%1$s\n", sql));
 		}
@@ -88,7 +88,7 @@ public class CatalogDaoImpl extends BaseDaoImpl implements CatalogDao<Catalog> {
 
 	@Override
 	public int batchDelete(String ids) {
-		String sql="delete from t_catalog where id in("+ids+")";
+		String sql="delete from t_support_language where id in("+ids+")";
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("\n%1$s\n", sql));
 		}
@@ -96,8 +96,8 @@ public class CatalogDaoImpl extends BaseDaoImpl implements CatalogDao<Catalog> {
 	}
 
 	@Override
-	public Catalog queryById(int id) {
-		String sql = "select * from t_catalog where id=?";
+	public SupportLanguage queryById(int id) {
+		String sql="select * from t_support_language where id=?";
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("\n%1$s\n", sql));
 		}
@@ -105,15 +105,16 @@ public class CatalogDaoImpl extends BaseDaoImpl implements CatalogDao<Catalog> {
 	}
 
 	@Override
-	public JsonPage<Catalog> queryByExemple(Catalog t, DataGridModel dgm) {
-		JsonPage<Catalog> jsonPage = new JsonPage<Catalog>(dgm.getPage(), dgm.getRows());
+	public JsonPage<SupportLanguage> queryByExemple(SupportLanguage t,
+			DataGridModel dgm) {
+		JsonPage<SupportLanguage> jsonPage = new JsonPage<SupportLanguage>(dgm.getPage(), dgm.getRows());
 		StringBuilder sql = new StringBuilder(
-				"select * from t_catalog where 1=1");
+				"select * from t_support_language where 1=1");
 		List<Object> args = new ArrayList<Object>();
 		List<Integer> argTypes = new ArrayList<Integer>();
 		String whereSql = buildWhere(args, argTypes, t);
 		sql.append(whereSql);
-		String countSql = "select count(1) from t_catalog where 1=1"
+		String countSql = "select count(1) from t_support_language where 1=1"
 				+ whereSql;
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("\n%1$s\n", countSql));
@@ -144,9 +145,9 @@ public class CatalogDaoImpl extends BaseDaoImpl implements CatalogDao<Catalog> {
 	}
 
 	@Override
-	public List<Catalog> queryByExemple(Catalog t) {
+	public List<SupportLanguage> queryByExemple(SupportLanguage t) {
 		StringBuilder sql = new StringBuilder(
-				"select * from t_catalog where 1=1");
+				"select * from t_support_language where 1=1");
 		List<Object> args = new ArrayList<Object>();
 		List<Integer> argTypes = new ArrayList<Integer>();
 		sql.append(buildWhere(args, argTypes, t));
@@ -157,8 +158,8 @@ public class CatalogDaoImpl extends BaseDaoImpl implements CatalogDao<Catalog> {
 	}
 
 	@Override
-	public List<Catalog> queryAll() {
-		String sql = "select * from t_catalog";
+	public List<SupportLanguage> queryAll() {
+		String sql="select * from t_support_language";
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("\n%1$s\n", sql));
 		}
@@ -167,27 +168,30 @@ public class CatalogDaoImpl extends BaseDaoImpl implements CatalogDao<Catalog> {
 
 	@Override
 	public String buildWhere(List<Object> args, List<Integer> argTypes,
-			Catalog t) {
-		StringBuilder sql = new StringBuilder();
-		if (StringUtils.hasText(t.getCatalogCode())) {
-			sql.append(" and catalog_code like CONCAT('%',?,'%')");
-			args.add(t.getCatalogCode());
+			SupportLanguage t) {
+		StringBuilder sql=new StringBuilder();
+		if (StringUtils.hasText(t.getIsoCode())) {
+			sql.append(" and iso_code like CONCAT('%',?,'%')");
+			args.add(t.getIsoCode());
 			argTypes.add(Types.VARCHAR);
 		}
-		if (StringUtils.hasText(t.getDescription())) {
-			sql.append(" and description like CONCAT('%',?,'%')");
-			args.add(t.getDescription());
+		if (StringUtils.hasText(t.getConfigKey())) {
+			sql.append(" and config_key like CONCAT('%',?,'%')");
+			args.add(t.getConfigKey());
 			argTypes.add(Types.VARCHAR);
 		}
-		if (t.getDisplayIndex()!=null) {
-			sql.append(" and display_index=?");
-			args.add(t.getDisplayIndex());
-			argTypes.add(Types.INTEGER);
+		if (StringUtils.hasText(t.getName())) {
+			sql.append(" and name like CONCAT('%',?,'%')");
+			args.add(t.getName());
+			argTypes.add(Types.VARCHAR);
 		}
 		if (t.getStatus()!=null) {
 			sql.append(" and status=?");
 			args.add(t.getStatus());
 			argTypes.add(Types.INTEGER);
+		}
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
 		}
 		return sql.toString();
 	}
