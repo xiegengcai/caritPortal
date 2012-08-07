@@ -27,7 +27,6 @@ public class SupportLanguageDaoImpl extends BaseDaoImpl implements
 			SupportLanguage t = new SupportLanguage();
 			t.setId(rs.getInt("id"));
 			t.setIsoCode(rs.getString("iso_code"));
-			t.setConfigKey(rs.getString("config_key"));
 			t.setName(rs.getString("name"));
 			t.setStatus(rs.getInt("status"));
 			t.setUpdateTime(rs.getTimestamp("update_time"));
@@ -38,14 +37,13 @@ public class SupportLanguageDaoImpl extends BaseDaoImpl implements
 	
 	@Override
 	public int add(SupportLanguage t) {
-		String sql="insert t_support_language into(iso_code, config_key, name"
-				+ ", status, update_time, create_time) values(?, ?, ?, ?, now(), now())";
+		String sql="insert into t_support_language (iso_code, name"
+				+ ", status, update_time, create_time) values(?, ?, ?, now(), now())";
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("\n%1$s\n", sql));
 		}
 		return jdbcTemplate.update(sql
 				, t.getIsoCode()
-				, t.getConfigKey()
 				, t.getName()
 				, t.getStatus()
 			);
@@ -58,10 +56,6 @@ public class SupportLanguageDaoImpl extends BaseDaoImpl implements
 		if (StringUtils.hasText(t.getIsoCode())) {
 			sql.append(", iso_code=?");
 			val.add(t.getIsoCode());
-		}
-		if (StringUtils.hasText(t.getConfigKey())) {
-			sql.append(", config_key=?");
-			val.add(t.getConfigKey());
 		}
 		if (StringUtils.hasText(t.getName())) {
 			sql.append(", name=?");
@@ -173,11 +167,6 @@ public class SupportLanguageDaoImpl extends BaseDaoImpl implements
 		if (StringUtils.hasText(t.getIsoCode())) {
 			sql.append(" and iso_code like CONCAT('%',?,'%')");
 			args.add(t.getIsoCode());
-			argTypes.add(Types.VARCHAR);
-		}
-		if (StringUtils.hasText(t.getConfigKey())) {
-			sql.append(" and config_key like CONCAT('%',?,'%')");
-			args.add(t.getConfigKey());
 			argTypes.add(Types.VARCHAR);
 		}
 		if (StringUtils.hasText(t.getName())) {

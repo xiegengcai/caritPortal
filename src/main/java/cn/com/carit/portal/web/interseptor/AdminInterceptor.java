@@ -21,7 +21,9 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		String uri = request.getRequestURI();
-		log.debug("Request for: "+uri);
+		if (log.isDebugEnabled()) {
+			log.debug("Request for: "+uri);
+		}
 		String hostPath="http://"+request.getLocalName();
 		String contexPath="/caritPortal";
 		int port=request.getLocalPort();
@@ -31,12 +33,16 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 		}
 		// 初始化附件配置
 		AttachmentUtil.init(hostPath);
-		log.debug("Request for: "+uri);
+		if (log.isDebugEnabled()) {
+			log.debug("Request for: "+uri);
+		}
 		if (uri.indexOf("admin")!=-1) { // 管理员相关URL
 			AdminUser user=(AdminUser) request.getSession().getAttribute(
 					Constants.ADMIN_USER);
 			if (user==null) { // 没有登录
-				log.info("not login...");
+				if (log.isDebugEnabled()) {
+					log.info("not login...");
+				}
 				//转到登录页面
 				request.getRequestDispatcher("/back/loginForm").forward(request, response);
 				return false;

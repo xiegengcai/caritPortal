@@ -23,15 +23,17 @@ $.extend($.fn.validatebox.defaults.rules, {
 		return _368==0;
 	},message:'重复！请修正此值'}
 });
+var KE=KindEditor;
+
 var simpleEditer=function(name){
-	return KindEditor.create('textarea[name="'+name+'"]', {
+	return KE.create('textarea[name="'+name+'"]', {
 		resizeType : 1,
 		allowPreviewEmoticons : false,
 		allowImageUpload : false,
 		items : [
 			'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
 			'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-			'insertunorderedlist', '|', 'emoticons', 'link']
+			'insertunorderedlist', '|', 'emoticons', 'link', 'unlink', 'image']
 	});
 };
 $(function (){
@@ -192,7 +194,9 @@ function del(){
 function getIds(){
 	var ids=[];
 	$.each($('#tt').datagrid("getSelections"),function(i,row){
-		ids.push(row.id);
+		if(row.id>0){
+			ids.push(row.id);
+		}
 	});
 	return ids.join();
 }
@@ -200,8 +204,19 @@ function getIds(){
 function statusFormatter(v){
 	var result='-';
 	$.each(statusList, function(key,val) {
-		if(v==val.fieldValue){
-			result=val.displayValue;
+		if(v==val.code){
+			result=val.value;
+			return false;
+		}
+	});
+	return result;
+}
+
+function genderFormatter(v){
+	var result='-';
+	$.each(genderList, function(key,val) {
+		if(v==val.code){
+			result=val.value;
 			return false;
 		}
 	});
@@ -210,9 +225,9 @@ function statusFormatter(v){
 
 function lanFormatter(v){
 	var result=v;
-	$.each(languages, function(key,val) {
-		if(v==val.fieldValue){
-			result=val.displayValue;
+	$.each(supportLanguages, function(key,val) {
+		if(v==val.code){
+			result=val.value;
 			return false;
 		}
 	});

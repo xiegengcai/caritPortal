@@ -10,6 +10,7 @@
 		<script type="text/javascript">
 		var topMenus={};
 		$(function(){
+			checkExisted($('#code_edit'),app.name+'back/check/menu?name=');
 			$.ajaxSettings.async=false;
 			$.getJSON(app.name+'/back/query/top_menu', function(data) {
 				if(data){
@@ -135,17 +136,17 @@
 				<a href="javascript:void();" class="easyui-linkbutton" id="reset"
 					iconCls="icon-undo">重 置</a>
 			</div>
-			<table id="tt" style="height: auto;" iconCls="icon-blank" title="系统字典列表" align="left"  
+			<table id="tt" style="height: auto;" iconCls="icon-blank" title="菜单列表" align="left"  
 			idField="id" url="${ctx}/admin/menu/query" pagination="true" rownumbers="true"
 			fitColumns="true" pageList="[ 5, 10]" sortName="displayIndex" sortOrder="asc">
 				<thead>
 					<tr>
 						<th field="parentId" width="100" align="center" formatter="parentFormatter">父菜单</th>
 						<th field="code" width="100" align="center">菜单代码</th>
-						<th field="url" width="40" align="center">链接路径</th>
-						<th field="level" width="80" align="center">层级</th>
+						<th field="url" width="100" align="center">链接路径</th>
+						<th field="level" width="60" align="center">层级</th>
 						<th field="displayIndex" width="60" align="center">顺序</th>
-						<th field="status" width="60" align="center" formatter="statusFormatter">z状态</th>
+						<th field="status" width="60" align="center" formatter="statusFormatter">状态</th>
 						<th field="createTime" width="90" align="center">创建时间</th>
 						<th field="updateTime" width="90" align="center">更新时间</th>
 					</tr>

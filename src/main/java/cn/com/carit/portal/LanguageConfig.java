@@ -1,6 +1,8 @@
 package cn.com.carit.portal;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -18,46 +20,54 @@ public class LanguageConfig {
 	}
 	
 	private Map<String, Locale> cache;
-	private Map<String, String> languagesMapper;
+	private List<Map<String, String>> supportLanguages;
 	
 	private LanguageConfig(){
 		cache=new HashMap<String, Locale>();
-		languagesMapper=new HashMap<String, String>();
+		supportLanguages=new ArrayList<Map<String,String>>();
+		
 		
 		// 中文地区
 		cache.put("cn", Locale.SIMPLIFIED_CHINESE);// 简体中文
-		languagesMapper.put("cn", "简体中文");
+		supportLanguages.add(buildLanguageMap("cn", "简体中文"));
 		
 		cache.put("tw", Locale.TRADITIONAL_CHINESE);// 繁体中文
-		languagesMapper.put("cn", "繁体中文");
+		supportLanguages.add(buildLanguageMap("tw", "繁体中文"));
 		
 		// 英文地区
 		cache.put("en", Locale.US);//美国
-		languagesMapper.put("en", "英语");
+		supportLanguages.add(buildLanguageMap("en", "英语"));
 		
 		// 俄语地区
 		cache.put("ru", new Locale("ru", "RU"));//俄罗斯
-		languagesMapper.put("ru", "俄语");
+		supportLanguages.add(buildLanguageMap("ru", "俄语"));
 		
 		//法语地区
 		cache.put("fr", Locale.FRANCE);//法语
-		languagesMapper.put("fr", "法语");
+		supportLanguages.add(buildLanguageMap("fr", "法语"));
 		
 		// 德语
 		cache.put("de", Locale.GERMANY);
-		languagesMapper.put("de", "德语");
+		supportLanguages.add(buildLanguageMap("de", "德语"));
 		
 		// 意大利语
 		cache.put("it", Locale.ITALY);
-		languagesMapper.put("it", "意大利语");
+		supportLanguages.add(buildLanguageMap("it", "意大利语"));
 		
 		//日语
 		cache.put("ja", Locale.JAPAN);
-		languagesMapper.put("ja", "日语");
+		supportLanguages.add(buildLanguageMap("ja", "日语"));
 		
 		//韩语
 		cache.put("ko", Locale.KOREA);
-		languagesMapper.put("ko", "韩语");
+		supportLanguages.add(buildLanguageMap("ko", "韩语"));
+	}
+	
+	private Map<String, String> buildLanguageMap(String isoCode, String name){
+		Map<String, String> map=new HashMap<String, String>();
+		map.put("code", isoCode);
+		map.put("value", name);
+		return map;
 	}
 	
 	public static LanguageConfig getInstance(){
@@ -79,8 +89,8 @@ public class LanguageConfig {
 		return Locale.US;
 	}
 
-	public Map<String, String> getLanguagesMapper() {
-		return languagesMapper;
+	public List<Map<String, String>> getSupportLanguages() {
+		return supportLanguages;
 	}
-	
+
 }

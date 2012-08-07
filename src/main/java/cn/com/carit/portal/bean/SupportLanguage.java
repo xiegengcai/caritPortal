@@ -8,19 +8,12 @@ package cn.com.carit.portal.bean;
 public class SupportLanguage extends BaseBean {
 	
 	private String isoCode;
-	private String configKey;
 	private String name;
 	public String getIsoCode() {
 		return isoCode;
 	}
 	public void setIsoCode(String isoCode) {
 		this.isoCode = isoCode;
-	}
-	public String getConfigKey() {
-		return configKey;
-	}
-	public void setConfigKey(String configKey) {
-		this.configKey = configKey;
 	}
 	public String getName() {
 		return name;
@@ -30,8 +23,8 @@ public class SupportLanguage extends BaseBean {
 	}
 	@Override
 	public String toString() {
-		return "SupportLanguage [isoCode=" + isoCode + ", configKey="
-				+ configKey + ", name=" + name + ", id=" + id + ", createTime="
+		return "SupportLanguage [isoCode=" + isoCode + ", name=" + name 
+				+ ", id=" + id + ", createTime="
 				+ createTime + ", updateTime=" + updateTime + "]";
 	}
 	

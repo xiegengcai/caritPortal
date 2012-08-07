@@ -99,4 +99,9 @@ public class MenuServiceImpl implements MenuService<Menu> {
 		return menuDao.querySubMenus();
 	}
 
+	@Override
+	public int checkExisted(String code) {
+		return menuDao.checkExisted(code);
+	}
+
 }

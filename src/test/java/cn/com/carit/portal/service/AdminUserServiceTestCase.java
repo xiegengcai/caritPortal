@@ -73,8 +73,8 @@ public class AdminUserServiceTestCase extends BaseTestCase<AdminUser> {
 	
 	@Test
 	public void testCheckAdminUser(){
-		System.out.println(adminUserService.checkAdminUser("admin@admin.com", null));
-		System.out.println(adminUserService.checkAdminUser(null, "系统管理员"));
+		System.out.println(adminUserService.checkExisted("admin@admin.com", null));
+		System.out.println(adminUserService.checkExisted(null, "系统管理员"));
 	}
 	
 	@Test

@@ -94,7 +94,7 @@ public class AdminUserServiceImpl implements AdminUserService<AdminUser> {
 	}
 
 	@Override
-	public int checkAdminUser(String email, String nickName) {
+	public int checkExisted(String email, String nickName) {
 		if (!StringUtils.hasText(nickName) && !StringUtils.hasText(email)) {
 			throw new IllegalArgumentException("email and nickName must one is not empty..");
 		}

@@ -21,4 +21,11 @@ public interface MenuService<Menu> extends BaseService<Menu> {
 	 * @return
 	 */
 	List<Menu> querySubMenus();
+	
+	/**
+	 * 检测
+	 * @param code
+	 * @return
+	 */
+	int checkExisted(String code);
 }

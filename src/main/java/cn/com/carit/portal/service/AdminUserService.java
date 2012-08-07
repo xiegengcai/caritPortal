@@ -11,7 +11,7 @@ public interface AdminUserService<AdminUser> extends BaseService<AdminUser> {
 	 * @param nickName
 	 * @return
 	 */
-	int checkAdminUser(String email, String nickName);
+	int checkExisted(String email, String nickName);
 	
 	/**
 	 * 用户登录

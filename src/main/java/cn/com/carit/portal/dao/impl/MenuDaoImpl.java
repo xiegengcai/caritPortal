@@ -255,4 +255,10 @@ public class MenuDaoImpl extends BaseDaoImpl implements MenuDao<Menu> {
 		return jdbcTemplate.query(sql, new Object[]{Constants.STATUS_VALID}, rowMapper);
 	}
 
+	@Override
+	public int checkExisted(String code) {
+		String sql="select 1 from t_menu where code=?";
+		return checkExisted(sql, code);
+	}
+
 }

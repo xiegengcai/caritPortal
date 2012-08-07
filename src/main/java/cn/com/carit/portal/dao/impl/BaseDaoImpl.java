@@ -116,4 +116,22 @@ public class BaseDaoImpl {
 			}
 		});
 	}
+	
+	/**
+	 * 检测存不存在
+	 * @param sql
+	 * @param args
+	 * @return
+	 */
+	public int checkExisted(String sql, Object ...args) {
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
+		try {
+			return jdbcTemplate.queryForInt(sql, args);
+		} catch (Exception e) {
+			log.warn("no record existed...");
+		}
+		return 0;
+	}
 }

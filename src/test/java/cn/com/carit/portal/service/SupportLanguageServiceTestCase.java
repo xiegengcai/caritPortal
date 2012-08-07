@@ -18,14 +18,13 @@ public class SupportLanguageServiceTestCase extends
 	@Test
 	public void saveOrUpdate() throws Exception {
 		SupportLanguage t=new SupportLanguage();
-		t.setConfigKey("test");
 		t.setIsoCode("cn");
 		t.setName("简体中文");
 		t.setStatus(1);
 		service.saveOrUpdate(t);
 		
-		t.setConfigKey("test2");
 		t.setId(1);
+		t.setIsoCode("tw");
 		service.saveOrUpdate(t);
 	}
 
@@ -51,7 +50,6 @@ public class SupportLanguageServiceTestCase extends
 	@Test
 	public void queryByExemple() {
 		SupportLanguage t=new SupportLanguage();
-		t.setConfigKey("test");
 		t.setIsoCode("cn");
 		t.setName("简体中文");
 		t.setStatus(1);

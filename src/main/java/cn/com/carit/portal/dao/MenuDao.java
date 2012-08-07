@@ -23,4 +23,10 @@ public interface MenuDao<Menu> extends BaseDao<Menu> {
 	 */
 	List<Menu> querySubMenus();
 	
+	/**
+	 * 检测
+	 * @param code
+	 * @return
+	 */
+	int checkExisted(String code);
 }

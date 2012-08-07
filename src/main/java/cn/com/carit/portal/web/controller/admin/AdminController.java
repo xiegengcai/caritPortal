@@ -1,4 +1,4 @@
-package cn.com.carit.portal.web.controller;
+package cn.com.carit.portal.web.controller.admin;
 
 import java.util.List;
 import java.util.Map;
@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -120,8 +122,8 @@ public class AdminController {
 	 */
 	@RequestMapping(value="back/config/languages", method=RequestMethod.GET)
 	@ResponseBody
-	public Map<String, String> queryAllConfigLanguage(){
-		return LanguageConfig.getInstance().getLanguagesMapper();
+	public List<Map<String, String>> queryAllConfigLanguage(){
+		return LanguageConfig.getInstance().getSupportLanguages();
 	}
 	
 	/**
@@ -133,4 +135,32 @@ public class AdminController {
 	public List<Menu> queryTopMenu(){
 		return menuService.queryTopMenus();
 	}
+	
+	/**
+	 * 检测是否已经存在<br>
+	 *  back/check/{table}?name=
+	 * <strong>table=user时name为email值</strong>
+	 * @param table
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="back/check/{table}", method=RequestMethod.GET)
+	@ResponseBody
+	public int checkExisted(@PathVariable String table
+			, @RequestParam(required=false) String name
+			, @RequestParam(required=false) String nickName) {
+		if (!StringUtils.hasText(table)) {
+			throw new IllegalArgumentException("table must be not empty...");
+		}
+		if (!StringUtils.hasText(name) && !StringUtils.hasText(nickName)) {
+			throw new IllegalArgumentException("both param[name, nickName] are empty...");
+		}
+		if (table.equalsIgnoreCase("menu")) {
+			return menuService.checkExisted(name);
+		} else if (table.equalsIgnoreCase("user")) {
+			return adminUserService.checkExisted(name, nickName);
+		}
+		return 0;
+	}
+	
 }
