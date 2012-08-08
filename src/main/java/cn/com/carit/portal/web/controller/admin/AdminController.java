@@ -21,6 +21,7 @@ import cn.com.carit.portal.LanguageConfig;
 import cn.com.carit.portal.bean.AdminUser;
 import cn.com.carit.portal.bean.Catalog;
 import cn.com.carit.portal.bean.Menu;
+import cn.com.carit.portal.bean.SupportLanguage;
 import cn.com.carit.portal.service.AdminUserService;
 import cn.com.carit.portal.service.MenuService;
 import cn.com.carit.portal.web.CacheManager;
@@ -123,7 +124,7 @@ public class AdminController {
 	@RequestMapping(value="back/config/languages", method=RequestMethod.GET)
 	@ResponseBody
 	public List<Map<String, String>> queryAllConfigLanguage(){
-		return LanguageConfig.getInstance().getSupportLanguages();
+		return LanguageConfig.getInstance().getConfigLanguages();
 	}
 	
 	/**
@@ -161,6 +162,15 @@ public class AdminController {
 			return adminUserService.checkExisted(name, nickName);
 		}
 		return 0;
+	}
+	
+	/**
+	 * 获取支持语言 back/query/support/languages
+	 * @return
+	 */
+	@RequestMapping(value="back/query/support/languages", method=RequestMethod.GET)
+	public List<SupportLanguage> querySupportLanguages(){
+		return CacheManager.getInstance().getSupportLanguages();
 	}
 	
 }

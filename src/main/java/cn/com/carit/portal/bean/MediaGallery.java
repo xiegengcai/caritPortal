@@ -7,6 +7,9 @@ package cn.com.carit.portal.bean;
  */
 public class MediaGallery extends BaseBean {
 
+	public static final int TYPE_IMAGE=0;
+	public static final int TYPE_VIDEO=1;
+	public static final int TYPE_FLASH=2;
 	private String url;
 	private String name;
 	private Integer type;

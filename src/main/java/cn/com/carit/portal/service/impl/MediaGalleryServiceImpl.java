@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import cn.com.carit.common.utils.AttachmentUtil;
 import cn.com.carit.common.utils.DataGridModel;
 import cn.com.carit.common.utils.JsonPage;
 import cn.com.carit.portal.bean.MediaGallery;
@@ -26,6 +27,16 @@ public class MediaGalleryServiceImpl implements
 	@Override
 	public int saveOrUpdate(MediaGallery t) throws Exception {
 		if (t.getId()>0) {
+			if (StringUtils.hasText(t.getUrl())) {
+				MediaGallery old=mediaGalleryDao.queryById(t.getId());
+				if (old.getType()==MediaGallery.TYPE_IMAGE) {
+					AttachmentUtil.deleteImage(old.getUrl());
+				} else if (old.getType()==MediaGallery.TYPE_VIDEO) {
+					AttachmentUtil.deleteVideo(old.getUrl());
+				} else if (old.getType()==MediaGallery.TYPE_FLASH) {
+					AttachmentUtil.deleteFlash(old.getUrl());
+				}
+			}
 			return mediaGalleryDao.update(t);
 		} else {
 			return mediaGalleryDao.add(t);
@@ -38,6 +49,14 @@ public class MediaGalleryServiceImpl implements
 		if(id<=0){
 			throw new IllegalArgumentException("id must be bigger than 0...");
 		}
+		MediaGallery old=mediaGalleryDao.queryById(id);
+		if (old.getType()==MediaGallery.TYPE_IMAGE) {
+			AttachmentUtil.deleteImage(old.getUrl());
+		} else if (old.getType()==MediaGallery.TYPE_VIDEO) {
+			AttachmentUtil.deleteVideo(old.getUrl());
+		} else if (old.getType()==MediaGallery.TYPE_FLASH) {
+			AttachmentUtil.deleteFlash(old.getUrl());
+		}
 		return mediaGalleryDao.delete(id);
 	}
 	
@@ -45,7 +64,11 @@ public class MediaGalleryServiceImpl implements
 	@Override
 	public int batchDelete(String ids) {
 		if (StringUtils.hasText(ids)) {
-			return mediaGalleryDao.batchDelete(ids);
+			String [] array=ids.split(",");
+			for (String id : array) {
+				delete(Integer.valueOf(id.trim()));
+			}
+			return array.length;
 		}
 		return 0;
 	}

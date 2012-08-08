@@ -20,47 +20,47 @@ public class LanguageConfig {
 	}
 	
 	private Map<String, Locale> cache;
-	private List<Map<String, String>> supportLanguages;
+	private List<Map<String, String>> configLanguages;
 	
 	private LanguageConfig(){
 		cache=new HashMap<String, Locale>();
-		supportLanguages=new ArrayList<Map<String,String>>();
+		configLanguages=new ArrayList<Map<String,String>>();
 		
 		
 		// 中文地区
 		cache.put("cn", Locale.SIMPLIFIED_CHINESE);// 简体中文
-		supportLanguages.add(buildLanguageMap("cn", "简体中文"));
+		configLanguages.add(buildLanguageMap("cn", "简体中文"));
 		
 		cache.put("tw", Locale.TRADITIONAL_CHINESE);// 繁体中文
-		supportLanguages.add(buildLanguageMap("tw", "繁体中文"));
+		configLanguages.add(buildLanguageMap("tw", "繁体中文"));
 		
 		// 英文地区
 		cache.put("en", Locale.US);//美国
-		supportLanguages.add(buildLanguageMap("en", "英语"));
+		configLanguages.add(buildLanguageMap("en", "英语"));
 		
 		// 俄语地区
 		cache.put("ru", new Locale("ru", "RU"));//俄罗斯
-		supportLanguages.add(buildLanguageMap("ru", "俄语"));
+		configLanguages.add(buildLanguageMap("ru", "俄语"));
 		
 		//法语地区
 		cache.put("fr", Locale.FRANCE);//法语
-		supportLanguages.add(buildLanguageMap("fr", "法语"));
+		configLanguages.add(buildLanguageMap("fr", "法语"));
 		
 		// 德语
 		cache.put("de", Locale.GERMANY);
-		supportLanguages.add(buildLanguageMap("de", "德语"));
+		configLanguages.add(buildLanguageMap("de", "德语"));
 		
 		// 意大利语
 		cache.put("it", Locale.ITALY);
-		supportLanguages.add(buildLanguageMap("it", "意大利语"));
+		configLanguages.add(buildLanguageMap("it", "意大利语"));
 		
 		//日语
 		cache.put("ja", Locale.JAPAN);
-		supportLanguages.add(buildLanguageMap("ja", "日语"));
+		configLanguages.add(buildLanguageMap("ja", "日语"));
 		
 		//韩语
 		cache.put("ko", Locale.KOREA);
-		supportLanguages.add(buildLanguageMap("ko", "韩语"));
+		configLanguages.add(buildLanguageMap("ko", "韩语"));
 	}
 	
 	private Map<String, String> buildLanguageMap(String isoCode, String name){
@@ -89,8 +89,8 @@ public class LanguageConfig {
 		return Locale.US;
 	}
 
-	public List<Map<String, String>> getSupportLanguages() {
-		return supportLanguages;
+	public List<Map<String, String>> getConfigLanguages() {
+		return configLanguages;
 	}
 
 }

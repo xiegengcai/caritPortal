@@ -3,7 +3,8 @@ var winTitle;
 var catalogs;
 var genderList=[{'code':0, 'value':'女'},{'code':1, 'value':'男'},{'code':2, 'value':'保密'}];
 var statusList=[{'code':0, 'value':'停用'},{'code':1, 'value':'启用'}]
-var supportLanguages;
+var languages; // 所有语言
+var supportLanguages; // 已经支持的语言
 // 扩展
 $.extend($.fn.validatebox.defaults.rules, {  
 	minLength:{validator: function(v, p){return getStrLen($.trim(v))>p[0];},message: '最少输入{0}个字符(一个中文两个字符)'},
@@ -44,6 +45,11 @@ $(function (){
 		}
 	});
 	$.getJSON(app.name+'/back/config/languages', function(data) {
+		if(data){
+			languages=data;
+		}
+	});
+	$.getJSON(app.name+'/back/query/support/languages',function(data){
 		if(data){
 			supportLanguages=data;
 		}
@@ -225,7 +231,7 @@ function genderFormatter(v){
 
 function lanFormatter(v){
 	var result=v;
-	$.each(supportLanguages, function(key,val) {
+	$.each(languages, function(key,val) {
 		if(v==val.code){
 			result=val.value;
 			return false;

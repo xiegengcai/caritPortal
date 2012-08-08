@@ -18,4 +18,8 @@ public class Constants {
 	
 	/** 首页新闻、产品限制条数  */
 	public static final int INDEX_SHOW_LIMIT=6;
+	
+	public static final String BASE_PATH_VIDEO="video/";
+	public static final String BASE_PATH_IMAGE="images/";
+	public static final String BASE_PATH_FLASH="flash/";
 }

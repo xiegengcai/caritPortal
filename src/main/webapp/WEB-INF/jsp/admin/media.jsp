@@ -8,22 +8,8 @@
 		<script type="text/javascript" src="${ctx}/resources/public/scripts/utils.js?v=1.0" ></script>
 		<script type="text/javascript" src="${ctx}/resources/public/scripts/common.js?v=1.0" ></script>
 		<script type="text/javascript">
-		var types=[{'code':'0','value':'公司新闻'}, {'code':'1','value':'业界动态'}];
-		var contentEditer;
+		var types=[{'code':'0','value':'图片'}, {'code':'1','value':'视频'}, {'code':'2','value':'Flash'}];
 		$(function(){
-			contentEditer=simpleEditer('content');
-			$('#language').combobox({
-				data:supportLanguages,
-				editable:false,
-				valueField:'code',
-				textField:'value'
-			});
-			$('#language_edit').combobox({
-				data:supportLanguages,
-				editable:false,
-				valueField:'code',
-				textField:'value'
-			});
 			$('#type').combobox({
 				data:types,
 				editable:false,
@@ -51,19 +37,30 @@
 			$('.combobox-f').each(function(){
 				$(this).combobox('clear');
 			});
-			$('#edit_submit_news').click(function(){
+			$('#edit_submit_media').click(function(){
 				$('#editForm').form({
 					onSubmit:function(){
-						contentEditer.sync();
 						// 避免 form validate bug
 						$('.combobox-f').each(function(){
 							$(this).val($(this).combobox('getText'));
 						});
 						var b=true;
-						if(getStrLen($.trim($('#content').val()))>$('#content').attr('maxLen')){
-							$.messager.alert('提示', $('#content').attr('msg')+'超长，最多输入'+$('#content').attr('maxLen')+'个字符(一个中文两个字符)', 'info');
+						var fileText=$('#fileText').val();
+						if(fileText==''||fileText==null||fileText==undefined){
 							b=false;
-							return false;
+							$.messager.alert('错误', "请选取文件", 'error');
+						}else{
+							var type=$('#type_edit').combobox('getValue');
+							if(type==0 && !chkFileType(fileText,'jpg|jpeg|png|gif')){
+								b=false;
+								$.messager.alert('提示', "选定的类别是图片，请选择 jpg|jpeg|png|gif 类型的文件", 'info');
+							} else if(type==1 && !chkFileType(fileText,'avi|wmv|mp4|avi|flv')){
+								b=false;
+								$.messager.alert('提示', "选定的类别是视频，请选择 avi|wmv|mp4|avi|flv 类型的文件", 'info');
+							} else if(type==2 && !chkFileType(fileText,'swf')){
+								b=false;
+								$.messager.alert('提示', "选定的类别是Flash，请选择 swf 类型的文件", 'info');
+							}
 						}
 						if(!b){return b;}
 						b=$(this).form('validate');
@@ -71,14 +68,14 @@
 							$.messager.progress({title:'请稍后',msg:'提交中...'});
 						}
 						return b;
-					},
-					success:function(data){
-						$.messager.progress('close');
+				    }, 
+			    	success:function(data){
+			    		$.messager.progress('close');
 			    		if(data==-1){
 							$.messager.alert('错误', "编辑失败", 'error');
 			    		} else if(data>0){
 							$.messager.alert('成功', "编辑成功", 'info');
-				        	$('#editVersionWin').window('close');
+				        	$('#editWin').window('close');
 				        	// update rows
 				        	$('#tt').datagrid('reload');
 						}else{
@@ -87,9 +84,6 @@
 				    }
 				}).submit();
 			});
-			$('#editWin').window({onClose:function(){
-				contentEditer.html('');
-			}});  
 		});
 		function edit(index) {
 			if(index>-1){//双击
@@ -105,11 +99,11 @@
 				$('#editWin').window({title:'修改'+winTitle,iconCls:'icon-edit'});
 				$('#editWin').window('open');
 				// init data
-				$('#title_edit').val(m.title);
+				$('#name_edit').val(m.name);
 				$('#type_edit').combobox('setValue',m.type);
-				$('#language_edit').combobox('setValue',m.language);
+				$('#fileText').val(m.url);
 				$('#status_edit').combobox('setValue',m.status);
-				contentEditer.html(m.content);
+				$('#remark_edit').val(m.remark);
 				$('#id').val(m.id);
 				$('#editWin').show();
 			} else {
@@ -119,7 +113,6 @@
 				});
 			}
 		}
-		
 		function typeFormatter(v){
 			var result='-';
 			$.each(types, function(key,val) {
@@ -132,28 +125,28 @@
 		}
 		</script>
 		<style>
-		#editWin label {width: 80px;text-align: right;}
-		#editWin input {width: 180px;}
+		#editWin label {width: 100px;text-align: right;}
+		#editWin input {width: 250px;}
 		</style>
 	</head>
 	<body>
 		<div style="width: 100%;">
-		<form:form modelAttribute="news"
-			action="${ctx}/admin/news/query"
+		<form:form modelAttribute="media"
+			action="${ctx}/admin/media/query"
 			method="get" id="searchForm">
 			<table>
 				<tr>
 					<td>
-						<form:label for="title" path="title">标题：</form:label>
+						<form:label for="name" path="name">名称：</form:label>
 					</td>
 					<td>
-						<form:input path="title"/>
+						<form:input path="name"/>
 					</td>
 					<td>
-						<form:label for="language" path="language">语言：</form:label>
+						<form:label for="url" path="url">媒体路径：</form:label>
 					</td>
 					<td>
-						<form:input path="language"/>
+						<form:input path="url"/>
 					</td>
 					<td>
 						<form:label for="type" path="type">类别：</form:label>
@@ -176,43 +169,55 @@
 				<a href="javascript:void();" class="easyui-linkbutton" id="reset"
 					iconCls="icon-undo">重 置</a>
 			</div>
-			<table id="tt" style="height: auto;" iconCls="icon-blank" title="支持语言列表" align="left"  
-			idField="id" url="${ctx}/admin/news/query" pagination="true" rownumbers="true"
+			<table id="tt" style="height: auto;" iconCls="icon-blank" title="媒体列表" align="left"  
+			idField="id" url="${ctx}/admin/media/query" pagination="true" rownumbers="true"
 			fitColumns="true" pageList="[ 5, 10]">
 				<thead>
 					<tr>
-						<th field="title" width="100" align="center">标题</th>
-						<th field="language" width="100" align="center" formatter="lanFormatter">语言</th>
+						<th field="name" width="100" align="center">名称</th>
+						<th field="url" width="100" align="center">媒体路径</th>
 						<th field="type" width="100" align="center" formatter="typeFormatter">类别</th>
 						<th field="status" width="60" align="center" formatter="statusFormatter">状态</th>
+						<th field="remark" width="150" align="center">备注</th>
 						<th field="createTime" width="90" align="center">创建时间</th>
 						<th field="updateTime" width="90" align="center">更新时间</th>
 					</tr>
 				</thead>
 			</table>
 		</div>
-		<div id="editWin" class="easyui-window" title="新闻" closed="true" style="width:650px;height:480px;padding:5px;" modal="true">
-			<form:form modelAttribute="news" id="editForm" action="${ctx}/admin/news/save" method="post" cssStyle="padding:10px 20px;">
+		<div id="editWin" class="easyui-window" title="媒体" closed="true" style="width:500px;height:380px;padding:5px;" modal="true">
+			<form:form modelAttribute="media" id="editForm" action="${ctx}/admin/media/save" method="post" cssStyle="padding:10px 20px;" enctype="multipart/form-data">
 				<table>
 					<tr>
-						<td><form:label	for="title" path="title" cssClass="mustInput">标题：</form:label></td>
-						<td><form:input path="title" id="title_edit" required="true" validType="length[3,100]" class="easyui-validatebox"/></td>
-						<td><form:label	for="type" path="type" cssClass="mustInput">类别：</form:label></td>
-						<td><form:input path="type" id="type_edit" required="true" class="easyui-validatebox" cssStyle="width:185px;"/></td>
+						<td><form:label	for="name" path="name" cssClass="mustInput">标题：</form:label></td>
+						<td><form:input path="name" id="name_edit" required="true" validType="length[3,100]" class="easyui-validatebox"/></td>
 					</tr>
 					<tr>
-						<td><form:label	for="language" path="language" cssClass="mustInput">语言：</form:label></td>
-						<td><form:input path="language" id="language_edit" required="true" class="easyui-validatebox" cssStyle="width:185px;"/></td>
-						<td><form:label	for="status" path="status" cssClass="mustInput">状态：</form:label></td>
-						<td><form:input path="status" id="status_edit" required="true" class="easyui-validatebox" cssStyle="width:185px;"/></td>
+						<td><form:label	for="type" path="type" cssClass="mustInput">类别：</form:label></td>
+						<td><form:input path="type" id="type_edit" required="true" class="easyui-validatebox" cssStyle="width:255px;"/></td>
 					</tr>
-					<tr><td><form:label for="content" path="content" cssClass="easyui-validatebox">内容：</form:label></td>
-						<td colspan="3"><form:textarea path="content" id="content_edit" cssClass="easyui-validatebox" cssStyle="width:468px;height:300px;" maxLen="5000" msg="内容"/></td>
+					<tr>
+						<td><form:label	for="url" path="url" cssClass="mustInput">文件：</form:label></td>
+						<td>
+						<div class="fileinputs">  
+							<input type="file" class="file" name="file" id="file" onchange="$('#fileText').val(this.value);"/>  
+							<div class="fakefile">  
+								<input id="fileText" style="width:205px;"/><button>浏览</button>
+							</div>  
+						</div>
+						</td>
+					</tr>
+					<tr>
+						<td><form:label	for="status" path="status" cssClass="mustInput">状态：</form:label></td>
+						<td><form:input path="status" id="status_edit" required="true" class="easyui-validatebox" cssStyle="width:255px;"/></td>
+					</tr>
+					<tr><td><form:label for="remark" path="remark" cssClass="easyui-validatebox">备注：</form:label></td>
+						<td><form:textarea path="remark" id="remark_edit" cssClass="easyui-validatebox" cssStyle="width:250px;height:50px;" validType="maxLength[100]"/></td>
 					</tr>
 				</table>
 				<form:hidden path="id"/>
 				<div style="text-align: center; padding: 5px;">
-					<a href="javascript:void(0)" class="easyui-linkbutton" id="edit_submit_news" iconCls="icon-save">保 存</a>
+					<a href="javascript:void(0)" class="easyui-linkbutton" id="edit_submit_media" iconCls="icon-save">保 存</a>
 					<a href="javascript:void(0)" class="easyui-linkbutton" id="edit_reset" iconCls="icon-undo">重 置</a>
 				</div>
 			</form:form>
