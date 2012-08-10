@@ -27,7 +27,7 @@ import cn.com.carit.portal.service.MediaGalleryService;
 @Controller
 @RequestMapping(value="admin/media")
 public class MediaGalleryController {
-private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = Logger.getLogger(getClass());
 	
 	@Resource
 	private MediaGalleryService<MediaGallery> service;

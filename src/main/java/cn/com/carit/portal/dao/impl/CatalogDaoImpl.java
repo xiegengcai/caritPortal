@@ -51,7 +51,7 @@ public class CatalogDaoImpl extends BaseDaoImpl implements CatalogDao<Catalog> {
 
 	@Override
 	public int update(Catalog t) {
-		StringBuilder sql=new StringBuilder("update t_catalog set update_time=new()");
+		StringBuilder sql=new StringBuilder("update t_catalog set update_time=now()");
 		List<Object> val = new ArrayList<Object>();
 		if (StringUtils.hasText(t.getCatalogCode())) {
 			sql.append(", catalog_code=?");

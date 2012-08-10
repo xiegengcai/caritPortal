@@ -34,10 +34,10 @@
                         <li><div><a target="mainFrame_0" index="0" href="${ctx}/admin/language">语言管理</a></div></li>
                         <li><div><a target="mainFrame_1" index="1" href="${ctx}/admin/menu">菜单管理</a></div></li>
 						<li><div><a target="mainFrame_2" index="2" href="${ctx}/admin/user">账号管理</a></div></li>
-						<li><div><a target="mainFrame_3" index="3" href="">车型管理</a></div></li>
+						<li><div><a target="mainFrame_3" index="3" href="${ctx}/admin/catalog">车型管理</a></div></li>
 						<li><div><a target="mainFrame_4" index="4" href="${ctx}/admin/media">媒体库</a></div></li>
 						<li><div><a target="mainFrame_5" index="5" href="${ctx}/admin/news">新闻管理</a></div></li>
-						<li><div><a target="mainFrame_6" index="6" href="">产品管理</a></div></li>
+						<li><div><a target="mainFrame_6" index="6" href="${ctx}/admin/product">产品管理</a></div></li>
 						<li><div><a href="${ctx}/back/logout">退出</a></div></li>
                     </ul>
 	            </div>
