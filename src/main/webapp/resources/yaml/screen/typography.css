@@ -254,7 +254,7 @@
 	/* (en) Maximaler Kontrast für Tab Focus - Ändern Sie diese Regel mit Bedacht */
 	a:hover,
 	a:focus {
-		background-color: #4D87C7;
+		/*background-color: #4D87C7;*/
 		color:#fff;
 		text-decoration:none;
 	}

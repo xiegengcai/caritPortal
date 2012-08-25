@@ -12,7 +12,7 @@ public class BaseBean {
 	protected int id;
 	@JsonIgnore
 	protected String ids;
-	private Integer status;
+	protected Integer status;
 	protected Date createTime;
 	protected Date updateTime;
 	

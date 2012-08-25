@@ -45,7 +45,7 @@ public class CacheManager {
 	
 	private List<SupportLanguage> supportLanguages;
 	
-	public static class CacheHolder {
+	private static class CacheHolder {
 		private static final CacheManager INSTANCE = new CacheManager();
 	}
 	

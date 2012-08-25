@@ -272,7 +272,29 @@ function getStrLength(str){
 	}
 	return len;
 }
-
+/**
+ * 清除所有HTML标签
+ * @param str
+ * @returns
+ */
+function removeHTMLTag(str){
+	var regEx=/<[^>]*>/g;
+	return str.replace(regEx,'');
+}
+/**
+ * 字符溢出处理
+ * @param str
+ * @param len
+ * @returns
+ */
+function textOverflow(str, len){
+	str=removeHTMLTag(str);
+	if(str.length>len){
+		return str.substring(0,len)+'...';
+	}else{
+		return str;
+	}
+}
 /**
  * 分享到腾讯微博
  * @param _url 链接URL

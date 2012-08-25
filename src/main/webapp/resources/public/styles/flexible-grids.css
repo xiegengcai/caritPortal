@@ -16,7 +16,7 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic,700|Droid+Sans:700);
 
 /* import core styles | Basis-Stylesheets einbinden */
-@import url(../../yaml/core/base.css);
+@import url(../../yaml/core/base.min.css);
 
 /* import screen layout | Screen-Layout einbinden */
 @import url(../../yaml/navigation/hlist.css);
@@ -28,6 +28,7 @@
 /* import print layout | Druck-Layout einbinden */
 @import url(../../yaml/print/print.css);
 
+p{text-indent: 1.5em;}
 .slides-container {
 	margin:0 auto;
 	text-align:center;
@@ -44,4 +45,54 @@
 	color: rgba(0, 0, 0, .8);
 }
 
-.indexNewsContainer{height: 126px;list-style: decimal;}
+.current-position{
+	background:#E5E5E5;
+	margin:0 0 5px 0;
+	text-align: left;
+	height: 36px;
+	line-height: 36px;
+	padding: 0 5px;
+	border-radius: 0.3em;
+	border: 1px solid #888;
+	border-bottom: 2px solid #B8B8B8;
+	-webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
+	-moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) inset;
+}
+
+/*分页控件*/
+#pageDiv{height:30px;white-space:nowrap;text-align: right;margin:5px 0;}
+#pageDiv span{display:block;float:left;background:#CDCDCD;margin:3px;cursor:pointer;padding:0 5px}
+#pageDiv span:hover{background:#2AC7E1;color:#FFF;}
+#pageDiv label span{display:-moz-inline-box; display:inline-block;width:20px;text-align:center;padding:0;}
+#pageDiv .selected{color:#FFF;background:#2AC7E1;cursor:default;}
+#pageDiv .cruLabel {display:;}
+#pageDiv .hideLabel {display:none;}
+
+.current-position a{color: #B11E30}
+.indexNewsContainer{height: 280px;list-style: decimal;}
+.indexNewsContainer li{padding-bottom: 5px;}
+.indexNewsContainer .content{width:100%;max-height: 65px; overflow-y: hidden;}
+
+.products-container, .products-list{min-height: 500px;}
+
+.catalog-container{margin: 10px 0;min-height: 480px;border-radius: 0.3em;border: 1px solid #888;}
+.catalog-container h3, .products-list h3{font-weight: bold;color: #B11E30;margin: 0 auto;height: 28px;line-height:28px;background: #cdcdcd;padding: 5px;}
+
+.catalog-container ul{list-style: none;margin: 24px 0px;border-top: 1px solid #cdcdcd;border-bottom: 1px solid #cdcdcd;}
+.catalog-container li{background:#EEE;cursor: pointer;line-height: 24px;margin: 0 auto;padding: 5px 10px;border-bottom: 1px solid #cdcdcd;}
+.catalog-container li:hover{color: #B11E30;background: #E0E0E0;}
+.catalog-container li.curr{color: #B11E30;background: #cdcdcd;}
+
+.products-list div{margin: 10px 10px 10px 20px;}
+.products-list h3{background: none; border-bottom: 1px solid #888;}
+.products-list div ul{list-style: none;margin: 1.5em 0;margin-left: 0.5em;}
+.products-list div ul li{float: left;width: 210px;height: 200px;margin: 5px 15px;}
+.products-list div ul li img {width: 210px; height: 160px;border: 1px solid #D0D0D0;}
+.products-list div ul li span{width: 210px;text-align: center;color: #797979;display: -moz-inline-box;display: inline-block;margin: 5px 0; line-height: 24px;}
+.products-list div ul li span:hover,.products-list div ul li span:focus{color: #B11E30;}
+
+.address-map{height: 450px;width:100%;margin-top: 1.5em;}
+.contact-us{margin: 6em 2em;}
+.contact-us h3 {font-weight: bold;color: #B11E30;line-height: 36px;}
+.contact-us h4{line-height: 36px;font-weight: normal;font-size: 14px;}

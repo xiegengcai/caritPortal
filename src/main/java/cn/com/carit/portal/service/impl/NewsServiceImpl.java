@@ -95,4 +95,9 @@ public class NewsServiceImpl implements NewsService<News> {
 		return newsDao.queryNews(type, language, limit);
 	}
 
+	@Override
+	public List<News> queryNews(String language, int limit) {
+		return newsDao.queryNews(language, limit);
+	}
+
 }

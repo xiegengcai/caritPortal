@@ -60,15 +60,15 @@ public class AttachmentUtil {
 	}
 	
 	public static File getImageFile(String fileName){
-		return newFile((String)getValue("attachment.portal.images"), fileName);
+		return newFile((String)getValue("attachment.images"), fileName);
 	}
 	
 	public static File getVideoFile(String fileName){
-		return newFile((String)getValue("attachment.portal.video"), fileName);
+		return newFile((String)getValue("attachment.video"), fileName);
 	}
 	
 	public static File getFlashFile(String fileName){
-		return newFile((String)getValue("attachment.portal.flash"), fileName);
+		return newFile((String)getValue("attachment.flash"), fileName);
 	}
 	
 	public static String getImagePath(String fileName){
@@ -76,7 +76,7 @@ public class AttachmentUtil {
 		if (index!=-1) {
 			fileName=fileName.substring(index);
 		}
-		return (String)getValue("attachment.portal.images")+(File.separator+fileName);
+		return (String)getValue("attachment.images")+(File.separator+fileName);
 	}
 	
 	public static String getVideoPath(String fileName){
@@ -84,14 +84,14 @@ public class AttachmentUtil {
 		if (index!=-1) {
 			fileName=fileName.substring(index);
 		}
-		return (String)getValue("attachment.portal.video")+(File.separator+fileName);
+		return (String)getValue("attachment.video")+(File.separator+fileName);
 	}
 	public static String getFlashPath(String fileName){
 		int index=fileName.lastIndexOf(File.separator);
 		if (index!=-1) {
 			fileName=fileName.substring(index);
 		}
-		return (String)getValue("attachment.portal.flash")+(File.separator+fileName);
+		return (String)getValue("attachment.flash")+(File.separator+fileName);
 	}
 	public static boolean deleteFile(String fileName){
 		logger.info("delete file["+fileName+"]...");

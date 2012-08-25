@@ -215,4 +215,15 @@ public class NewsDaoImpl extends BaseDaoImpl implements NewsDao<News> {
 				}, rowMapper);
 	}
 
+	@Override
+	public List<News> queryNews(String language, int limit) {
+		String sql="select * from t_news where language=? and status=? order by update_time desc limit ?";
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
+		return jdbcTemplate.query(sql, new Object[]{
+					language, Constants.STATUS_VALID, limit
+				}, rowMapper);
+	}
+
 }

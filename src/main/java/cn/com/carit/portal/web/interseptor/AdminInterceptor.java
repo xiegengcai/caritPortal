@@ -16,6 +16,7 @@ import cn.com.carit.portal.bean.AdminUser;
  *
  */
 public class AdminInterceptor extends HandlerInterceptorAdapter{
+	
 	private final Logger log = Logger.getLogger(getClass());
 	@Override
 	public boolean preHandle(HttpServletRequest request,

@@ -76,4 +76,26 @@
 
 	<context:component-scan base-package="cn.com.carit.portal.service.*" />
 	
+	<bean name="quartzJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass"
+			value="cn.com.carit.portal.job.RefreshCacheJob" />
+		<!-- 接受一个Map,其中包含了需要设置给jobClass的各种属性 -->
+		<property name="jobDataAsMap">
+			<map></map>
+		</property>
+	</bean>
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="quartzJob" />
+		<!-- 延迟5秒启动，每30分钟执行一次 -->
+		<property name="cronExpression" value="5 0/30 * * * ?"/>
+	</bean>
+	<bean id="SpringJobSchedulerFactoryBean"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger" />
+			</list>
+		</property>
+	</bean>
+	
 </beans>

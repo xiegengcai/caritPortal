@@ -140,5 +140,9 @@ public class MD5Util {
 		// pattern.matcher("@正则表达式:Hello World,@正则表达式  HelloWorld");
 		//
 		// System.out.println(matcher.replaceAll("Java"));
+		String [] arr="/cn/static/about_us".split("/");
+		for (String str : arr) {
+			System.out.println("dddddddddddd"+str);
+		}
 	}
 }
