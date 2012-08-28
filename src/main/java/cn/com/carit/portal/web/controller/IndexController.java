@@ -13,7 +13,9 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import cn.com.carit.common.Constants;
 import cn.com.carit.portal.LanguageConfig;
 import cn.com.carit.portal.bean.News;
+import cn.com.carit.portal.bean.ProductRelease;
 import cn.com.carit.portal.service.NewsService;
+import cn.com.carit.portal.service.ProductReleaseService;
 import cn.com.carit.portal.web.CacheManager;
 @Controller
 public class IndexController extends BaseController{
@@ -23,6 +25,9 @@ public class IndexController extends BaseController{
 	
 	@Resource
 	private NewsService<News> newsService;
+	
+	@Resource
+	private ProductReleaseService<ProductRelease> productReleaseService;
 	
 	/**
 	 * 首页
@@ -51,37 +56,19 @@ public class IndexController extends BaseController{
 		// 切换语言
 		localeResolver.setDefaultLocale(LanguageConfig.getInstance().getLocale(language));
 		addCommonAttribute(language);
-		/*// 设置对应语言的业界新闻
-		model.addAttribute("industryNewsList", newsService.queryNews(
-				News.NEWS_TYPE_INDUSTRY, language, Constants.INDEX_SHOW_LIMIT));
-		// 设置对应语言的公司新闻
-		model.addAttribute("companyNewsList", newsService.queryNews(
-				News.NEWS_TYPE_COMPANY, language, Constants.INDEX_SHOW_LIMIT));*/
 		// 最新动态
 		addAttribute("lastestNews", newsService.queryNews(language
 				, Constants.INDEX_SHOW_LIMIT), false);
 		// 支持语言列表
 		addAttribute("supportLanguages"
 				, CacheManager.getInstance().getSupportLanguages(), false);
+		// 首页图片
+		addAttribute("topImages", CacheManager.getInstance().getTopImages(), false);
+		// 产品
+		addAttribute("products", productReleaseService.queryTopProductRelease(
+				language, Constants.INDEX_SHOW_LIMIT), false);
 	}
 	
-	/**
-	 * 静态页面控制器
-	 * @param language
-	 * @param page
-	 * @return
-	 */
-	@RequestMapping(value="/{language}/static/{page}", method=RequestMethod.GET)
-	public String staticPage(@PathVariable String language, @PathVariable String page){
-		defaultAttribute(language);
-		if (!StringUtils.hasText(page)) {
-			return toLocal(language);
-		}
-		if (!StringUtils.hasText(language)) {
-			return "static/"+language+"/"+page;
-		}
-		return "static/"+language+"/"+page;
-	}
 	/**
 	 * 产品页面
 	 * @param language
@@ -103,15 +90,30 @@ public class IndexController extends BaseController{
 		localeResolver.setDefaultLocale(LanguageConfig.getInstance().getLocale(language));
 		addCommonAttribute(language);
 	}
-	
+
 	/**
-	 * 联系我们
+	 * 菜单跳转
 	 * @param language
+	 * @param menu
 	 * @return
 	 */
-	@RequestMapping(value="/{language}/contact_us", method=RequestMethod.GET)
-	public String contactUs(@PathVariable String language){
+	@RequestMapping(value="/{language}/{menu}", method=RequestMethod.GET)
+	public String menuForward(@PathVariable String language, @PathVariable String menu){
 		defaultAttribute(language);
-		return "contact_us";
+		return menu;
 	}
+	
+	/**
+	 * 查看新闻
+	 * @param language
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/{language}/news", method=RequestMethod.GET)
+	public String news(@PathVariable String language, @PathVariable int id){
+		defaultAttribute(language);
+		addAttribute("news", newsService.queryById(id), false);
+		return "news";
+	}
+	
 }

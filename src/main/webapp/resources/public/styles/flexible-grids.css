@@ -72,6 +72,7 @@ p{text-indent: 1.5em;}
 .current-position a{color: #B11E30}
 .indexNewsContainer{height: 280px;list-style: decimal;}
 .indexNewsContainer li{padding-bottom: 5px;}
+.indexNewsContainer li a:hover{color:  #B11E30;}
 .indexNewsContainer .content{width:100%;max-height: 65px; overflow-y: hidden;}
 
 .products-container, .products-list{min-height: 500px;}
@@ -96,3 +97,11 @@ p{text-indent: 1.5em;}
 .contact-us{margin: 6em 2em;}
 .contact-us h3 {font-weight: bold;color: #B11E30;line-height: 36px;}
 .contact-us h4{line-height: 36px;font-weight: normal;font-size: 14px;}
+
+.global-map{height: 350px;margin-bottom: 1.5em;}
+.global-map img{width: 100%;height: 100%;}
+
+.global-detail{margin: 5px 0;color: #cdcdcd;}
+.global-serial-number{float: left;width: 24px;font-size: 28px;color: #c3c3c3;}
+.global-contact{margin: 1em 0 0 0;}
+.global-contact p{margin: 0 auto;text-indent: 0;}

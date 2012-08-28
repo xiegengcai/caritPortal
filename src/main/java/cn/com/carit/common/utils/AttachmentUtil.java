@@ -6,11 +6,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 public class AttachmentUtil {
-	private static final Logger logger = Logger.getLogger(AttachmentUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(AttachmentUtil.class);
 	private static volatile AttachmentUtil INSTANCE=null;
 	private static Properties p = new Properties();
 	

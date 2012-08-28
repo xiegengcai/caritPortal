@@ -257,7 +257,7 @@ public class ProductReleaseDaoImpl extends BaseDaoImpl implements
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("\n%1$s\n", sql));
 		}
-		return jdbcTemplate.query(sql, new Object[]{language, 1, Constants.STATUS_VALID, limit}
+		return jdbcTemplate.query(sql, new Object[]{language, ProductRelease.TOP, Constants.STATUS_VALID, limit}
 			, rowMapper);
 	}
 

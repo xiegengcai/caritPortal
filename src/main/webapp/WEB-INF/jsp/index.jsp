@@ -34,10 +34,7 @@
 										<h4 class="newsTitle"><spring:message code="title.latest.news"/></h4>
 										<ul class="indexNewsContainer">
 										<c:forEach items="${lastestNews}" var="news" varStatus="stat">
-											<li><a href="#">${news.title}</a>
-											<div class="content">
-											${news.content}
-											</div></li>
+											<li><a href="#">${news.title}</a><div class="content">${news.content}</div></li>
 										</c:forEach>
 										</ul>
 										<a class="ym-button ym-next" href="#"><spring:message code="botton.read.more"/></a> </div>
@@ -46,8 +43,8 @@
 									<div class="ym-gbox">
 										<h4 class="newsTitle"><spring:message code="title.hot.products"/></h4>
 										<ul class="indexNewsContainer">
-										<c:forEach items="${companyNewsList}" var="news" varStatus="stat">
-											<li><a href="#">${news.title}</a></li>
+										<c:forEach items="${products}" var="p" varStatus="stat">
+											<li><a href="#">${p.title}</a><div class="content">${p.content}</div></li>
 										</c:forEach>
 										</ul>
 										<a class="ym-button ym-next" href="#"><spring:message code="botton.read.more"/></a> </div>

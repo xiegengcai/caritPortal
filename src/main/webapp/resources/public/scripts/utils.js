@@ -257,7 +257,7 @@ function valiNickname(nickname){
 	return !reg.test(nickname);
 }
 //获得字符串长度
-function getStrLength(str){
+function getStrLen(str){
 	if(str == null){
 		return 0;
 	}

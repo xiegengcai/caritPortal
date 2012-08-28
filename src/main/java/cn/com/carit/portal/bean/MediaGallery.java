@@ -1,19 +1,19 @@
 package cn.com.carit.portal.bean;
 
 /**
- * 媒体库：图片、视频、flash
+ * 图片库
  * @author <a href="mailto:xiegengcai@gmail.com">Gengcai Xie</a>
  * 2012-8-5
  */
 public class MediaGallery extends BaseBean {
+	
+	public static final int TOP=1;
 
-	public static final int TYPE_IMAGE=0;
-	public static final int TYPE_VIDEO=1;
-	public static final int TYPE_FLASH=2;
 	private String url;
 	private String name;
-	private Integer type;
+	private Integer top;
 	private String remark;
+	private String href;//跳转链接
 	public String getUrl() {
 		return url;
 	}
@@ -26,11 +26,11 @@ public class MediaGallery extends BaseBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getType() {
-		return type;
+	public Integer getTop() {
+		return top;
 	}
-	public void setType(Integer type) {
-		this.type = type;
+	public void setTop(Integer top) {
+		this.top = top;
 	}
 	public String getRemark() {
 		return remark;
@@ -38,11 +38,18 @@ public class MediaGallery extends BaseBean {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+	
+	public String getHref() {
+		return href;
+	}
+	public void setHref(String href) {
+		this.href = href;
+	}
 	@Override
 	public String toString() {
-		return "MediaGallery [url=" + url + ", name=" + name + ", type=" + type
-				+ ", remark=" + remark + ", id=" + id + ", createTime="
-				+ createTime + ", updateTime=" + updateTime + "]";
+		return "MediaGallery [url=" + url + ", name=" + name + ", top=" + top
+				+ ", remark=" + remark + ", href=" + href + ", id=" + id
+				+ ", status=" + status + ", updateTime=" + updateTime + "]";
 	}
 	
 }

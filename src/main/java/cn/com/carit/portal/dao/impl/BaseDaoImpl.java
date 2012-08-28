@@ -9,7 +9,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -24,7 +25,7 @@ import cn.com.carit.common.utils.DataUtils;
 public class BaseDaoImpl {
 	@Resource(name = "jdbcTemplate")
 	protected JdbcTemplate jdbcTemplate;
-	protected final Logger log = Logger.getLogger(getClass());
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 	
 	public <T> T query(String sql, List<Object> args, List<Integer> argTypes, ResultSetExtractor<T> rse) {
 		return jdbcTemplate.query(sql, args.toArray(), DataUtils.listToIntArray(argTypes), rse);

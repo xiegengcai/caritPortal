@@ -1,9 +1,13 @@
 package cn.com.carit.portal.web.controller.admin;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -27,7 +31,7 @@ import cn.com.carit.portal.service.MediaGalleryService;
 @Controller
 @RequestMapping(value="admin/media")
 public class MediaGalleryController {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log=LoggerFactory.getLogger(getClass());
 	
 	@Resource
 	private MediaGalleryService<MediaGallery> service;
@@ -47,40 +51,35 @@ public class MediaGalleryController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="save", method=RequestMethod.POST)
-	@ResponseBody
-	public int save(@ModelAttribute(value="media") MediaGallery media
+	public @ResponseBody Map<String, Object> save(@ModelAttribute(value="media") MediaGallery media
 			, BindingResult result, HttpServletRequest request) throws Exception{
+		Map<String, Object> resultMap=new HashMap<String, Object>(); 
 		if (result.hasErrors()) {
 			log.warn(result.getAllErrors().toString());
-			return -1;
+			resultMap.put(Constants.ANSWER_CODE, -1);
+			return resultMap;
 		}
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; 
 		MultipartFile multipartFile = multipartRequest.getFile("file");
 		if(media.getId()==0&&(multipartFile==null||multipartFile.getOriginalFilename().length()<=0)){
 			// 新增时必须上传Apk文件
 			log.debug("file must be not empty ...");
-			return -1;
+			resultMap.put(Constants.ANSWER_CODE, -1);
+			return resultMap;
 		}
     	if (multipartFile!=null && multipartFile.getOriginalFilename().length()>0) { // 上传文件
     		String prefix=MD5Util.md5Hex(System.nanoTime()+"");
     		String suffix = multipartFile.getOriginalFilename().substring(
     				multipartFile.getOriginalFilename().lastIndexOf(".")-1);
     		String fileName = (prefix + "." + suffix).toLowerCase();// 构建文件名称
-    		// 图片文件
-    		if (media.getType()==MediaGallery.TYPE_IMAGE) {
-    			media.setUrl(Constants.BASE_PATH_IMAGE+fileName);
-    			multipartFile.transferTo(AttachmentUtil.getImageFile(fileName));
-			} else if (media.getType()==MediaGallery.TYPE_VIDEO) {
-				media.setUrl(Constants.BASE_PATH_VIDEO+fileName);
-    			multipartFile.transferTo(AttachmentUtil.getVideoFile(fileName));
-			} else if (media.getType()==MediaGallery.TYPE_FLASH){
-				media.setUrl(Constants.BASE_PATH_FLASH+fileName);
-    			multipartFile.transferTo(AttachmentUtil.getFlashFile(fileName));
-			} else {
-				throw new IllegalArgumentException("not support media type...");
-			}
+    		String hostPath="http://"+request.getServerName();
+    		media.setUrl(hostPath+Constants.BASE_PATH_IMAGE+fileName);
+    		multipartFile.transferTo(AttachmentUtil.getImageFile(fileName));
 		}
-		return service.saveOrUpdate(media);
+    	service.saveOrUpdate(media);
+		resultMap.put(Constants.ANSWER_CODE, 1);
+		resultMap.put("url", media.getUrl());
+		return resultMap;
 	}
 	
 	/**

@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.com.carit.common.Constants;
 import cn.com.carit.common.utils.DataGridModel;
 import cn.com.carit.common.utils.JsonPage;
 import cn.com.carit.portal.bean.Catalog;
+import cn.com.carit.portal.bean.News;
 import cn.com.carit.portal.bean.ProductRelease;
+import cn.com.carit.portal.service.NewsService;
 import cn.com.carit.portal.service.ProductReleaseService;
 import cn.com.carit.portal.web.CacheManager;
 
@@ -23,6 +26,9 @@ public class CommonController {
 
 	@Resource
 	private ProductReleaseService<ProductRelease> productReleaseService;
+	
+	@Resource
+	private NewsService<News> newsService;
 	/**
 	 * 获取所有车型分类
 	 * @return
@@ -45,4 +51,19 @@ public class CommonController {
 		t.setCatalogId(catalogId);
 		return productReleaseService.queryByExemple(t, dgm);
 	}
+	
+	/**
+	 * 按语言查询新闻动态
+	 * @param language
+	 * @param dgm
+	 * @return
+	 */
+	@RequestMapping(value="query/news/{language}")
+	public @ResponseBody JsonPage<News> queryNewsByLanguage(@PathVariable String language, DataGridModel dgm){
+		News sample=new News();
+		sample.setLanguage(language);
+		sample.setStatus(Constants.STATUS_VALID);
+		return newsService.queryByExemple(sample, dgm);
+	}
+	
 }

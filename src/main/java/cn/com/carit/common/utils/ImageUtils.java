@@ -9,7 +9,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.sun.image.codec.jpeg.ImageFormatException;
 import com.sun.image.codec.jpeg.JPEGCodec;
@@ -20,7 +21,7 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
  * 2012-7-11
  */
 public class ImageUtils {
-	protected final Logger logger = Logger.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	private Image srcImage = null;
 	private File srcFile = null;
 	private File destFile = null;

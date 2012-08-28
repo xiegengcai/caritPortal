@@ -5,23 +5,10 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<%@ include file="/WEB-INF/jsp/commons/easyui.jsp"%>
-		<script type="text/javascript" src="${ctx}/resources/public/scripts/utils.js?v=1.0" ></script>
-		<script type="text/javascript" src="${ctx}/resources/public/scripts/common.js?v=1.0" ></script>
+		<script type="text/javascript" src="${ctx}/resources/public/scripts/utils.js?v1.0" ></script>
+		<script type="text/javascript" src="${ctx}/resources/public/scripts/common.js?v1.0" ></script>
 		<script type="text/javascript">
-		var types=[{'code':'0','value':'图片'}, {'code':'1','value':'视频'}, {'code':'2','value':'Flash'}];
 		$(function(){
-			$('#type').combobox({
-				data:types,
-				editable:false,
-				valueField:'code',
-				textField:'value'
-			});
-			$('#type_edit').combobox({
-				data:types,
-				editable:false,
-				valueField:'code',
-				textField:'value'
-			});
 			$('#status').combobox({
 				data:statusList,
 				editable:false,
@@ -45,22 +32,17 @@
 							$(this).val($(this).combobox('getText'));
 						});
 						var b=true;
+						if($('#top_edit').combobox('getValue')==1 && $('#href_edit').val()==''){
+							b=false;
+							$.messager.alert('提示', '置顶类型需输入链接路径', 'info');
+						}
 						var fileText=$('#fileText').val();
 						if(fileText==''||fileText==null||fileText==undefined){
 							b=false;
 							$.messager.alert('错误', "请选取文件", 'error');
-						}else{
-							var type=$('#type_edit').combobox('getValue');
-							if(type==0 && !chkFileType(fileText,'jpg|jpeg|png|gif')){
-								b=false;
-								$.messager.alert('提示', "选定的类别是图片，请选择 jpg|jpeg|png|gif 类型的文件", 'info');
-							} else if(type==1 && !chkFileType(fileText,'avi|wmv|mp4|avi|flv')){
-								b=false;
-								$.messager.alert('提示', "选定的类别是视频，请选择 avi|wmv|mp4|avi|flv 类型的文件", 'info');
-							} else if(type==2 && !chkFileType(fileText,'swf')){
-								b=false;
-								$.messager.alert('提示', "选定的类别是Flash，请选择 swf 类型的文件", 'info');
-							}
+						}else if(!chkFileType(fileText,'jpg|jpeg|png|gif')){
+							b=false;
+							$.messager.alert('提示', "选定的类别是图片，请选择 jpg|jpeg|png|gif 类型的文件", 'info');
 						}
 						if(!b){return b;}
 						b=$(this).form('validate');
@@ -71,9 +53,10 @@
 				    }, 
 			    	success:function(data){
 			    		$.messager.progress('close');
-			    		if(data==-1){
+			    		var map=$.parseJSON(data);
+			    		if(map.answerCode==-1){
 							$.messager.alert('错误', "编辑失败", 'error');
-			    		} else if(data>0){
+			    		} else if(map.answerCode>0){
 							$.messager.alert('成功', "编辑成功", 'info');
 				        	$('#editWin').window('close');
 				        	// update rows
@@ -100,7 +83,8 @@
 				$('#editWin').window('open');
 				// init data
 				$('#name_edit').val(m.name);
-				$('#type_edit').combobox('setValue',m.type);
+				$('#top_edit').combobox('setValue',m.top);
+				$('#href_edit').val(m.href);
 				$('#fileText').val(m.url);
 				$('#status_edit').combobox('setValue',m.status);
 				$('#remark_edit').val(m.remark);
@@ -112,16 +96,6 @@
 					msg : '请先选择要修改的记录。'
 				});
 			}
-		}
-		function typeFormatter(v){
-			var result='-';
-			$.each(types, function(key,val) {
-				if(v==val.code){
-					result=val.value;
-					return false;
-				}
-			});
-			return result;
 		}
 		</script>
 		<style>
@@ -149,10 +123,13 @@
 						<form:input path="url"/>
 					</td>
 					<td>
-						<form:label for="type" path="type">类别：</form:label>
+						<form:label for="top" path="top">置顶：</form:label>
 					</td>
 					<td>
-						<form:input path="type" />
+						<form:select path="top" cssClass="easyui-validatebox easyui-combobox" >
+							<form:option value="0">-</form:option>
+							<form:option value="1">置顶</form:option>
+						</form:select>
 					</td>
 					<td>
 						<form:label for="status" path="status">状态：</form:label>
@@ -176,10 +153,10 @@
 					<tr>
 						<th field="name" width="100" align="center">名称</th>
 						<th field="url" width="100" align="center">媒体路径</th>
-						<th field="type" width="100" align="center" formatter="typeFormatter">类别</th>
+						<th field="top" width="60" align="center" formatter="topFormatter">置顶</th>
+						<th field="href" width="120" align="center">链接</th>
 						<th field="status" width="60" align="center" formatter="statusFormatter">状态</th>
 						<th field="remark" width="150" align="center">备注</th>
-						<th field="createTime" width="90" align="center">创建时间</th>
 						<th field="updateTime" width="90" align="center">更新时间</th>
 					</tr>
 				</thead>
@@ -193,8 +170,17 @@
 						<td><form:input path="name" id="name_edit" required="true" validType="length[3,100]" class="easyui-validatebox"/></td>
 					</tr>
 					<tr>
-						<td><form:label	for="type" path="type" cssClass="mustInput">类别：</form:label></td>
-						<td><form:input path="type" id="type_edit" required="true" class="easyui-validatebox" cssStyle="width:255px;"/></td>
+						<td><form:label	for="top" path="top" cssClass="mustInput">置顶：</form:label></td>
+						<td>
+							<form:select path="top" id="top_edit" cssClass="easyui-validatebox easyui-combobox" required="true" cssStyle="width:255px">
+								<form:option value="0">-</form:option>
+								<form:option value="1">置顶</form:option>
+							</form:select>
+						</td>
+					</tr>
+					<tr>
+						<td><form:label	for="href" path="href">链接：</form:label></td>
+						<td><form:input path="href" id="href_edit" class="easyui-validatebox" validType="url"/></td>
 					</tr>
 					<tr>
 						<td><form:label	for="url" path="url" cssClass="mustInput">文件：</form:label></td>

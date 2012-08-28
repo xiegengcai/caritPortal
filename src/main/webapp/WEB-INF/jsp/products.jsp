@@ -44,30 +44,33 @@
 				<section class="box" style="margin: 0 auto">
 					<div class="ym-grid">
 						<div class="ym-grid ym-gl">
-	
 							<div class="ym-grid">
 								<div class="ym-g18 ym-gl catalog-container">
-									<h3><spring:message code="title.catalog"/></h3>
+									<h3>
+										<spring:message code="title.catalog" />
+									</h3>
 									<ul id="catalog-container">
-									<c:forEach items="${catalogList}" var="catalog"><li id="${catalog.id}"><spring:message code="Catalog.${catalog.catalogCode}"/></li></c:forEach>
+										<c:forEach items="${catalogList}" var="catalog">
+											<li id="${catalog.id}"><spring:message
+													code="Catalog.${catalog.catalogCode}" /></li>
+										</c:forEach>
 									</ul>
 								</div>
 								<div class="ym-g81 ym-gl products-list">
 									<div>
-									<h3 id="catalog_title"></h3>
-									<ul id="products-list">
-										<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
-										<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
-										<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
-										<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
-									</ul>
+										<h3 id="catalog_title"></h3>
+										<ul id="products-list">
+											<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
+											<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
+											<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
+											<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
+										</ul>
+									</div>
 								</div>
 							</div>
-	
 						</div>
 					</div>
 				</section>
-	
 			</div>
 		</div>
 	</div>

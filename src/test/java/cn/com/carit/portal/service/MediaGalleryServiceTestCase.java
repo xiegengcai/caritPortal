@@ -20,7 +20,7 @@ public class MediaGalleryServiceTestCase extends BaseTestCase<MediaGallery>{
 		t.setRemark("测试");
 		t.setUrl("5555555555");
 		t.setStatus(1);
-		t.setType(1);
+		t.setTop(1);
 		service.saveOrUpdate(t);
 		
 		t.setRemark("");
@@ -55,7 +55,7 @@ public class MediaGalleryServiceTestCase extends BaseTestCase<MediaGallery>{
 		t.setName("测试");
 		t.setRemark("测试");
 		t.setStatus(1);
-		t.setType(1);
+		t.setTop(1);
 		System.out.println(service.queryByExemple(t, new DataGridModel()));
 		System.out.println(service.queryByExemple(t));
 	}

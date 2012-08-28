@@ -5,8 +5,8 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<%@ include file="/WEB-INF/jsp/commons/easyui.jsp"%>
-		<script type="text/javascript" src="${ctx}/resources/public/scripts/utils.js?v=1.0" ></script>
-		<script type="text/javascript" src="${ctx}/resources/public/scripts/common.js?v=1.0" ></script>
+		<script type="text/javascript" src="${ctx}/resources/public/scripts/utils.js?v1.0" ></script>
+		<script type="text/javascript" src="${ctx}/resources/public/scripts/common.js?v1.0" ></script>
 		<script type="text/javascript">
 		$(function(){
 			$('#isoCode').combobox({

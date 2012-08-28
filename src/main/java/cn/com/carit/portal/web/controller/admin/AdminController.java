@@ -7,7 +7,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,7 @@ import cn.com.carit.portal.web.CacheManager;
 @Controller
 public class AdminController {
 	
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log=LoggerFactory.getLogger(getClass());
 	
 	@Resource
 	private AdminUserService<AdminUser> adminUserService;
@@ -122,8 +123,7 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value="back/config/languages", method=RequestMethod.GET)
-	@ResponseBody
-	public List<Map<String, String>> queryAllConfigLanguage(){
+	public @ResponseBody List<Map<String, String>> queryAllConfigLanguage(){
 		return LanguageConfig.getInstance().getConfigLanguages();
 	}
 	
@@ -169,7 +169,7 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value="back/query/support/languages", method=RequestMethod.GET)
-	public List<SupportLanguage> querySupportLanguages(){
+	public @ResponseBody List<SupportLanguage> querySupportLanguages(){
 		return CacheManager.getInstance().getSupportLanguages();
 	}
 	

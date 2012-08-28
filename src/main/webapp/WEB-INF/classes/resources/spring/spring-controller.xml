@@ -19,11 +19,11 @@
 		<property name="interceptors">
 			<list>
 				<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
-				<bean class="cn.com.carit.portal.web.interseptor.AdminInterceptor"/>
+				<bean class="cn.com.carit.portal.web.interseptor.AdminInterceptor" />
 			</list>
 		</property>
 	</bean>
-	<!-- 配置一个基于注解的定制的WebBindingInitializer，解决日期转换问题，方法级别的处理器映射， 有人说该bean要放在context:component-scan前面，要不然不起作用，但我试的放后面也可以啊。 
+	<!-- 配置一个基于注解的定制的WebBindingInitializer，解决日期转换问题，方法级别的处理器映射 
 		配置SpringMVC @ResponseBody和@RequestBody注解 -->
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
@@ -33,13 +33,16 @@
 		</property>
 		<property name="messageConverters">
 			<list>
-				<ref bean="jsonHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/plain;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
 			</list>
 		</property>
-	</bean>
-
-	<bean id="jsonHttpMessageConverter"
-		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
 	</bean>
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
@@ -58,8 +61,8 @@
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basename" value="WEB-INF/classes/resources/local/messages" />
 		<property name="defaultEncoding" value="UTF-8" />
-		<!--① 刷新资源文件的周期，以秒为单位-->  
-   		<property name="cacheSeconds" value="5"/> 
+		<!--① 刷新资源文件的周期，以秒为单位 -->
+		<property name="cacheSeconds" value="5" />
 	</bean>
 
 	<!-- Resolves view names to protected .jsp resources within the /WEB-INF/views 

@@ -23,11 +23,11 @@
 								</div>
 								<div class="ym-g55 ym-gl">
 									<div class="contact-us">
-									<h3><spring:message code="title.contact.us"/></h3>
-									<h4><spring:message code="title.address"/><spring:message code="global.address"/></h4>
-									<h4><spring:message code="title.telephone"/><spring:message code="global.telephone"/></h4>
-									<h4><spring:message code="title.fax"/><spring:message code="global.fax"/></h4>
-									<h4><spring:message code="title.postcode"/><spring:message code="global.postcode"/></h4>
+									<h3><spring:message code="title.contact_us"/></h3>
+									<h4><spring:message code="title.address"/><spring:message code="global.contact_us.address"/></h4>
+									<h4><spring:message code="title.telephone"/><spring:message code="global.contact_us.telephone"/></h4>
+									<h4><spring:message code="title.fax"/><spring:message code="global.contact_us.fax"/></h4>
+									<h4><spring:message code="title.postcode"/><spring:message code="global.contact_us.postcode"/></h4>
 									</div>
 								</div>
 							</div>

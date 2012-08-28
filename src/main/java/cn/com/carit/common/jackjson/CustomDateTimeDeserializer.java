@@ -5,11 +5,12 @@ import java.text.ParseException;
 import java.util.Date;
 
 import org.apache.commons.lang.time.DateUtils;
-import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cn.com.carit.common.Constants;
 
@@ -26,7 +27,7 @@ import cn.com.carit.common.Constants;
  *
  */
 public class CustomDateTimeDeserializer extends JsonDeserializer<Date> {
-	private final Logger logger = Logger.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Override
 	public Date deserialize(JsonParser parser, DeserializationContext arg1) throws IOException, JsonProcessingException {

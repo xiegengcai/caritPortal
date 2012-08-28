@@ -29,13 +29,7 @@ public class MediaGalleryServiceImpl implements
 		if (t.getId()>0) {
 			if (StringUtils.hasText(t.getUrl())) {
 				MediaGallery old=mediaGalleryDao.queryById(t.getId());
-				if (old.getType()==MediaGallery.TYPE_IMAGE) {
-					AttachmentUtil.deleteImage(old.getUrl());
-				} else if (old.getType()==MediaGallery.TYPE_VIDEO) {
-					AttachmentUtil.deleteVideo(old.getUrl());
-				} else if (old.getType()==MediaGallery.TYPE_FLASH) {
-					AttachmentUtil.deleteFlash(old.getUrl());
-				}
+				AttachmentUtil.deleteImage(old.getUrl());
 			}
 			return mediaGalleryDao.update(t);
 		} else {
@@ -50,13 +44,7 @@ public class MediaGalleryServiceImpl implements
 			throw new IllegalArgumentException("id must be bigger than 0...");
 		}
 		MediaGallery old=mediaGalleryDao.queryById(id);
-		if (old.getType()==MediaGallery.TYPE_IMAGE) {
-			AttachmentUtil.deleteImage(old.getUrl());
-		} else if (old.getType()==MediaGallery.TYPE_VIDEO) {
-			AttachmentUtil.deleteVideo(old.getUrl());
-		} else if (old.getType()==MediaGallery.TYPE_FLASH) {
-			AttachmentUtil.deleteFlash(old.getUrl());
-		}
+		AttachmentUtil.deleteImage(old.getUrl());
 		return mediaGalleryDao.delete(id);
 	}
 	

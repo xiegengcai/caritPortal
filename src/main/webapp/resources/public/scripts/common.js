@@ -1,8 +1,9 @@
 var app={name:''};
 var winTitle;
-var catalogs;
+var catalogs=[];
 var genderList=[{'code':0, 'value':'女'},{'code':1, 'value':'男'},{'code':2, 'value':'保密'}];
-var statusList=[{'code':0, 'value':'停用'},{'code':1, 'value':'启用'}]
+var statusList=[{'code':0, 'value':'停用'},{'code':1, 'value':'启用'}];
+var types=[{'code':'0','value':'图片'}, {'code':'1','value':'视频'}, {'code':'2','value':'Flash'}];
 var languages; // 所有语言
 var supportLanguages; // 已经支持的语言
 // 扩展
@@ -25,7 +26,6 @@ $.extend($.fn.validatebox.defaults.rules, {
 	},message:'重复！请修正此值'}
 });
 var KE=KindEditor;
-
 var simpleEditer=function(name){
 	return KE.create('textarea[name="'+name+'"]', {
 		resizeType : 1,
@@ -55,7 +55,9 @@ $(function (){
 		}
 	});
 	$.ajaxSettings.async=true;
-	winTitle=$('#editWin').window('options').title;
+	if($('#editWin').html()){
+		winTitle=$('#editWin').window('options').title;
+	}
 	// 初始化
 	$('#tt').datagrid({
 		width:'100%',
@@ -151,7 +153,7 @@ $(function (){
 		    }
 		}).submit();
 	});
-	$('#edit_reset').bind('click',function(){
+	$('#edit_reset').click(function(){
 		$('#editForm').form('clear');
 	});
 	$('#editWin').window({onClose:function(){
@@ -206,10 +208,23 @@ function getIds(){
 	});
 	return ids.join();
 }
-
+function topFormatter(v){
+	if(v==1){return '置顶'}else{return '-'}
+}
 function statusFormatter(v){
 	var result='-';
 	$.each(statusList, function(key,val) {
+		if(v==val.code){
+			result=val.value;
+			return false;
+		}
+	});
+	return result;
+}
+
+function typeFormatter(v){
+	var result='-';
+	$.each(types, function(key,val) {
 		if(v==val.code){
 			result=val.value;
 			return false;
@@ -244,7 +259,7 @@ function catalogFormatter(v){
 	var result='-';
 	$.each(catalogs, function(key,val) {
 		if(v==val.id){
-			result=val.name;
+			result=val.description;
 			return false;
 		}
 	});
@@ -264,22 +279,6 @@ function checkExisted(item,url){
 	});
 }
 
-//获得字符串长度
-function getStrLen(str){
-	if(str == null || str == ''){
-		return 0;
-	}
-	var len = 0;
-	var reg = new RegExp("^[\\u4e00-\\u9fa5]+$", "");
-	for(var i=0;i<str.length;i++){
-		if(reg.test(str.charAt(i))){//中文字符
-			len=len+2;
-		}else{
-			len++;
-		}
-	}
-	return len;
-}
 /**
  * 校验上传文件后缀类型是否匹配
  * @param name 文件名

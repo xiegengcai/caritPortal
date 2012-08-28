@@ -9,7 +9,8 @@ import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 使用java.security.MessageDigest类写的一个工具类用来获取MD5码
@@ -18,7 +19,9 @@ import org.apache.log4j.Logger;
  * @see java.security.MessageDigest
  */
 public class MD5Util {
-	private static final Logger logger = Logger.getLogger(MD5Util.class);
+	
+	private static final Logger logger = LoggerFactory.getLogger(MD5Util.class);
+	
 	/**
 	 * 干扰串
 	 */

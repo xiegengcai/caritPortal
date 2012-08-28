@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 打为jar包后也能找到配置文件，并以流的方式读取。 InputStream is =
@@ -15,7 +16,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class ClassLoaderUtil {
-	private static final Logger logger = Logger.getLogger(ClassLoaderUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(ClassLoaderUtil.class);
 	public static URL getResource(String resourceName, Class<?> callingClass) {
 		URL url = Thread.currentThread().getContextClassLoader().getResource(resourceName);
 		if (url == null) {

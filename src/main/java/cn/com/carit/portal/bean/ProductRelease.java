@@ -1,6 +1,8 @@
 package cn.com.carit.portal.bean;
 
 public class ProductRelease extends BaseBean {
+	
+	public static final int TOP=1;
 
 	private Integer catalogId;
 	private String language;

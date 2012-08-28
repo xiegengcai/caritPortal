@@ -78,6 +78,6 @@ public class ProductReleaseServiceTestCase extends BaseTestCase<ProductRelease> 
 	
 	@Test
 	public void queryTopProductRelease(){
-		System.out.println(service.queryTopProductRelease("cn", 5));
+		System.out.println(service.queryTopProductRelease("en", 5));
 	}
 }

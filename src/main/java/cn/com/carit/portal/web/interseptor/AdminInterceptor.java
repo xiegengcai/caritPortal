@@ -3,7 +3,8 @@ package cn.com.carit.portal.web.interseptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import cn.com.carit.common.Constants;
@@ -17,7 +18,7 @@ import cn.com.carit.portal.bean.AdminUser;
  */
 public class AdminInterceptor extends HandlerInterceptorAdapter{
 	
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log=LoggerFactory.getLogger(getClass());
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {

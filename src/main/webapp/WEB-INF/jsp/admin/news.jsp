@@ -5,8 +5,8 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<%@ include file="/WEB-INF/jsp/commons/easyui.jsp"%>
-		<script type="text/javascript" src="${ctx}/resources/public/scripts/utils.js?v=1.0" ></script>
-		<script type="text/javascript" src="${ctx}/resources/public/scripts/common.js?v=1.0" ></script>
+		<script type="text/javascript" src="${ctx}/resources/public/scripts/utils.js?v1.0" ></script>
+		<script type="text/javascript" src="${ctx}/resources/public/scripts/common.js?v1.0" ></script>
 		<script type="text/javascript">
 		var types=[{'code':'0','value':'公司新闻'}, {'code':'1','value':'业界动态'}];
 		var contentEditer;
@@ -15,14 +15,14 @@
 			$('#language').combobox({
 				data:supportLanguages,
 				editable:false,
-				valueField:'code',
-				textField:'value'
+				valueField:'id',
+				textField:'name'
 			});
 			$('#language_edit').combobox({
 				data:supportLanguages,
 				editable:false,
-				valueField:'code',
-				textField:'value'
+				valueField:'id',
+				textField:'name'
 			});
 			$('#type').combobox({
 				data:types,

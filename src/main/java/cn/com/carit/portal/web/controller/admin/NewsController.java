@@ -2,7 +2,8 @@ package cn.com.carit.portal.web.controller.admin;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -22,7 +23,7 @@ import cn.com.carit.portal.service.NewsService;
 @RequestMapping(value="admin/news")
 public class NewsController {
 	
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log=LoggerFactory.getLogger(getClass());
 	
 	@Resource
 	private NewsService<News> service;

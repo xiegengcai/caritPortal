@@ -6,7 +6,8 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -20,7 +21,8 @@ import cn.com.carit.portal.dao.MediaGalleryDao;
 public class MediaGalleryDaoImpl extends BaseDaoImpl
 	implements MediaGalleryDao<MediaGallery>{
 	
-	private final Logger log=Logger.getLogger(getClass());
+	private final Logger log=LoggerFactory.getLogger(getClass());
+	
 	
 	private final RowMapper<MediaGallery> rowMapper=new RowMapper<MediaGallery>() {
 		
@@ -30,8 +32,9 @@ public class MediaGalleryDaoImpl extends BaseDaoImpl
 			t.setId(rs.getInt("id"));
 			t.setName(rs.getString("name"));
 			t.setUrl(rs.getString("url"));
-			t.setType(rs.getInt("type"));
+			t.setTop(rs.getInt("top"));
 			t.setRemark(rs.getString("remark"));
+			t.setHref(rs.getString("href"));
 			t.setStatus(rs.getInt("status"));
 			t.setUpdateTime(rs.getTimestamp("update_time"));
 			t.setCreateTime(rs.getTimestamp("create_time"));
@@ -41,17 +44,18 @@ public class MediaGalleryDaoImpl extends BaseDaoImpl
 
 	@Override
 	public int add(MediaGallery t) {
-		String sql="insert into t_media_gallery (url, name, type, remark"
-				+ ", status, create_time, update_time)"
-				+ " values(?, ?, ?, ?, ?, now(), now())";
+		String sql="insert into t_media_gallery (url, name, top, remark"
+				+ ", href, status, create_time, update_time)"
+				+ " values(?, ?, ?, ?, ?, ?, now(), now())";
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("\n%1$s\n", sql));
 		}
 		return jdbcTemplate.update(sql
 				, t.getUrl()
 				, t.getName()
-				, t.getType()
+				, t.getTop()
 				, t.getRemark()
+				, t.getHref()
 				, t.getStatus()
 			);
 	}
@@ -68,13 +72,17 @@ public class MediaGalleryDaoImpl extends BaseDaoImpl
 			sql.append(", name=?");
 			val.add(t.getName());
 		}
-		if (t.getType()!=null) {
-			sql.append(", type=?");
-			val.add(t.getType());
+		if (t.getTop()!=null) {
+			sql.append(", top=?");
+			val.add(t.getTop());
 		}
 		if (StringUtils.hasText(t.getRemark())) {
 			sql.append(", remark=?");
 			val.add(t.getRemark());
+		}
+		if (StringUtils.hasText(t.getHref())) {
+			sql.append(", href=?");
+			val.add(t.getHref());
 		}
 		if (t.getStatus()!=null) {
 			sql.append(", status=?");
@@ -191,14 +199,19 @@ public class MediaGalleryDaoImpl extends BaseDaoImpl
 			args.add(t.getName());
 			argTypes.add(Types.VARCHAR);
 		}
-		if (t.getType()!=null) {
-			sql.append(" and type=?");
-			args.add(t.getType());
+		if (t.getTop()!=null) {
+			sql.append(" and top=?");
+			args.add(t.getTop());
 			argTypes.add(Types.INTEGER);
 		}
 		if (StringUtils.hasText(t.getRemark())) {
 			sql.append(" and remark like CONCAT('%',?,'%')");
 			args.add(t.getRemark());
+			argTypes.add(Types.VARCHAR);
+		}
+		if (StringUtils.hasText(t.getHref())) {
+			sql.append(", href like CONCAT('%',?,'%')");
+			args.add(t.getHref());
 			argTypes.add(Types.VARCHAR);
 		}
 		if (t.getStatus()!=null) {
