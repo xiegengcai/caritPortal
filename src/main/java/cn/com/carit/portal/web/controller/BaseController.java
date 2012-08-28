@@ -65,5 +65,6 @@ public class BaseController {
 		getRequest().setAttribute("language", language);
 		// 设置菜单列表
 		getRequest().setAttribute("menuTree", CacheManager.getInstance().getMenuTree());
+		getRequest().setAttribute("supportLanguages", CacheManager.getInstance().getSupportLanguages());
 	}
 }

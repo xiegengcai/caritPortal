@@ -7,8 +7,16 @@
 </ul>
 <header>
 	<div class="ym-wrapper">
-		<div class="ym-wbox">
-			<h1>Project Name</h1>
+		<div class="ym-wbox header-top">
+			<img alt="" src="/resources/public/images/logo.png">
+			<div class="language">
+			<label><spring:message code="title.language"/></label>
+			<select id="language" onchange="location.href='${ctx}/'+this.value;">
+				<c:forEach items="${supportLanguages}" var="lan">
+				<option value="${lan.isoCode}" <c:if test="${language eq lan.isoCode}">selected="selected"</c:if>>${lan.name}</option>
+				</c:forEach>
+			</select>
+			</div>
 		</div>
 	</div>
 </header>

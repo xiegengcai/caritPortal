@@ -7,7 +7,7 @@
     </head>
     <body>
     	<jsp:include page="/WEB-INF/jsp/commons/header.jsp" flush="true">
-    		<jsp:param value="4" name="menuIndex"/>
+    		<jsp:param value="5" name="menuIndex"/>
     	</jsp:include>
         <div id="main">
 		<div class="ym-wrapper">

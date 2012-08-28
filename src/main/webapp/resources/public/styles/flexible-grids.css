@@ -29,6 +29,10 @@
 @import url(../../yaml/print/print.css);
 
 p{text-indent: 1.5em;}
+
+.header-top{margin: 0 auto !important; padding: 0 !important;}
+.header-top img{float: left;}
+.header-top .language{float: right;margin-top: 60px; margin-right: 20px;}
 .slides-container {
 	margin:0 auto;
 	text-align:center;

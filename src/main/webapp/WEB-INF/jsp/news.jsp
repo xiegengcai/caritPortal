@@ -12,7 +12,7 @@
         <div id="main">
 		<div class="ym-wrapper">
 			<div class="ym-wbox">
-				<div class="ym-grid current-position"><a href="/${language}"><spring:message code="Menu.home"/></a> - <spring:message code="title.latest.news"/></div>
+				<div class="ym-grid current-position"><a href="/${language}"><spring:message code="Menu.home"/></a> - <spring:message code="Menu.news"/></div>
 				<section class="box" style="margin: 0 auto">
 					<div class="ym-grid">
 						<div class="ym-grid ym-gl">

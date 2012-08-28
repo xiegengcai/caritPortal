@@ -37,7 +37,7 @@
 											<li><a href="#">${news.title}</a><div class="content">${news.content}</div></li>
 										</c:forEach>
 										</ul>
-										<a class="ym-button ym-next" href="#"><spring:message code="botton.read.more"/></a> </div>
+										<a class="ym-button ym-next" href="${ctx}/${language}/news_list"><spring:message code="botton.read.more"/></a> </div>
 								</article>
 								<article class="ym-g45 ym-gl">
 									<div class="ym-gbox">
