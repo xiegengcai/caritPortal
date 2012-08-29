@@ -5,6 +5,8 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,12 +60,10 @@ public class CommonController {
 	 * @param dgm
 	 * @return
 	 */
-	@RequestMapping(value="query/news/{language}")
-	public @ResponseBody JsonPage<News> queryNewsByLanguage(@PathVariable String language, DataGridModel dgm){
-		News sample=new News();
-		sample.setLanguage(language);
-		sample.setStatus(Constants.STATUS_VALID);
-		return newsService.queryByExemple(sample, dgm);
+	@RequestMapping(value="query/news")
+	public @ResponseBody JsonPage<News> queryNewsByLanguage(@ModelAttribute(value="news") News t, BindingResult result, DataGridModel dgm){
+		t.setStatus(Constants.STATUS_VALID);
+		return newsService.queryByExemple(t, dgm);
 	}
 	
 }

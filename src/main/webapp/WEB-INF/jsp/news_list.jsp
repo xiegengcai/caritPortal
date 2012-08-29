@@ -5,14 +5,14 @@
     <head>
        <%@ include file="/WEB-INF/jsp/commons/meta.jsp"%>
        <script type="text/javascript">
-       var baseUrl=app.name+'/common/query/news/${language}';
+       var baseUrl=app.name+'/common/query/news?language=${language}';
        var url;
        $(function (){
     	   $('#catalog-container li').each(function(i){
     		   $(this).click(function(){
 	    		   $('#catalog-container li').removeClass('curr').eq(i).addClass('curr');
 	    		   $('#catalog_title').html($(this).html());
-	    		   url=baseUrl+'/'+this.id;
+	    		   url=baseUrl+'&type='+this.id;
 	    		   doPage(1);
     		   });
     	   });
@@ -20,14 +20,18 @@
        });
        
        function doPage(page){
-    	   $.getJSON(url+'?page='+page+'&rows=100', function(data) {
+    	   $.getJSON(url+'&page='+page+'&rows=12', function(data) {
 				if(data.rows){
 					var html='';
 					$.each(data.rows, function(i,o){
-						html+='<li><a href="#"><img src="'+o.thumb+'"/></a><a href="#"><span>'+o.title+'</span></a></li>';
+						html+='<li><a href="${ctx}/${language}/news/'+o.id+'">'+o.title+'</a><span>'+o.createTime+'</span></li>';
 					});
-					$('#products-list').html(html);
-					//pagination(page, data.totalPage);
+					$('#news-list').html(html);
+					if(data.totalPage>1){
+						pagination(page, data.totalPage);
+					} else {
+						$('#pageDiv').empty();
+					}
 				}
 			});
        }
@@ -54,16 +58,26 @@
 										<li id="1"><spring:message code="title.industry.news" /></li>
 									</ul>
 								</div>
-								<div class="ym-g81 ym-gl products-list">
+								<div class="ym-g81 ym-gl news-list">
 									<div>
 										<h3 id="catalog_title"></h3>
-										<ul id="products-list">
-											<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
-											<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
-											<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
-											<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
+										<div class="news-list-title"><label><spring:message code="title.news.title" /></label><span><spring:message code="title.news.date" /></span></div>
+										<ul id="news-list">
+											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
+											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
+											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
+											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
+											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
+											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
+											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
+											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
+											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
+											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
+											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
+											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
 										</ul>
 									</div>
+									<div id="pageDiv" class="ym-g90 ym-gl"><label class="cruLabel"><span class="selected">1</span><span onclick="doPage(2)">2</span><span onclick="doPage(3)">3</span><span onclick="doPage(4)">4</span></label></div>
 								</div>
 							</div>
 						</div>

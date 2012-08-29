@@ -20,14 +20,18 @@
        });
        
        function doPage(page){
-    	   $.getJSON(url+'?page='+page+'&rows=100', function(data) {
+    	   $.getJSON(url+'?page='+page+'&rows=12', function(data) {
 				if(data.rows){
 					var html='';
 					$.each(data.rows, function(i,o){
 						html+='<li><a href="#"><img src="'+o.thumb+'"/></a><a href="#"><span>'+o.title+'</span></a></li>';
 					});
 					$('#products-list').html(html);
-					//pagination(page, data.totalPage);
+					if(data.totalPage>1){
+						pagination(page, data.totalPage);
+					} else {
+						$('#pageDiv').empty();
+					}
 				}
 			});
        }
@@ -66,6 +70,7 @@
 											<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
 										</ul>
 									</div>
+									<div id="pageDiv" class="ym-g90 ym-gl"></div>
 								</div>
 							</div>
 						</div>

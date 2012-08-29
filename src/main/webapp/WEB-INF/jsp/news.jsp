@@ -7,7 +7,7 @@
     </head>
     <body>
     	<jsp:include page="/WEB-INF/jsp/commons/header.jsp" flush="true">
-    		<jsp:param value="5" name="menuIndex"/>
+    		<jsp:param value="3" name="menuIndex"/>
     	</jsp:include>
         <div id="main">
 		<div class="ym-wrapper">
@@ -17,10 +17,6 @@
 					<div class="ym-grid">
 						<div class="ym-grid ym-gl">
 
-							<div class="ym-grid">
-								<div class="ym-g18 ym-gl"></div>
-								<div class="ym-g81 ym-gl"></div>
-							</div>
 						</div>
 					</div>
 				</section>

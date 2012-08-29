@@ -182,7 +182,7 @@ public class NewsDaoImpl extends BaseDaoImpl implements NewsDao<News> {
 			argTypes.add(Types.INTEGER);
 		}
 		if (StringUtils.hasText(t.getLanguage())) {
-			sql.append(" and language like CONCAT('%',?,'%')");
+			sql.append(" and language=?");
 			args.add(t.getLanguage());
 			argTypes.add(Types.VARCHAR);
 		}

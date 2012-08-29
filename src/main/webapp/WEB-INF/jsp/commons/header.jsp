@@ -9,13 +9,19 @@
 	<div class="ym-wrapper">
 		<div class="ym-wbox header-top">
 			<img alt="" src="/resources/public/images/logo.png">
-			<div class="language">
-			<label><spring:message code="title.language"/></label>
-			<select id="language" onchange="location.href='${ctx}/'+this.value;">
-				<c:forEach items="${supportLanguages}" var="lan">
-				<option value="${lan.isoCode}" <c:if test="${language eq lan.isoCode}">selected="selected"</c:if>>${lan.name}</option>
-				</c:forEach>
-			</select>
+			<div class="top-right">
+				<form class="ym-searchform">
+					<input class="ym-searchfield" type="search" placeholder="Search..." />
+					<input class="ym-searchbutton" type="submit" value="" />
+				</form>
+				<div class="language">
+				<label><spring:message code="title.language"/></label>
+				<select id="language" onchange="location.href='${ctx}/'+this.value;">
+					<c:forEach items="${supportLanguages}" var="lan">
+					<option value="${lan.isoCode}" <c:if test="${language eq lan.isoCode}">selected="selected"</c:if>><spring:message code="language.support.${lan.isoCode}"/></option>
+					</c:forEach>
+				</select>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -31,10 +37,12 @@
 				</c:choose>
 			</c:forEach>
 			</ul>
+			<!-- 
 			<form class="ym-searchform">
 				<input class="ym-searchfield" type="search" placeholder="Search..." />
 				<input class="ym-searchbutton" type="submit" value="Search" />
 			</form>
+			 -->
 		</div>
 	</div>
 </nav>

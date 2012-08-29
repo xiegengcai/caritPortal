@@ -109,7 +109,7 @@ public class IndexController extends BaseController{
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/{language}/news", method=RequestMethod.GET)
+	@RequestMapping(value="/{language}/news/{id}", method=RequestMethod.GET)
 	public String news(@PathVariable String language, @PathVariable int id){
 		defaultAttribute(language);
 		addAttribute("news", newsService.queryById(id), false);
