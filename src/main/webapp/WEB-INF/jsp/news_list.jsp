@@ -16,17 +16,23 @@
 	    		   doPage(1);
     		   });
     	   });
-    	   $('#catalog-container li:first').click();
+    	   if('${param.type}'){
+    		   $('#catalog-container li').eq('${param.type}').click();
+    	   }else{
+	    	   $('#catalog-container li:first').click();
+    	   }
        });
        
        function doPage(page){
-    	   $.getJSON(url+'&page='+page+'&rows=12', function(data) {
+    	   $.getJSON(url+'&page='+page+'&rows=10', function(data) {
 				if(data.rows){
-					var html='';
+					$('#news-list').empty();
 					$.each(data.rows, function(i,o){
-						html+='<li><a href="${ctx}/${language}/news/'+o.id+'">'+o.title+'</a><span>'+o.createTime+'</span></li>';
+						var $li=$('<li><span>'+o.createTime+'</span><label>'+o.title+'</label><a href="${ctx}/${language}/news/'+o.id+'"><spring:message code="title.read.more"/></a></li>').click(function(){
+							location.href='${ctx}/${language}/news/'+o.id;
+						});
+						$('#news-list').append($li);
 					});
-					$('#news-list').html(html);
 					if(data.totalPage>1){
 						pagination(page, data.totalPage);
 					} else {
@@ -50,31 +56,27 @@
 						<div class="ym-grid ym-gl">
 							<div class="ym-grid">
 								<div class="ym-g18 ym-gl catalog-container">
-									<h3>
-										<spring:message code="title.catalog" />
-									</h3>
+									<h3><spring:message code="Menu.news"/></h3>
 									<ul id="catalog-container">
-										<li id="0"><spring:message code="title.company.news" /></li>
-										<li id="1"><spring:message code="title.industry.news" /></li>
+										<li id=""><spring:message code="title.news.all" /></li>
+										<li id="0"><spring:message code="title.news.company" /></li>
+										<li id="1"><spring:message code="title.news.industry" /></li>
 									</ul>
 								</div>
 								<div class="ym-g81 ym-gl news-list">
 									<div>
 										<h3 id="catalog_title"></h3>
-										<div class="news-list-title"><label><spring:message code="title.news.title" /></label><span><spring:message code="title.news.date" /></span></div>
 										<ul id="news-list">
-											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
-											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
-											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
-											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
-											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
-											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
-											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
-											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
-											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
-											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
-											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
-											<li><a>ttttttttttttttt</a><span>2012-08-22</span></li>
+											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
+											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
+											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
+											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
+											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
+											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
+											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
+											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
+											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
+											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
 										</ul>
 									</div>
 									<div id="pageDiv" class="ym-g90 ym-gl"><label class="cruLabel"><span class="selected">1</span><span onclick="doPage(2)">2</span><span onclick="doPage(3)">3</span><span onclick="doPage(4)">4</span></label></div>

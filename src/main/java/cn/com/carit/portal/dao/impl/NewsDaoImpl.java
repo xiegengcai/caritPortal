@@ -226,4 +226,34 @@ public class NewsDaoImpl extends BaseDaoImpl implements NewsDao<News> {
 				}, rowMapper);
 	}
 
+	@Override
+	public News queryPrevNews(String language, int type, int currentId) {
+		String sql="select * from t_news where language=? and status=? and type=? and id<? order by id desc limit 1";
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
+		List<News> list=jdbcTemplate.query(sql, new Object[]{
+				language, Constants.STATUS_VALID, type, currentId
+		}, rowMapper);
+		if (list!=null && list.size()>0) {
+			return list.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public News queryNextNews(String language, int type, int currentId) {
+		String sql="select * from t_news where language=? and status=? and type=? and id>? order by id asc limit 1";
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
+		List<News> list=jdbcTemplate.query(sql, new Object[]{
+				language, Constants.STATUS_VALID, type, currentId
+		}, rowMapper);
+		if (list!=null && list.size()>0) {
+			return list.get(0);
+		}
+		return null;
+	}
+	
 }

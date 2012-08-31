@@ -1,4 +1,4 @@
-<title><spring:message code="global.title"/>--<spring:message code="global.subTitle"/></title>
+<title><spring:message code="global.company.name"/>--<spring:message code="global.website.title"/></title>
 	<meta charset="utf-8"/>
 	<!-- Mobile viewport optimisation -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">

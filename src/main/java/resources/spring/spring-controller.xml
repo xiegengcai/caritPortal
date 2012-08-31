@@ -62,7 +62,7 @@
 		<property name="basename" value="WEB-INF/classes/resources/local/messages" />
 		<property name="defaultEncoding" value="UTF-8" />
 		<!--① 刷新资源文件的周期，以秒为单位 -->
-		<property name="cacheSeconds" value="5" />
+		<property name="cacheSeconds" value="3600" />
 	</bean>
 
 	<!-- Resolves view names to protected .jsp resources within the /WEB-INF/views 

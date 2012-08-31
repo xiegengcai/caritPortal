@@ -29,7 +29,7 @@
     		   $(this).toggleClass("on");
     		   $(this).siblings().removeAttr("class");
     	   });
-    	   t = setInterval("showAuto()", 4000);
+    	   t = setInterval("showAuto()", 3000);
     	   $("#banner").hover(function(){clearInterval(t)}, function(){t = setInterval("showAuto()", 4000);});
        });
        function showAuto(){
@@ -79,11 +79,10 @@
 									<div class="ym-gbox">
 										<h4 class="newsTitle"><spring:message code="title.hot.products"/></h4>
 										<ul class="indexNewsContainer">
-										<c:forEach items="${products}" var="p" varStatus="stat">
-											<li><a href="#">${p.title}</a><div class="content">${p.content}</div></li>
+										<c:forEach items="${products}" var="p" varStatus="stat" begin="0" end="1">
+											<li><a href="${ctx}/${language}/product/${p.id}">${p.title}</a><div class="content">${p.content}</div><img class="thumb" src="${p.thumb}"></li>
 										</c:forEach>
 										</ul>
-										<a class="ym-button ym-next" href="#"><spring:message code="botton.read.more"/></a> </div>
 								</article>
 								
 							</div>

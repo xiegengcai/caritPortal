@@ -75,7 +75,7 @@ public class LanguageConfig {
 	}
 	
 	/**
-	 * ISO语言代码<br>
+	 * 根据ISO语言代码获取地区，如果没有对应的地区配置则返回{@link Locale.US}<br>
 	 * @param languageCode
 	 * @return
 	 */

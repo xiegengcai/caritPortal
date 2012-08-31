@@ -1,7 +1,9 @@
 package cn.com.carit.portal.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -11,6 +13,7 @@ import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
 import cn.com.carit.common.Constants;
+import cn.com.carit.portal.LanguageConfig;
 import cn.com.carit.portal.bean.Catalog;
 import cn.com.carit.portal.bean.MediaGallery;
 import cn.com.carit.portal.bean.Menu;
@@ -49,6 +52,8 @@ public class CacheManager {
 	private Map<Integer, ProductRelease> allProductReleaseCache;
 	
 	private List<SupportLanguage> supportLanguages;
+	/**已支持语言地区缓存*/
+	private Map<String, Locale> supportLocaleCache;
 	
 	private List<MediaGallery> topImages;
 	
@@ -78,6 +83,7 @@ public class CacheManager {
 		allProductReleaseCache=new ConcurrentHashMap<Integer, ProductRelease>();
 		buildProductReleases();
 		
+		supportLocaleCache=new HashMap<String, Locale>();
 		refreshSupportLanguages();
 		
 		refreshMedia();
@@ -188,6 +194,11 @@ public class CacheManager {
 		SupportLanguage sample=new SupportLanguage();
 		sample.setStatus(Constants.STATUS_VALID);
 		supportLanguages=supportLanguageService.queryByExemple(sample);
+		
+		for (SupportLanguage language : supportLanguages) {
+			supportLocaleCache.put(language.getIsoCode(), 
+					LanguageConfig.getInstance().getLocale(language.getIsoCode()));
+		}
 	}
 
 	public List<SupportLanguage> getSupportLanguages() {
@@ -205,4 +216,15 @@ public class CacheManager {
 		topImages=mediaGalleryService.queryByExemple(sample);
 	}
 
+	/**
+	 * 按照ISO语言代码获取已经支持的语言国家/地区，如该地区还没有支持则返回{@link Locale.US}
+	 * @param languageCode
+	 * @return
+	 */
+	public Locale getSupportedLocale(String languageCode){
+		if (supportLocaleCache.containsKey(languageCode)) {
+			return supportLocaleCache.get(languageCode);
+		}
+		return Locale.US;
+	}
 }

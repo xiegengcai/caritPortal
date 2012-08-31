@@ -19,4 +19,22 @@ public interface NewsDao<News> extends BaseDao<News> {
 	 * @return
 	 */
 	List<News> queryNews(String language, int limit);
+	
+	/**
+	 * 上一条
+	 * @param language
+	 * @param type
+	 * @param currentId
+	 * @return
+	 */
+	News queryPrevNews(String language, int type, int currentId);
+	
+	/**
+	 * 下一条
+	 * @param language
+	 * @param type
+	 * @param currentId
+	 * @return
+	 */
+	News queryNextNews(String language, int type, int currentId);
 }

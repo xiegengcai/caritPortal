@@ -12,7 +12,7 @@
     		   $(this).click(function(){
 	    		   $('#catalog-container li').removeClass('curr').eq(i).addClass('curr');
 	    		   $('#catalog_title').html($(this).html());
-	    		   url=baseUrl+'/'+this.id;
+	    		   url=baseUrl+'?catalogId='+this.id;
 	    		   doPage(1);
     		   });
     	   });
@@ -20,11 +20,11 @@
        });
        
        function doPage(page){
-    	   $.getJSON(url+'?page='+page+'&rows=12', function(data) {
+    	   $.getJSON(url+'&page='+page+'&rows=12', function(data) {
 				if(data.rows){
 					var html='';
 					$.each(data.rows, function(i,o){
-						html+='<li><a href="#"><img src="'+o.thumb+'"/></a><a href="#"><span>'+o.title+'</span></a></li>';
+						html+='<li><a href="/${language}/product/'+o.id+'"><img src="'+o.thumb+'"/></a><a href="/${language}/'+o.id+'"><span>'+o.title+'</span></a></li>';
 					});
 					$('#products-list').html(html);
 					if(data.totalPage>1){
@@ -54,9 +54,9 @@
 										<spring:message code="title.catalog" />
 									</h3>
 									<ul id="catalog-container">
+										<li id=""><spring:message code="Catalog.all" /></li>
 										<c:forEach items="${catalogList}" var="catalog">
-											<li id="${catalog.id}"><spring:message
-													code="Catalog.${catalog.catalogCode}" /></li>
+											<li id="${catalog.id}"><spring:message code="Catalog.${catalog.catalogCode}" /></li>
 										</c:forEach>
 									</ul>
 								</div>

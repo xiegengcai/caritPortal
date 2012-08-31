@@ -26,7 +26,10 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 		if (log.isDebugEnabled()) {
 			log.debug("Request for: "+uri);
 		}
-		String hostPath="http://"+request.getLocalName();
+		String hostPath="http://"+request.getServerName();
+		if (log.isDebugEnabled()) {
+			log.debug("hostPath: "+hostPath);
+		}
 		String contexPath="/caritPortal";
 		int port=request.getLocalPort();
 		if (uri.indexOf(contexPath)!=-1) { // 开发环境

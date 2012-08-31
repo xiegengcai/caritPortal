@@ -1,9 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/jsp/commons/taglibs.jsp"%>
 <!-- 页脚 -->
 <footer>
 	<div class="ym-wrapper">
 		<div class="ym-wbox">
-			<p>© Company 2012 &ndash; Layout based on <a href="http://www.yaml.de">YAML</a></p>
+			<p><spring:message code="global.copyright"/></p>
 		</div>
 	</div>
 </footer>

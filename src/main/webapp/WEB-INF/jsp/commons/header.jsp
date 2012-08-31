@@ -30,10 +30,11 @@
 	<div class="ym-wrapper">
 		<div class="ym-hlist">
 			<ul>
+			
 			<c:forEach items="${menuTree}" var="menu" varStatus="stat">
 				<c:choose>
 				  <c:when test="${param.menuIndex eq stat.count}"><li class="active"><strong><spring:message code="Menu.${menu.code}"/></strong></li></c:when>
-				  <c:otherwise><li><a href="/${language}${menu.url}"><spring:message code="Menu.${menu.code}"/></a></li></c:otherwise>
+				  <c:otherwise><li><a href="<c:if test="${menu.code == 'bbs'}">${menu.url}</c:if><c:if test="${menu.code != 'bbs'}">/${language}${menu.url}</c:if>"><spring:message code="Menu.${menu.code}"/></a></li></c:otherwise>
 				</c:choose>
 			</c:forEach>
 			</ul>

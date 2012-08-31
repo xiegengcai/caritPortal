@@ -100,4 +100,17 @@ public class NewsServiceImpl implements NewsService<News> {
 		return newsDao.queryNews(language, limit);
 	}
 
+	@Override
+	public News queryPrevNews(String language, int type, int currentId) {
+		if (currentId==1) {
+			return null;
+		}
+		return newsDao.queryPrevNews(language, type,currentId);
+	}
+
+	@Override
+	public News queryNextNews(String language, int type,int currentId) {
+		return newsDao.queryNextNews(language, type,currentId);
+	}
+
 }

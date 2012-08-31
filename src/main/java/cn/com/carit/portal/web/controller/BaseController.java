@@ -48,7 +48,10 @@ public class BaseController {
 	 * @return
 	 */
 	protected String getLocaleLanguage() {
-		Locale locale = getRequest().getLocale();
+		return getLocaleLanguage(getRequest().getLocale());
+	}
+	
+	protected String getLocaleLanguage(Locale locale) {
 		String language=locale.getLanguage().toLowerCase();
 		if ("zh".equals(language)) { //中文地区特别处理
 			if ("cn".equalsIgnoreCase(locale.getCountry())) {

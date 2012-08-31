@@ -1,5 +1,7 @@
 package cn.com.carit.portal.web.controller;
 
+import java.util.Locale;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -53,8 +55,11 @@ public class IndexController extends BaseController{
 	}
 	
 	private void doLocalIndex(String language){
+		// 获取 Locale
+		Locale locale=CacheManager.getInstance().getSupportedLocale(language);
 		// 切换语言
-		localeResolver.setDefaultLocale(LanguageConfig.getInstance().getLocale(language));
+		localeResolver.setDefaultLocale(locale);
+		language=getLocaleLanguage(locale);
 		addCommonAttribute(language);
 		// 最新动态
 		addAttribute("lastestNews", newsService.queryNews(language
@@ -69,8 +74,17 @@ public class IndexController extends BaseController{
 				language, Constants.INDEX_SHOW_LIMIT), false);
 	}
 	
+	private void defaultAttribute(String language) {
+		if (!StringUtils.hasText(language)) {
+			language=getLocaleLanguage();
+		}
+		// 切换语言
+		localeResolver.setDefaultLocale(LanguageConfig.getInstance().getLocale(language));
+		addCommonAttribute(language);
+	}
+	
 	/**
-	 * 产品页面
+	 * 产品列表页面
 	 * @param language
 	 * @param model
 	 * @return
@@ -82,14 +96,19 @@ public class IndexController extends BaseController{
 		return "products";
 	}
 	
-	private void defaultAttribute(String language) {
-		if (!StringUtils.hasText(language)) {
-			language=getLocaleLanguage();
-		}
-		// 切换语言
-		localeResolver.setDefaultLocale(LanguageConfig.getInstance().getLocale(language));
-		addCommonAttribute(language);
+	/**
+	 * 产品明细页面
+	 * @param language
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/{language}/product/{id}", method=RequestMethod.GET)
+	public String productDetai(@PathVariable String language, @PathVariable int id){
+		defaultAttribute(language);
+		addAttribute("product", productReleaseService.queryById(id), false);
+		return "product_detail";
 	}
+	
 
 	/**
 	 * 菜单跳转
@@ -112,7 +131,10 @@ public class IndexController extends BaseController{
 	@RequestMapping(value="/{language}/news/{id}", method=RequestMethod.GET)
 	public String news(@PathVariable String language, @PathVariable int id){
 		defaultAttribute(language);
-		addAttribute("news", newsService.queryById(id), false);
+		News currentNews=newsService.queryById(id);
+		addAttribute("prevNews", newsService.queryPrevNews(language, currentNews.getType(), id), false);
+		addAttribute("news", currentNews, false);
+		addAttribute("nextNews", newsService.queryNextNews(language, currentNews.getType(), id), false);
 		return "news";
 	}
 	
