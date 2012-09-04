@@ -62,7 +62,6 @@ public class MediaGalleryController {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; 
 		MultipartFile multipartFile = multipartRequest.getFile("file");
 		if(media.getId()==0&&(multipartFile==null||multipartFile.getOriginalFilename().length()<=0)){
-			// 新增时必须上传Apk文件
 			log.debug("file must be not empty ...");
 			resultMap.put(Constants.ANSWER_CODE, -1);
 			return resultMap;
@@ -73,7 +72,11 @@ public class MediaGalleryController {
     				multipartFile.getOriginalFilename().lastIndexOf(".")-1);
     		String fileName = (prefix + "." + suffix).toLowerCase();// 构建文件名称
     		String hostPath="http://"+request.getServerName();
-    		media.setUrl(hostPath+Constants.BASE_PATH_IMAGE+fileName);
+    		if (media.getType()==MediaGallery.TYPE_FLV) {
+    			media.setUrl(hostPath+Constants.BASE_PATH_FLASH+fileName);
+			} else {
+				media.setUrl(hostPath+Constants.BASE_PATH_IMAGE+fileName);
+			}
     		multipartFile.transferTo(AttachmentUtil.getImageFile(fileName));
 		}
     	service.saveOrUpdate(media);

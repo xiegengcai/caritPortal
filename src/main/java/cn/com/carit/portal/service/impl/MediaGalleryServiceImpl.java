@@ -21,19 +21,24 @@ public class MediaGalleryServiceImpl implements
 		MediaGalleryService<MediaGallery> {
 
 	@Resource
-	private MediaGalleryDao<MediaGallery> mediaGalleryDao;
+	private MediaGalleryDao<MediaGallery> dao;
 	
 	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
 	@Override
 	public int saveOrUpdate(MediaGallery t) throws Exception {
 		if (t.getId()>0) {
 			if (StringUtils.hasText(t.getUrl())) {
-				MediaGallery old=mediaGalleryDao.queryById(t.getId());
-				AttachmentUtil.deleteImage(old.getUrl());
+				MediaGallery old=dao.queryById(t.getId());
+				if (old.getType()==MediaGallery.TYPE_FLV) {
+					AttachmentUtil.deleteFlash(old.getUrl());
+				}
+				if (old.getType()==MediaGallery.TYPE_IMG) {
+					AttachmentUtil.deleteImage(old.getUrl());
+				}
 			}
-			return mediaGalleryDao.update(t);
+			return dao.update(t);
 		} else {
-			return mediaGalleryDao.add(t);
+			return dao.add(t);
 		}
 	}
 
@@ -43,9 +48,14 @@ public class MediaGalleryServiceImpl implements
 		if(id<=0){
 			throw new IllegalArgumentException("id must be bigger than 0...");
 		}
-		MediaGallery old=mediaGalleryDao.queryById(id);
-		AttachmentUtil.deleteImage(old.getUrl());
-		return mediaGalleryDao.delete(id);
+		MediaGallery old=dao.queryById(id);
+		if (old.getType()==MediaGallery.TYPE_FLV) {
+			AttachmentUtil.deleteFlash(old.getUrl());
+		}
+		if (old.getType()==MediaGallery.TYPE_IMG) {
+			AttachmentUtil.deleteImage(old.getUrl());
+		}
+		return dao.delete(id);
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
@@ -66,7 +76,7 @@ public class MediaGalleryServiceImpl implements
 		if(id<=0){
 			throw new IllegalArgumentException("id must be bigger than 0...");
 		}
-		return mediaGalleryDao.queryById(id);
+		return dao.queryById(id);
 	}
 
 	@Override
@@ -78,7 +88,7 @@ public class MediaGalleryServiceImpl implements
 		if (dgm==null) {
 			throw new NullPointerException("DataGridModel is null..");
 		}
-		return mediaGalleryDao.queryByExemple(t, dgm);
+		return dao.queryByExemple(t, dgm);
 	}
 
 	@Override
@@ -86,12 +96,17 @@ public class MediaGalleryServiceImpl implements
 		if (t==null) {
 			throw new NullPointerException("sample is null..");
 		}
-		return mediaGalleryDao.queryByExemple(t);
+		return dao.queryByExemple(t);
 	}
 
 	@Override
 	public List<MediaGallery> queryAll() {
-		return mediaGalleryDao.queryAll();
+		return dao.queryAll();
+	}
+
+	@Override
+	public int checkExisted(String name) {
+		return dao.checkExisted(name);
 	}
 
 }

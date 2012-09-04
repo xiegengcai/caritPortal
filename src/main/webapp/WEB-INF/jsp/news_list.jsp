@@ -29,7 +29,7 @@
 					$('#news-list').empty();
 					$.each(data.rows, function(i,o){
 						var $li=$('<li><span>'+o.createTime+'</span><label>'+o.title+'</label><a href="${ctx}/${language}/news/'+o.id+'"><spring:message code="title.read.more"/></a></li>').click(function(){
-							location.href='${ctx}/${language}/news/'+o.id;
+							location.href='${ctx}/'+o.language+'/news/'+o.id;
 						});
 						$('#news-list').append($li);
 					});

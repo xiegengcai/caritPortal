@@ -14,8 +14,10 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
 import cn.com.carit.common.Constants;
 import cn.com.carit.portal.LanguageConfig;
+import cn.com.carit.portal.bean.GlobalAddress;
 import cn.com.carit.portal.bean.News;
 import cn.com.carit.portal.bean.ProductRelease;
+import cn.com.carit.portal.service.GlobalAddressService;
 import cn.com.carit.portal.service.NewsService;
 import cn.com.carit.portal.service.ProductReleaseService;
 import cn.com.carit.portal.web.CacheManager;
@@ -30,6 +32,9 @@ public class IndexController extends BaseController{
 	
 	@Resource
 	private ProductReleaseService<ProductRelease> productReleaseService;
+	
+	@Resource
+	private GlobalAddressService<GlobalAddress> globalAddressService;
 	
 	/**
 	 * 首页
@@ -67,8 +72,8 @@ public class IndexController extends BaseController{
 		// 支持语言列表
 		addAttribute("supportLanguages"
 				, CacheManager.getInstance().getSupportLanguages(), false);
-		// 首页图片
-		addAttribute("topImages", CacheManager.getInstance().getTopImages(), false);
+		// 首页广告图片
+		addAttribute("bannerAdList", CacheManager.getInstance().getBannerAdList(), false);
 		// 产品
 		addAttribute("products", productReleaseService.queryTopProductRelease(
 				language, Constants.INDEX_SHOW_LIMIT), false);
@@ -119,6 +124,12 @@ public class IndexController extends BaseController{
 	@RequestMapping(value="/{language}/{menu}", method=RequestMethod.GET)
 	public String menuForward(@PathVariable String language, @PathVariable String menu){
 		defaultAttribute(language);
+		if ("global".equals(menu)) {
+			addAttribute("addressList", globalAddressService.query(language), false);
+		}
+		if("online_demo".equals(menu)){
+			addAttribute("videoList", CacheManager.getInstance().getNewestVideoList(), false);
+		}
 		return menu;
 	}
 	

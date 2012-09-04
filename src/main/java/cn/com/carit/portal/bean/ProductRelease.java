@@ -10,6 +10,7 @@ public class ProductRelease extends BaseBean {
 	private String content;
 	private Boolean top;
 	private String picture;
+	private String mainPic;
 	private String thumb;
 	public Integer getCatalogId() {
 		return catalogId;
@@ -47,19 +48,26 @@ public class ProductRelease extends BaseBean {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+	
+	public String getMainPic() {
+		return mainPic;
+	}
+	public void setMainPic(String mainPic) {
+		this.mainPic = mainPic;
+	}
 	public String getThumb() {
 		return thumb;
 	}
 	public void setThumb(String thumb) {
 		this.thumb = thumb;
 	}
-	
 	@Override
 	public String toString() {
 		return "ProductRelease [catalogId=" + catalogId + ", language="
 				+ language + ", title=" + title + ", content=" + content
-				+ ", top=" + top + ", picture=" + picture + ", thumb=" + thumb
-				+ ", id=" + id + ", createTime=" + createTime + ", updateTime="
+				+ ", top=" + top + ", picture=" + picture + ", mainPic="
+				+ mainPic + ", thumb=" + thumb + ", id=" + id + ", status="
+				+ status + ", createTime=" + createTime + ", updateTime="
 				+ updateTime + "]";
 	}
 	

@@ -17,31 +17,13 @@
 				valueField:'id',
 				textField:'description'
 			});
-			$('#catalogId_edit').combobox({
-				data:catalogs,
-				editable:false,
-				valueField:'id',
-				textField:'description'
-			});
 			$('#language').combobox({
 				data:supportLanguages,
 				editable:false,
 				valueField:'isoCode',
 				textField:'name'
 			});
-			$('#language_edit').combobox({
-				data:supportLanguages,
-				editable:false,
-				valueField:'isoCode',
-				textField:'name'
-			});
 			$('#status').combobox({
-				data:statusList,
-				editable:false,
-				valueField:'code',
-				textField:'value'
-			});
-			$('#status_edit').combobox({
 				data:statusList,
 				editable:false,
 				valueField:'code',
@@ -148,9 +130,10 @@
 						<th field="language" width="100" align="center" formatter="lanFormatter">语言</th>
 						<th field="catalogId" width="100" align="center" formatter="catalogFormatter">车型</th>
 						<th field="top" width="60" align="center" formatter="topFormatter">置顶</th>
-						<th field="thumb" width="120" align="center">主图</th>
+						<th field="thumb" width="120" align="center">缩略图</th>
 						<th field="status" width="60" align="center" formatter="statusFormatter">状态</th>
 						<!-- 
+						<th field="mainPic" width="120" align="center">主图</th>
 						<th field="createTime" width="90" align="center">创建时间</th>
 						 -->
 						<th field="updateTime" width="90" align="center">更新时间</th>

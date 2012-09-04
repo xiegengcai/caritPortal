@@ -15,13 +15,13 @@
 			$('#language').combobox({
 				data:supportLanguages,
 				editable:false,
-				valueField:'id',
+				valueField:'isoCode',
 				textField:'name'
 			});
 			$('#language_edit').combobox({
 				data:supportLanguages,
 				editable:false,
-				valueField:'id',
+				valueField:'isoCode',
 				textField:'name'
 			});
 			$('#type').combobox({

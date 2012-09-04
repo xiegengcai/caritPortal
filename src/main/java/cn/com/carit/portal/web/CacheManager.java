@@ -14,15 +14,19 @@ import org.springframework.web.context.WebApplicationContext;
 
 import cn.com.carit.common.Constants;
 import cn.com.carit.portal.LanguageConfig;
+import cn.com.carit.portal.bean.BannerAd;
 import cn.com.carit.portal.bean.Catalog;
-import cn.com.carit.portal.bean.MediaGallery;
+import cn.com.carit.portal.bean.DemoVideo;
+import cn.com.carit.portal.bean.GlobalAddress;
 import cn.com.carit.portal.bean.Menu;
 import cn.com.carit.portal.bean.News;
 import cn.com.carit.portal.bean.ProductRelease;
 import cn.com.carit.portal.bean.SupportLanguage;
 import cn.com.carit.portal.bean.TreeNode;
+import cn.com.carit.portal.service.BannerAdService;
 import cn.com.carit.portal.service.CatalogService;
-import cn.com.carit.portal.service.MediaGalleryService;
+import cn.com.carit.portal.service.DemoVideoService;
+import cn.com.carit.portal.service.GlobalAddressService;
 import cn.com.carit.portal.service.MenuService;
 import cn.com.carit.portal.service.NewsService;
 import cn.com.carit.portal.service.ProductReleaseService;
@@ -41,7 +45,11 @@ public class CacheManager {
 	
 	private SupportLanguageService<SupportLanguage> supportLanguageService;
 	
-	private MediaGalleryService<MediaGallery> mediaGalleryService;
+	private BannerAdService<BannerAd> bannerAdService;
+	
+	private GlobalAddressService<GlobalAddress> globalAddressService;
+	
+	private DemoVideoService<DemoVideo> demoVideoService;
 
 	private List<TreeNode> menuTree;
 	
@@ -55,7 +63,13 @@ public class CacheManager {
 	/**已支持语言地区缓存*/
 	private Map<String, Locale> supportLocaleCache;
 	
-	private List<MediaGallery> topImages;
+//	private List<MediaGallery> topImages;
+	
+	private List<BannerAd> bannerAdList;
+	
+	private List<GlobalAddress> defaultAddressList;
+	
+	private List<DemoVideo> newestVideoList;
 	
 	private static class CacheHolder {
 		private static final CacheManager INSTANCE = new CacheManager();
@@ -70,7 +84,10 @@ public class CacheManager {
 		catalogService = (CatalogService<Catalog>) ctx.getBean("catalogServiceImpl");
 		productReleaseService = (ProductReleaseService<ProductRelease>) ctx.getBean("productReleaseServiceImpl");
 		supportLanguageService = (SupportLanguageService<SupportLanguage>) ctx.getBean("supportLanguageServiceImpl");
-		mediaGalleryService = (MediaGalleryService<MediaGallery>) ctx.getBean("mediaGalleryServiceImpl");
+//		mediaGalleryService = (MediaGalleryService<MediaGallery>) ctx.getBean("mediaGalleryServiceImpl");
+		bannerAdService = (BannerAdService<BannerAd>) ctx.getBean("bannerAdServiceImpl");
+		globalAddressService=(GlobalAddressService<GlobalAddress>) ctx.getBean("globalAddressServiceImpl");
+		demoVideoService=(DemoVideoService<DemoVideo>) ctx.getBean("demoVideoServiceImpl");
 		
 		menuTree=new ArrayList<TreeNode>();
 		buildMenuTree();
@@ -86,8 +103,9 @@ public class CacheManager {
 		supportLocaleCache=new HashMap<String, Locale>();
 		refreshSupportLanguages();
 		
-		refreshMedia();
-		
+		refreshBannerAd();
+		refreshAddressList();
+		refreshVideo();
 		logger.info(" init cache end ...");
 	}
 	
@@ -104,7 +122,9 @@ public class CacheManager {
 		refreshCatalogs();
 		refreshProducts();
 		refreshSupportLanguages();
-		refreshMedia();
+		refreshBannerAd();
+		refreshAddressList();
+		refreshVideo();
 	}
 	
 	public void refreshMenu(){
@@ -205,17 +225,41 @@ public class CacheManager {
 		return supportLanguages;
 	}
 
-	public List<MediaGallery> getTopImages() {
-		return topImages;
+//	public List<MediaGallery> getTopImages() {
+//		return topImages;
+//	}
+//	
+//	public void refreshMedia(){
+//		MediaGallery sample=new MediaGallery();
+//		sample.setStatus(Constants.STATUS_VALID);
+//		sample.setTop(MediaGallery.TOP);
+//		topImages=mediaGalleryService.queryByExemple(sample);
+//	}
+	
+	public List<BannerAd> getBannerAdList() {
+		return bannerAdList;
 	}
 	
-	public void refreshMedia(){
-		MediaGallery sample=new MediaGallery();
-		sample.setStatus(Constants.STATUS_VALID);
-		sample.setTop(MediaGallery.TOP);
-		topImages=mediaGalleryService.queryByExemple(sample);
+	public void refreshBannerAd(){
+		bannerAdList=bannerAdService.query(Constants.MAX_BANNER_AD_COUNT);
+	}
+	
+
+	public List<GlobalAddress> getDefaultAddressList() {
+		return defaultAddressList;
+	}
+	
+	public void refreshAddressList(){
+		defaultAddressList=globalAddressService.query(Constants.DEAFULD_LANGUAGE);
+	}
+	
+	public List<DemoVideo> getNewestVideoList() {
+		return newestVideoList;
 	}
 
+	public void refreshVideo(){
+		newestVideoList=demoVideoService.queryNewest(Constants.INDEX_SHOW_LIMIT);
+	}
 	/**
 	 * 按照ISO语言代码获取已经支持的语言国家/地区，如该地区还没有支持则返回{@link Locale.US}
 	 * @param languageCode
@@ -227,4 +271,5 @@ public class CacheManager {
 		}
 		return Locale.US;
 	}
+
 }

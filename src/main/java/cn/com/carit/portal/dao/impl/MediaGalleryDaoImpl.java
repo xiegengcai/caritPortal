@@ -32,9 +32,8 @@ public class MediaGalleryDaoImpl extends BaseDaoImpl
 			t.setId(rs.getInt("id"));
 			t.setName(rs.getString("name"));
 			t.setUrl(rs.getString("url"));
-			t.setTop(rs.getInt("top"));
 			t.setRemark(rs.getString("remark"));
-			t.setHref(rs.getString("href"));
+			t.setType(rs.getInt("type"));
 			t.setStatus(rs.getInt("status"));
 			t.setUpdateTime(rs.getTimestamp("update_time"));
 			t.setCreateTime(rs.getTimestamp("create_time"));
@@ -44,18 +43,17 @@ public class MediaGalleryDaoImpl extends BaseDaoImpl
 
 	@Override
 	public int add(MediaGallery t) {
-		String sql="insert into t_media_gallery (url, name, top, remark"
-				+ ", href, status, create_time, update_time)"
-				+ " values(?, ?, ?, ?, ?, ?, now(), now())";
+		String sql="insert into t_media_gallery (url, name, remark, type"
+				+ ", status, create_time, update_time)"
+				+ " values(?, ?, ?, ?, ?, now(), now())";
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("\n%1$s\n", sql));
 		}
 		return jdbcTemplate.update(sql
 				, t.getUrl()
 				, t.getName()
-				, t.getTop()
 				, t.getRemark()
-				, t.getHref()
+				, t.getType()
 				, t.getStatus()
 			);
 	}
@@ -72,17 +70,13 @@ public class MediaGalleryDaoImpl extends BaseDaoImpl
 			sql.append(", name=?");
 			val.add(t.getName());
 		}
-		if (t.getTop()!=null) {
-			sql.append(", top=?");
-			val.add(t.getTop());
-		}
 		if (StringUtils.hasText(t.getRemark())) {
 			sql.append(", remark=?");
 			val.add(t.getRemark());
 		}
-		if (StringUtils.hasText(t.getHref())) {
-			sql.append(", href=?");
-			val.add(t.getHref());
+		if (t.getType()!=null) {
+			sql.append(", type=?");
+			val.add(t.getType());
 		}
 		if (t.getStatus()!=null) {
 			sql.append(", status=?");
@@ -199,20 +193,15 @@ public class MediaGalleryDaoImpl extends BaseDaoImpl
 			args.add(t.getName());
 			argTypes.add(Types.VARCHAR);
 		}
-		if (t.getTop()!=null) {
-			sql.append(" and top=?");
-			args.add(t.getTop());
-			argTypes.add(Types.INTEGER);
-		}
 		if (StringUtils.hasText(t.getRemark())) {
 			sql.append(" and remark like CONCAT('%',?,'%')");
 			args.add(t.getRemark());
 			argTypes.add(Types.VARCHAR);
 		}
-		if (StringUtils.hasText(t.getHref())) {
-			sql.append(", href like CONCAT('%',?,'%')");
-			args.add(t.getHref());
-			argTypes.add(Types.VARCHAR);
+		if (t.getType()!=null) {
+			sql.append(" and type=?");
+			args.add(t.getType());
+			argTypes.add(Types.INTEGER);
 		}
 		if (t.getStatus()!=null) {
 			sql.append(" and status=?");
@@ -220,6 +209,15 @@ public class MediaGalleryDaoImpl extends BaseDaoImpl
 			argTypes.add(Types.INTEGER);
 		}
 		return sql.toString();
+	}
+
+	@Override
+	public int checkExisted(String name) {
+		String sql="select 1 from t_media_gallery where name=?";
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
+		return checkExisted(sql, name);
 	}
 
 }

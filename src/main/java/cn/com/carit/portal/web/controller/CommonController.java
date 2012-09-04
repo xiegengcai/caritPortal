@@ -17,8 +17,10 @@ import cn.com.carit.common.Constants;
 import cn.com.carit.common.utils.DataGridModel;
 import cn.com.carit.common.utils.JsonPage;
 import cn.com.carit.portal.bean.Catalog;
+import cn.com.carit.portal.bean.MediaGallery;
 import cn.com.carit.portal.bean.News;
 import cn.com.carit.portal.bean.ProductRelease;
+import cn.com.carit.portal.service.MediaGalleryService;
 import cn.com.carit.portal.service.NewsService;
 import cn.com.carit.portal.service.ProductReleaseService;
 import cn.com.carit.portal.web.CacheManager;
@@ -32,6 +34,9 @@ public class CommonController {
 	
 	@Resource
 	private NewsService<News> newsService;
+	
+	@Resource
+	private MediaGalleryService<MediaGallery> mediaGalleryService;
 	/**
 	 * 获取所有车型分类
 	 * @return
@@ -68,5 +73,14 @@ public class CommonController {
 		t.setStatus(Constants.STATUS_VALID);
 		return newsService.queryByExemple(t, dgm);
 	}
-	
+
+	/**
+	 * 检测是否存在
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="check/media")
+	public @ResponseBody int checkExisted(@RequestParam String name){
+		return mediaGalleryService.checkExisted(name);
+	}
 }

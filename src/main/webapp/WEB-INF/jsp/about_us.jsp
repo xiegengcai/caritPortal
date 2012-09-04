@@ -26,7 +26,13 @@
 									<p><spring:message code="global.about_us.rd.content.3"/></p>
 								</article>
 								<article class="ym-g45 ym-gl">
-									
+									<ul id="about-us-img">
+									<li><img src="/resources/public/images/about_us_1.png"/></li>
+									<li><img src="/resources/public/images/about_us_2.png"/></li>
+									<li><img src="/resources/public/images/about_us_3.png"/></li>
+									<li><img src="/resources/public/images/about_us_4.png"/></li>
+									<li class="last"><img src="/resources/public/images/about_us_5.png"/></li>
+									</ul>
 								</article>
 							</div>
 	

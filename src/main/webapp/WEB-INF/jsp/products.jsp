@@ -24,7 +24,7 @@
 				if(data.rows){
 					var html='';
 					$.each(data.rows, function(i,o){
-						html+='<li><a href="/${language}/product/'+o.id+'"><img src="'+o.thumb+'"/></a><a href="/${language}/'+o.id+'"><span>'+o.title+'</span></a></li>';
+						html+='<li><a href="/'+o.language+'/product/'+o.id+'"><img src="'+o.thumb+'"/></a><a href="/${language}/'+o.id+'"><span>'+o.title+'</span></a></li>';
 					});
 					$('#products-list').html(html);
 					if(data.totalPage>1){

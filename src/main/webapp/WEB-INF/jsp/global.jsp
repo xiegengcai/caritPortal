@@ -17,7 +17,20 @@
 					<div class="ym-grid linearize-level-1">
 						<div class="ym-grid ym-gl">
 							<div class="global-map">
+								<img src="/resources/public/images/map.png"/>
 							</div>
+							<c:forEach items="${addressList}" var="addr" varStatus="stat">
+							<div class="ym-g50 ym-gl global-detail">
+								<div class="ym-gl global-serial-number">${stat.count}</div>
+								<div class="ym-gr ym-g95 global-contact">
+									<p><spring:message code="title.address"/>${addr.address}</p>
+									<p><spring:message code="title.telephone"/>${addr.telephone}</p>
+									<p><spring:message code="title.fax"/>${addr.fax}</p>
+									<p><spring:message code="title.postcode"/>${addr.postalcode}</p>
+								</div>
+							</div>
+							</c:forEach>
+							<!-- 
 							<div class="ym-g50 ym-gl global-detail">
 								<div class="ym-gl global-serial-number">1</div>
 								<div class="ym-gr ym-g95 global-contact">
@@ -27,33 +40,7 @@
 									<p><spring:message code="title.postcode"/><spring:message code="global.contact_us.postcode"/></p>
 								</div>
 							</div>
-							<div class="ym-g50 ym-gl global-detail">
-								<div class="global-serial-number">2</div>
-								<div class="ym-gr ym-g95 global-contact">
-									<p><spring:message code="title.address"/><spring:message code="global.contact_us.address"/></p>
-									<p><spring:message code="title.telephone"/><spring:message code="global.contact_us.telephone"/></p>
-									<p><spring:message code="title.fax"/><spring:message code="global.contact_us.fax"/></p>
-									<p><spring:message code="title.postcode"/><spring:message code="global.contact_us.postcode"/></p>
-								</div>
-							</div>
-							<div class="ym-g50 ym-gl global-detail">
-								<div class="global-serial-number">3</div>
-								<div class="ym-gr ym-g95 global-contact">
-									<p><spring:message code="title.address"/><spring:message code="global.contact_us.address"/></p>
-									<p><spring:message code="title.telephone"/><spring:message code="global.contact_us.telephone"/></p>
-									<p><spring:message code="title.fax"/><spring:message code="global.contact_us.fax"/></p>
-									<p><spring:message code="title.postcode"/><spring:message code="global.contact_us.postcode"/></p>
-								</div>
-							</div>
-							<div class="ym-g50 ym-gl global-detail">
-								<div class="global-serial-number">4</div>
-								<div class="ym-gr ym-g95 global-contact">
-									<p><spring:message code="title.address"/><spring:message code="global.contact_us.address"/></p>
-									<p><spring:message code="title.telephone"/><spring:message code="global.contact_us.telephone"/></p>
-									<p><spring:message code="title.fax"/><spring:message code="global.contact_us.fax"/></p>
-									<p><spring:message code="title.postcode"/><spring:message code="global.contact_us.postcode"/></p>
-								</div>
-							</div>
+							 -->
 						</div>
 					</div>
 				</section>

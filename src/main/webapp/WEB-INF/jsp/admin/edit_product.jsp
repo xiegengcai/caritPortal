@@ -34,12 +34,6 @@
 				valueField:'code',
 				textField:'value'
 			});
-			$('#type').combobox({
-				data:types,
-				editable:false,
-				valueField:'code',
-				textField:'value'
-			});
 			// 初始化
 			$('#ttt').datagrid({
 				width:'100%',
@@ -89,7 +83,7 @@
 				    }
 				}).submit();
 			});
-			
+			checkExisted($('#name_edit'),"${ctx}/common/check/media?name=");
 			//uploadForm
 			$('#upload_reset').click(function(){
 				$('#uploadForm').form('clear');
@@ -185,11 +179,12 @@
 						<td><form:input path="catalogId" id="catalogId_edit" required="true" cssStyle="width:187px"/></td>
 					</tr>
 					<tr>
-						<td><form:label	for="status" path="status" cssClass="mustInput">状态：</form:label></td>
-						<td><form:input path="status" id="status_edit" required="true" cssStyle="width:187px"/></td>
-						<td><form:label	for="thumb" path="thumb" cssClass="mustInput">主图：</form:label></td>
+						<td><form:label	for="mainPic" path="mainPic" cssClass="mustInput">主图：</form:label></td>
+						<td><form:input path="mainPic" id="mainPic_edit" required="true" class="easyui-validatebox" cssStyle="width:137px"/><span class="spanBtn" onclick="media('thumb_edit')">浏览</button></td>
+						<td><form:label	for="thumb" path="thumb" cssClass="mustInput">缩略图：</form:label></td>
 						<td><form:input path="thumb" id="thumb_edit" required="true" class="easyui-validatebox" cssStyle="width:137px"/><span class="spanBtn" onclick="media('thumb_edit')">浏览</button></td>
 					</tr>
+					
 					<tr>
 						<td><form:label	for="thumb" path="thumb" cssClass="mustInput">截图1：</form:label></td>
 						<td><input type="text" id="picture_1" required="true" class="easyui-validatebox" style="width:137px"/><span class="spanBtn" onclick="media('picture_1')">浏览</span></td>
@@ -207,6 +202,10 @@
 						<td><input type="text" id="picture_5" required="true" class="easyui-validatebox" style="width:137px"/><span class="spanBtn" onclick="media('picture_5')">浏览</span></td>
 						<td><form:label	for="thumb" path="thumb" cssClass="mustInput">截图6：</form:label></td>
 						<td><input type="text" id="picture_6" required="true" class="easyui-validatebox" style="width:137px"/><span class="spanBtn" onclick="media('picture_6')">浏览</span></td>
+					</tr>
+					<tr>
+						<td><form:label	for="status" path="status" cssClass="mustInput">状态：</form:label></td>
+						<td><form:input path="status" id="status_edit" required="true" cssStyle="width:187px"/></td>
 					</tr>
 					<tr>
 						<td><form:label path="content">内容：</form:label></td>
@@ -229,32 +228,26 @@
 		<div id="mediaWin" class="easyui-window" title="媒体库" closed="true" style="width:600px;height:480px;padding:5px;" modal="true">
 		<div id="tabs" class="easyui-tabs" style="width:575px;height:435px;">  
 		    <div title="媒体库" style="padding:20px;">
-		    <form action="${ctx}/admin/media/query" method="get" id="searchForm">
-				<table>
-					<tr>
-						<td>
-							<label>名称：</label>
-						</td>
-						<td>
-							<input type="text" name="name"/>
-						</td>
-						<td>
-							<label>类别：</label>
-						</td>
-						<td>
-							<input type="text" name="type" id="type"/>
-						</td>
-					</tr>
-				</table>
-			</form>
-			<div style="text-align: center; padding: 5px;">
-				<a href="javascript:void(0);" class="easyui-linkbutton" id="submit"
-					iconCls="icon-search">查 询</a>
-				<a href="javascript:void();" class="easyui-linkbutton" id="reset"
-					iconCls="icon-undo">重 置</a>
-			</div>
+		    <form action="${ctx}/admin/media/query?type=0" method="get" id="mediaSearchForm">
+					<table>
+						<tr>
+							<td>
+								<label>名称：</label>
+							</td>
+							<td>
+								<input type="text" name="name"/>
+							</td>
+						</tr>
+					</table>
+				</form>
+				<div style="text-align: center; padding: 5px;">
+					<a href="javascript:void(0);" class="easyui-linkbutton" id="submit_media"
+						iconCls="icon-search">查 询</a>
+					<a href="javascript:void();" class="easyui-linkbutton" id="reset_media"
+						iconCls="icon-undo">重 置</a>
+				</div>
 			<table id="ttt" style="height: auto;" iconCls="icon-blank" title="媒体列表" align="left"  
-			idField="id" url="${ctx}/admin/media/query" pagination="true" rownumbers="true" singleSelect="true"
+			idField="id" url="${ctx}/admin/media/query?type=0" pagination="true" rownumbers="true" singleSelect="true"
 			fitColumns="true" pageList="[ 5, 10]">
 				<thead>
 					<tr>
@@ -289,8 +282,8 @@
 						<td><textarea name="remark" id="remark_edit" class="easyui-validatebox" style="width:250px;height:50px;" validType="maxLength[100]"></textarea></td>
 					</tr>
 				</table>
-				<input type="hidden" name="top" value="0"/>
 				<input type="hidden" name=status value="1"/>
+				<input type="hidden" name="type" value="0"/>
 				<div style="text-align: center; padding: 5px;">
 					<a href="javascript:void(0)" class="easyui-linkbutton" id="upload_submit" iconCls="icon-save">保 存</a>
 					<a href="javascript:void(0)" class="easyui-linkbutton" id="upload_reset" iconCls="icon-undo">重 置</a>

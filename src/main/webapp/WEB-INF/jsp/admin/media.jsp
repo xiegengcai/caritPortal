@@ -21,6 +21,18 @@
 				valueField:'code',
 				textField:'value'
 			});
+			$('#type').combobox({
+				data:types,
+				editable:false,
+				valueField:'code',
+				textField:'value'
+			});
+			$('#type_edit').combobox({
+				data:types,
+				editable:false,
+				valueField:'code',
+				textField:'value'
+			});
 			$('.combobox-f').each(function(){
 				$(this).combobox('clear');
 			});
@@ -32,17 +44,19 @@
 							$(this).val($(this).combobox('getText'));
 						});
 						var b=true;
-						if($('#top_edit').combobox('getValue')==1 && $('#href_edit').val()==''){
-							b=false;
-							$.messager.alert('提示', '置顶类型需输入链接路径', 'info');
-						}
 						var fileText=$('#fileText').val();
 						if(fileText==''||fileText==null||fileText==undefined){
 							b=false;
 							$.messager.alert('错误', "请选取文件", 'error');
-						}else if(!chkFileType(fileText,'jpg|jpeg|png|gif')){
-							b=false;
-							$.messager.alert('提示', "选定的类别是图片，请选择 jpg|jpeg|png|gif 类型的文件", 'info');
+						}else{
+							if($('#type_eidt').val()==0&&!chkFileType(fileText,'jpg|jpeg|png|gif')){
+								b=false;
+								$.messager.alert('提示', "选定的类别是图片，请选择 jpg|jpeg|png|gif 类型的文件", 'info');
+							}
+							if($('#type_eidt').val()==1&&!chkFileType(fileText,'flv')){
+								b=false;
+								$.messager.alert('提示', "选定的类别是FLV视频，请选择 FLV类型的文件", 'info');
+							}
 						}
 						if(!b){return b;}
 						b=$(this).form('validate');
@@ -67,6 +81,7 @@
 				    }
 				}).submit();
 			});
+			checkExisted($('#name_edit'),"${ctx}/common/check/media?name=");
 		});
 		function edit(index) {
 			if(index>-1){//双击
@@ -83,8 +98,6 @@
 				$('#editWin').window('open');
 				// init data
 				$('#name_edit').val(m.name);
-				$('#top_edit').combobox('setValue',m.top);
-				$('#href_edit').val(m.href);
 				$('#fileText').val(m.url);
 				$('#status_edit').combobox('setValue',m.status);
 				$('#remark_edit').val(m.remark);
@@ -123,13 +136,10 @@
 						<form:input path="url"/>
 					</td>
 					<td>
-						<form:label for="top" path="top">置顶：</form:label>
+						<form:label for="type" path="type">类型：</form:label>
 					</td>
 					<td>
-						<form:select path="top" cssClass="easyui-validatebox easyui-combobox" >
-							<form:option value="0">-</form:option>
-							<form:option value="1">置顶</form:option>
-						</form:select>
+						<form:input path="type" />
 					</td>
 					<td>
 						<form:label for="status" path="status">状态：</form:label>
@@ -152,9 +162,8 @@
 				<thead>
 					<tr>
 						<th field="name" width="100" align="center">名称</th>
-						<th field="url" width="100" align="center">媒体路径</th>
-						<th field="top" width="60" align="center" formatter="topFormatter">置顶</th>
-						<th field="href" width="120" align="center">链接</th>
+						<th field="url" width="180" align="center">媒体路径</th>
+						<th field="type" width="90" align="center" formatter="typeFormatter">类型</th>
 						<th field="status" width="60" align="center" formatter="statusFormatter">状态</th>
 						<th field="remark" width="150" align="center">备注</th>
 						<th field="updateTime" width="90" align="center">更新时间</th>
@@ -170,17 +179,8 @@
 						<td><form:input path="name" id="name_edit" required="true" validType="length[3,100]" class="easyui-validatebox"/></td>
 					</tr>
 					<tr>
-						<td><form:label	for="top" path="top" cssClass="mustInput">置顶：</form:label></td>
-						<td>
-							<form:select path="top" id="top_edit" cssClass="easyui-validatebox easyui-combobox" required="true" cssStyle="width:255px">
-								<form:option value="0">-</form:option>
-								<form:option value="1">置顶</form:option>
-							</form:select>
-						</td>
-					</tr>
-					<tr>
-						<td><form:label	for="href" path="href">链接：</form:label></td>
-						<td><form:input path="href" id="href_edit" class="easyui-validatebox" validType="url"/></td>
+						<td><form:label	for="type" path="type" cssClass="mustInput">类型：</form:label></td>
+						<td><form:input path="type" id="type_edit" required="true" validType="length[3,100]" class="easyui-validatebox"/></td>
 					</tr>
 					<tr>
 						<td><form:label	for="url" path="url" cssClass="mustInput">文件：</form:label></td>

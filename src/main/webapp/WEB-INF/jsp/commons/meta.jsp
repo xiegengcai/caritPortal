@@ -17,3 +17,4 @@
 	<![endif]-->
 	<script type="text/javascript" src="${ctx}/resources/jquery-easyui-1.3/jquery-1.7.2.min.js" ></script>
 	<script type="text/javascript" src="${ctx}/resources/public/scripts/utils.js?v1.0" ></script>
+	<script language="javascript" src="http://code.54kefu.net/kefu/js/47/266647.js" charset="utf-8"></script>

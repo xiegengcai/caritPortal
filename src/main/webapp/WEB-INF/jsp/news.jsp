@@ -21,7 +21,7 @@
         <div id="main">
 		<div class="ym-wrapper">
 			<div class="ym-wbox">
-				<div class="ym-grid current-position"><a href="/${language}"><spring:message code="Menu.home"/></a> - <spring:message code="Menu.news"/></div>
+				<div class="ym-grid current-position"><a href="/${language}"><spring:message code="Menu.home"/></a> - <a href="/${language}/news"><spring:message code="Menu.news"/></a></div>
 				<section class="box" style="margin: 0 auto">
 					<div class="ym-grid">
 								<div class="ym-g18 ym-gl catalog-container">

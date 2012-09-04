@@ -3,7 +3,7 @@ var winTitle;
 var catalogs=[];
 var genderList=[{'code':0, 'value':'女'},{'code':1, 'value':'男'},{'code':2, 'value':'保密'}];
 var statusList=[{'code':0, 'value':'停用'},{'code':1, 'value':'启用'}];
-var types=[{'code':'0','value':'图片'}, {'code':'1','value':'视频'}, {'code':'2','value':'Flash'}];
+var types=[{'code':'0','value':'图片'}, {'code':'1','value':'FLV视频'}];
 var languages; // 所有语言
 var supportLanguages; // 已经支持的语言
 // 扩展

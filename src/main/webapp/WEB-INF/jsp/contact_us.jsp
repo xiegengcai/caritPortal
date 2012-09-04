@@ -19,7 +19,7 @@
 	
 							<div class="ym-grid linearize-level-2">
 								<div class="ym-g45 ym-gl">
-									<img class="address-map" alt="" src="${ctx}/resources/public/images/map.png" />
+									<iframe width="425" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://ditu.google.cn/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=22.675426,114.006431&amp;aq=&amp;sll=35.86166,104.195397&amp;sspn=41.040725,86.572266&amp;brcurrent=3,0x34030a94dd8813e5:0x768320300ebc7a43,0,0x315285f132af5c3f:0x2ed41c6f09259f29%3B5,0,0&amp;ie=UTF8&amp;ll=22.675426,114.006431&amp;spn=0.005771,0.010568&amp;t=m&amp;z=14&amp;output=embed"></iframe><br /><small><a href="http://ditu.google.cn/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=22.675426,114.006431&amp;aq=&amp;sll=35.86166,104.195397&amp;sspn=41.040725,86.572266&amp;brcurrent=3,0x34030a94dd8813e5:0x768320300ebc7a43,0,0x315285f132af5c3f:0x2ed41c6f09259f29%3B5,0,0&amp;ie=UTF8&amp;ll=22.675426,114.006431&amp;spn=0.005771,0.010568&amp;t=m&amp;z=14" style="color:#0000FF;text-align:left">View Larger Map</a></small>
 								</div>
 								<div class="ym-g55 ym-gl">
 									<div class="contact-us">

@@ -38,6 +38,9 @@
 						<li><div><a target="mainFrame_4" index="4" href="${ctx}/admin/media">媒体库</a></div></li>
 						<li><div><a target="mainFrame_5" index="5" href="${ctx}/admin/news">新闻管理</a></div></li>
 						<li><div><a target="mainFrame_6" index="6" href="${ctx}/admin/product">产品管理</a></div></li>
+						<li><div><a target="mainFrame_7" index="7" href="${ctx}/admin/banner">广告管理</a></div></li>
+						<li><div><a target="mainFrame_8" index="8" href="${ctx}/admin/address">地址管理</a></div></li>
+						<li><div><a target="mainFrame_9" index="9" href="${ctx}/admin/demo/video">视频管理</a></div></li>
 						<li><div><a href="${ctx}/back/logout">退出</a></div></li>
                     </ul>
 	            </div>

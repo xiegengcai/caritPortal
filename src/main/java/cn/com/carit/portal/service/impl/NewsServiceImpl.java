@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import cn.com.carit.common.Constants;
 import cn.com.carit.common.utils.DataGridModel;
 import cn.com.carit.common.utils.JsonPage;
 import cn.com.carit.portal.bean.News;
@@ -97,7 +98,11 @@ public class NewsServiceImpl implements NewsService<News> {
 
 	@Override
 	public List<News> queryNews(String language, int limit) {
-		return newsDao.queryNews(language, limit);
+		List<News> list=newsDao.queryNews(language, limit);
+		if (list==null || list.size()<1 && !Constants.DEAFULD_LANGUAGE.equals(language)) {
+			return newsDao.queryNews(Constants.DEAFULD_LANGUAGE, limit);
+		}
+		return list;
 	}
 
 	@Override

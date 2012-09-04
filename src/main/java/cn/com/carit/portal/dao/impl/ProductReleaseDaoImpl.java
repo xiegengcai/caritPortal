@@ -33,6 +33,7 @@ public class ProductReleaseDaoImpl extends BaseDaoImpl implements
 			t.setContent(rs.getString("content"));
 			t.setTop(rs.getBoolean("top"));
 			t.setPicture(rs.getString("picture"));
+			t.setMainPic(rs.getString("main_pic"));
 			t.setThumb(rs.getString("thumb"));
 			t.setStatus(rs.getInt("status"));
 			t.setUpdateTime(rs.getTimestamp("update_time"));
@@ -43,8 +44,8 @@ public class ProductReleaseDaoImpl extends BaseDaoImpl implements
 	@Override
 	public int add(ProductRelease t) {
 		String sql="insert into t_product_release (catalog_id, language, title"
-				+", content, top, picture, thumb, status, update_time, create_time)"
-				+" values (?, ?, ?, ?, ?, ?, ?, ?, now(), now())";
+				+", content, top, picture, thumb,main_pic, status, update_time, create_time)"
+				+" values (?, ?, ?, ?, ?, ?, ?, ?, ?, now(), now())";
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("\n%1$s\n", sql));
 		}
@@ -56,6 +57,7 @@ public class ProductReleaseDaoImpl extends BaseDaoImpl implements
 				, t.getTop()
 				, t.getPicture()
 				, t.getThumb()
+				, t.getMainPic()
 				, t.getStatus()
 			);
 	}
@@ -91,6 +93,10 @@ public class ProductReleaseDaoImpl extends BaseDaoImpl implements
 		if (StringUtils.hasText(t.getThumb())) {
 			sql.append(", thumb=?");
 			val.add(t.getThumb());
+		}
+		if (StringUtils.hasText(t.getMainPic())) {
+			sql.append(", main_pic=?");
+			val.add(t.getMainPic());
 		}
 		if (t.getStatus()!=null) {
 			sql.append(", status=?");
@@ -232,6 +238,12 @@ public class ProductReleaseDaoImpl extends BaseDaoImpl implements
 			args.add(t.getThumb());
 			argTypes.add(Types.VARCHAR);
 		}
+		if (StringUtils.hasText(t.getMainPic())) {
+			sql.append(" and main_pic like CONCAT('%',?,'%')");
+			args.add(t.getMainPic());
+			argTypes.add(Types.VARCHAR);
+		}
+		
 		if (t.getStatus()!=null) {
 			sql.append(" and status=?");
 			args.add(t.getStatus());

@@ -10,13 +10,13 @@
 		<script type="text/javascript">
 		$(function(){
 			$('#isoCode').combobox({
-				data:supportLanguages,
+				data:languages,
 				editable:false,
 				valueField:'code',
 				textField:'value'
 			});
 			$('#isoCode_edit').combobox({
-				data:supportLanguages,
+				data:languages,
 				editable:false,
 				valueField:'code',
 				textField:'value',
@@ -120,7 +120,7 @@
 			<form:form modelAttribute="language" id="editForm" action="${ctx}/admin/language/save" method="post" cssStyle="padding:10px 20px;">
 				<table>
 					<tr>
-						<td><form:label	for="isoCode" path="isoCode" cssClass="mustInput">ISO代码：</form:label></td>
+						<td><form:label	for="isoCode" path="isoCode" cssClass="mustInput">名称：</form:label></td>
 						<td><form:input path="isoCode" id="isoCode_edit" required="true" cssStyle="width:217px"/></td>
 					</tr>
 					<tr>

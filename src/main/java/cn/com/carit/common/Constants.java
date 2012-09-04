@@ -19,7 +19,11 @@ public class Constants {
 	/** 首页新闻、产品限制条数  */
 	public static final int INDEX_SHOW_LIMIT=4;
 	
+	public static final int MAX_BANNER_AD_COUNT=5;
+	
 	public static final String BASE_PATH_VIDEO="/attachment/video/";
 	public static final String BASE_PATH_IMAGE="/attachment/images/";
 	public static final String BASE_PATH_FLASH="/attachment/flash/";
+	
+	public static final String DEAFULD_LANGUAGE="en";
 }
