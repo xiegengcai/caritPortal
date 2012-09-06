@@ -1,7 +1,7 @@
 <title><spring:message code="global.company.name"/>--<spring:message code="global.website.title"/></title>
 	<meta charset="utf-8"/>
 	<!-- Mobile viewport optimisation -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, minimum-scale=0.6, user-scalable=yes"/>
 	<%@ include file="/WEB-INF/jsp/commons/nocache.jsp"%>
 	<meta name="keywords" content="<spring:message code="global.keywords"/>" />
 	<meta name="description" content="<spring:message code="global.description"/>">

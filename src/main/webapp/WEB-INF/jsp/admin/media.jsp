@@ -99,6 +99,7 @@
 				// init data
 				$('#name_edit').val(m.name);
 				$('#fileText').val(m.url);
+				$('#type_edit').combobox('setValue',m.type);
 				$('#status_edit').combobox('setValue',m.status);
 				$('#remark_edit').val(m.remark);
 				$('#id').val(m.id);
@@ -180,7 +181,7 @@
 					</tr>
 					<tr>
 						<td><form:label	for="type" path="type" cssClass="mustInput">类型：</form:label></td>
-						<td><form:input path="type" id="type_edit" required="true" validType="length[3,100]" class="easyui-validatebox"/></td>
+						<td><form:input path="type" id="type_edit" required="true" cssStyle="width:255px;"/></td>
 					</tr>
 					<tr>
 						<td><form:label	for="url" path="url" cssClass="mustInput">文件：</form:label></td>
@@ -195,7 +196,7 @@
 					</tr>
 					<tr>
 						<td><form:label	for="status" path="status" cssClass="mustInput">状态：</form:label></td>
-						<td><form:input path="status" id="status_edit" required="true" class="easyui-validatebox" cssStyle="width:255px;"/></td>
+						<td><form:input path="status" id="status_edit" required="true" cssStyle="width:255px;"/></td>
 					</tr>
 					<tr><td><form:label for="remark" path="remark" cssClass="easyui-validatebox">备注：</form:label></td>
 						<td><form:textarea path="remark" id="remark_edit" cssClass="easyui-validatebox" cssStyle="width:250px;height:50px;" validType="maxLength[100]"/></td>

@@ -18,7 +18,7 @@
 						<div class="ym-grid ym-gl">
 	
 							<div class="ym-grid linearize-level-2">
-								<article class="ym-g55 ym-gl">
+								<article class="ym-g52 ym-gl">
 									<p><spring:message code="global.about_us"/></p>
 									<h3><spring:message code="global.about_us.rd.title"/></h3>
 									<p><spring:message code="global.about_us.rd.content.1"/></p>

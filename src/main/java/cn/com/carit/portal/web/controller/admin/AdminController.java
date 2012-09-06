@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -68,16 +69,18 @@ public class AdminController {
 	@ResponseBody
 	public int login(@RequestParam("email") String email
 			, @RequestParam("password") String password
-			, HttpServletRequest req) throws Exception{
+			, HttpServletRequest req, HttpServletResponse rsp) throws Exception{
 		HttpSession session=req.getSession();
+		rsp.setContentType("text/html; charset=utf-8");
 		Object obj=session.getAttribute(Constants.PASSWORD_ERROR_COUNT+email);
 		Integer errorCount= obj==null?0:(Integer)obj;
+		Integer answerCode=-3;
 		if (errorCount!=null && errorCount.intValue()>=Constants.MAX_PWD_ERROR_COUNT) {
 			log.error("Limit login:password error count("+errorCount+") >="+Constants.MAX_PWD_ERROR_COUNT);
-			return -3;
+//			return answerCode;
 		}
 		Map<String, Object> resultMap=adminUserService.login(email, password, req.getRemoteAddr());
-		Integer answerCode=(Integer) resultMap.get(Constants.ANSWER_CODE);
+		answerCode=(Integer) resultMap.get(Constants.ANSWER_CODE);
 		if (answerCode!=null ) {//有响应
 			if (answerCode.intValue()==1) {// 登录成功
 				// 清除密码错误次数
@@ -89,6 +92,8 @@ public class AdminController {
 				session.setAttribute(Constants.PASSWORD_ERROR_COUNT+email, errorCount+1);
 			}
 		}
+//		rsp.getOutputStream().write(answerCode);
+//		rsp.getWriter().write(answerCode);
 		return answerCode;
 	}
 	

@@ -14,6 +14,7 @@ import cn.com.carit.common.utils.JsonPage;
 import cn.com.carit.portal.bean.DemoVideo;
 import cn.com.carit.portal.dao.DemoVideoDao;
 import cn.com.carit.portal.service.DemoVideoService;
+import cn.com.carit.portal.web.CacheManager;
 @Service
 @Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
 public class DemoVideoServiceImpl implements
@@ -25,11 +26,16 @@ public class DemoVideoServiceImpl implements
 	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
 	@Override
 	public int saveOrUpdate(DemoVideo t) throws Exception {
+		int rows=0;
 		if (t.getId()>0) {
-			return dao.update(t);
+			rows = dao.update(t);
 		} else {
-			return dao.add(t);
+			rows = dao.add(t);
 		}
+		if (rows>0) {
+			CacheManager.getInstance().refreshVideo();
+		}
+		return rows;
 	}
 
 	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
@@ -38,7 +44,11 @@ public class DemoVideoServiceImpl implements
 		if(id<=0){
 			throw new IllegalArgumentException("id must be bigger than 0...");
 		}
-		return dao.delete(id);
+		int rows = dao.delete(id);
+		if (rows>0) {
+			CacheManager.getInstance().refreshVideo();
+		}
+		return rows;
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
@@ -49,6 +59,7 @@ public class DemoVideoServiceImpl implements
 			for (String id : array) {
 				delete(Integer.valueOf(id.trim()));
 			}
+			CacheManager.getInstance().refreshVideo();
 			return array.length;
 		}
 		return 0;

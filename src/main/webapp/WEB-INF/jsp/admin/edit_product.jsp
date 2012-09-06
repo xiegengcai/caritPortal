@@ -153,7 +153,6 @@
 		}
 		</script>
 		<style>
-		#editForm label {width: 60px;text-align: right;}
 		#editForm input {width: 180px;}
 		</style>
 	</head>
@@ -180,7 +179,7 @@
 					</tr>
 					<tr>
 						<td><form:label	for="mainPic" path="mainPic" cssClass="mustInput">主图：</form:label></td>
-						<td><form:input path="mainPic" id="mainPic_edit" required="true" class="easyui-validatebox" cssStyle="width:137px"/><span class="spanBtn" onclick="media('thumb_edit')">浏览</button></td>
+						<td><form:input path="mainPic" id="mainPic_edit" required="true" class="easyui-validatebox" cssStyle="width:137px"/><span class="spanBtn" onclick="media('mainPic_edit')">浏览</button></td>
 						<td><form:label	for="thumb" path="thumb" cssClass="mustInput">缩略图：</form:label></td>
 						<td><form:input path="thumb" id="thumb_edit" required="true" class="easyui-validatebox" cssStyle="width:137px"/><span class="spanBtn" onclick="media('thumb_edit')">浏览</button></td>
 					</tr>

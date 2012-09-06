@@ -15,6 +15,7 @@ import cn.com.carit.common.utils.JsonPage;
 import cn.com.carit.portal.bean.BannerAd;
 import cn.com.carit.portal.dao.BannerAdDao;
 import cn.com.carit.portal.service.BannerAdService;
+import cn.com.carit.portal.web.CacheManager;
 @Service
 @Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
 public class BannerAdServiceImpl implements
@@ -26,16 +27,21 @@ public class BannerAdServiceImpl implements
 	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
 	@Override
 	public int saveOrUpdate(BannerAd t) throws Exception {
+		int rows=0;
 		if (t.getId()>0) {
 			if (StringUtils.hasText(t.getImage())) {
 				BannerAd old=dao.queryById(t.getId());
 				AttachmentUtil.deleteImage(old.getImage());
 				AttachmentUtil.deleteImage(old.getThumb());
 			}
-			return dao.update(t);
+			rows = dao.update(t);
 		} else {
-			return dao.add(t);
+			rows = dao.add(t);
 		}
+		if (rows>0) {
+			CacheManager.getInstance().refreshBannerAd();
+		}
+		return rows;
 	}
 
 	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
@@ -47,7 +53,11 @@ public class BannerAdServiceImpl implements
 		BannerAd old=dao.queryById(id);
 		AttachmentUtil.deleteImage(old.getImage());
 		AttachmentUtil.deleteImage(old.getThumb());
-		return dao.delete(id);
+		int rows = dao.delete(id);
+		if (rows>0) {
+			CacheManager.getInstance().refreshBannerAd();
+		}
+		return rows;
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
@@ -58,6 +68,7 @@ public class BannerAdServiceImpl implements
 			for (String id : array) {
 				delete(Integer.valueOf(id.trim()));
 			}
+			CacheManager.getInstance().refreshBannerAd();
 			return array.length;
 		}
 		return 0;

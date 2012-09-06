@@ -47,26 +47,23 @@
 		<div class="ym-wrapper">
 			<div class="ym-wbox">
 				<div class="ym-grid" id="banner">
-					<!--
-					<div id="banner_bg"></div>  <!--标题背景--
-					<div id="banner_info"></div> <!--标题-->
-				    <ul id="banner-number">
-				        <c:forEach items="${bannerAdList}" var="ad" begin="0" end="4" varStatus="index">
-				         <li <c:if test="${index.count eq 1}">class="on"</c:if> value="${index.count}"><img alt="${ad.name}" src="${ad.thumb}"></li>
-				        </c:forEach>
-				    </ul>
 				   <div id="banner_list">
 				        <c:forEach items="${bannerAdList}" var="ad" begin="0" end="4">
 				        <a href="${ad.href}" target="_blank"><img src="${ad.image}" title="${ad.name}" alt="${ad.name}" /></a>
 				        </c:forEach>
 					</div>
+				    <ul id="banner-number">
+				        <c:forEach items="${bannerAdList}" var="ad" begin="0" end="4" varStatus="index">
+				         <li <c:if test="${index.count eq 1}">class="on"</c:if> value="${index.count}"><img alt="${ad.name}" src="${ad.thumb}"></li>
+				        </c:forEach>
+				    </ul>
 				</div>
 				<section class="box news-box">
 					<div class="ym-grid linearize-level-1">
 						<div class="ym-grid ym-gl">
 	
 							<div class="ym-grid linearize-level-2">
-								<article class="ym-g55 ym-gl">
+								<article class="ym-g52 ym-gl">
 									<div class="ym-gbox-left">
 										<h4 class="newsTitle"><spring:message code="title.latest.news"/></h4>
 										<ul class="indexNewsContainer">
