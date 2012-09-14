@@ -11,6 +11,7 @@
 	    		   location.href='/${language}/news_list?type='+this.id;
     		   });
     	   });
+    	   $('#${news.type}').addClass('curr');
        });
        </script>
     </head>

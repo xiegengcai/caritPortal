@@ -36,6 +36,26 @@
 			$('.combobox-f').each(function(){
 				$(this).combobox('clear');
 			});
+			// 初始化
+			$('#tt').datagrid({
+				toolbar:[{
+					text:'新增',
+					iconCls:'icon-add',
+					handler:function() {
+						$('#editWin').window({title:'新增'+winTitle,iconCls:'icon-add'});
+						$('#editForm').form('clear');
+						$('#editForm textarea').val('');
+						$('#id').val('');
+						$('#editWin').window('open');
+						$('#editWin').show();
+						$('.validatebox-tip').remove();
+					}
+				}, '-', {
+					text :'删除',
+					iconCls:'icon-remove',
+					handler:delM
+				} ]
+			});
 			$('#edit_submit_media').click(function(){
 				$('#editForm').form({
 					onSubmit:function(){
@@ -84,30 +104,42 @@
 			checkExisted($('#name_edit'),"${ctx}/common/check/media?name=");
 		});
 		function edit(index) {
-			if(index>-1){//双击
-				// clear selected
-				$('#tt').datagrid('clearSelections');
-				$('#tt').datagrid('selectRow',index); //让双击行选定
-			}
-			var m = $('#tt').datagrid('getSelected');
-			if (m) {
-				$('#editForm input').each(function(){
-					$(this).removeClass('validatebox-invalid');
+			
+		}
+		function delM(){
+			var ids=getIds();
+			if (ids) {
+				$.messager.confirm('警告','删除同时会删除关联信息，您确认要删除吗?',function(data) {
+					if (data) {
+						var _url=$('#tt').attr('url');
+						_url=_url.substring(0,_url.indexOf('query'))+'delete?id=0&ids='+ids;
+						$.messager.progress({title:'请稍后',msg:'提交中...'});
+						$.ajax({
+							url : _url,
+							type : 'GET',
+							timeout : 1000,
+							error : function() {
+								$.messager.alert('错误','删除失败!','error');
+							},
+							success : function(data) {
+								$.messager.progress('close');
+								if (data == -1) {
+									$.messager.alert('错误','删除失败!','error');
+								} else if (data > 0) {
+									$.messager.alert('成功','被引用的资源需要取消引用才能删除，','info');
+									// update rows
+									$('#tt').datagrid('reload');
+								} else {
+									$.messager.alert('异常','后台系统异常','error');
+								}
+							}
+						});
+					}
 				});
-				$('#editWin').window({title:'修改'+winTitle,iconCls:'icon-edit'});
-				$('#editWin').window('open');
-				// init data
-				$('#name_edit').val(m.name);
-				$('#fileText').val(m.url);
-				$('#type_edit').combobox('setValue',m.type);
-				$('#status_edit').combobox('setValue',m.status);
-				$('#remark_edit').val(m.remark);
-				$('#id').val(m.id);
-				$('#editWin').show();
 			} else {
 				$.messager.show({
 					title : '警告',
-					msg : '请先选择要修改的记录。'
+					msg : '请先选择要删除的记录。'
 				});
 			}
 		}
@@ -159,7 +191,7 @@
 			</div>
 			<table id="tt" style="height: auto;" iconCls="icon-blank" title="媒体列表" align="left"  
 			idField="id" url="${ctx}/admin/media/query" pagination="true" rownumbers="true"
-			fitColumns="true" pageList="[ 5, 10]">
+			fitColumns="true" pageList="[10,15, 20]">
 				<thead>
 					<tr>
 						<th field="name" width="100" align="center">名称</th>

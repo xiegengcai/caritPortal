@@ -100,7 +100,7 @@
 			</div>
 			<table id="tt" style="height: auto;" iconCls="icon-blank" title="车系分类列表" align="left"  
 			idField="id" url="${ctx}/admin/catalog/query" pagination="true" rownumbers="true"
-			fitColumns="true" pageList="[ 5, 10]" sortName="displayIndex" sortOrder="asc">
+			fitColumns="true" pageList="[10,15, 20]" sortName="displayIndex" sortOrder="asc">
 				<thead>
 					<tr>
 						<th field="catalogCode" width="100" align="center">国际化配置名称</th>

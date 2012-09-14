@@ -67,16 +67,6 @@
 									<div>
 										<h3 id="catalog_title"></h3>
 										<ul id="news-list">
-											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
-											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
-											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
-											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
-											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
-											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
-											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
-											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
-											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
-											<li><span>2012-08-22</span><label>ttttttttttttttt</label><a><spring:message code="botton.read.more"/></a></li>
 										</ul>
 									</div>
 									<div id="pageDiv" class="ym-g90 ym-gl"><label class="cruLabel"><span class="selected">1</span><span onclick="doPage(2)">2</span><span onclick="doPage(3)">3</span><span onclick="doPage(4)">4</span></label></div>

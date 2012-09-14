@@ -131,7 +131,7 @@ public class BaseDaoImpl {
 		try {
 			return jdbcTemplate.queryForInt(sql, args);
 		} catch (Exception e) {
-			log.warn("no record existed...");
+			log.warn("no record existed...", e);
 		}
 		return 0;
 	}

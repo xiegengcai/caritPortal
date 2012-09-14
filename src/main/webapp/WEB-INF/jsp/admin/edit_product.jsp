@@ -84,6 +84,18 @@
 				}).submit();
 			});
 			checkExisted($('#name_edit'),"${ctx}/common/check/media?name=");
+			$('#submit_media').click(function(){
+				//先取得 datagrid 的查询参数 
+				var params = $('#ttt').datagrid('options').queryParams;
+				//自动序列化表单元素为JSON对象
+		        var fields =$('#mediaSearchForm').serializeArray();   
+		        $.each( fields, function(i, field){
+		            params[field.name] = field.value; //设置查询参数  
+		        });
+		        //设置好查询参数 reload 一下就可以了
+		        $('#ttt').datagrid('reload'); 
+			});
+			$('#reset_media').click(function(){$('#mediaSearchForm').form('clear')});
 			//uploadForm
 			$('#upload_reset').click(function(){
 				$('#uploadForm').form('clear');
@@ -247,14 +259,13 @@
 				</div>
 			<table id="ttt" style="height: auto;" iconCls="icon-blank" title="媒体列表" align="left"  
 			idField="id" url="${ctx}/admin/media/query?type=0" pagination="true" rownumbers="true" singleSelect="true"
-			fitColumns="true" pageList="[ 5, 10]">
+			fitColumns="true" pageList="[10,15, 20]">
 				<thead>
 					<tr>
 						<th field="name" width="100" align="center">名称</th>
 						<th field="url" width="100" align="center">媒体路径</th>
 						<th field="type" width="100" align="center" formatter="typeFormatter">类别</th>
 						<th field="status" width="60" align="center" formatter="statusFormatter">状态</th>
-						<th field="remark" width="150" align="center">备注</th>
 					</tr>
 				</thead>
 			</table>

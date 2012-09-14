@@ -123,7 +123,7 @@
 			</div>
 			<table id="tt" style="height: auto;" iconCls="icon-blank" title="产品列表" align="left"  
 			idField="id" url="${ctx}/admin/product/query" pagination="true" rownumbers="true"
-			fitColumns="true" pageList="[ 5, 10]">
+			fitColumns="true" pageList="[10,15, 20]">
 				<thead>
 					<tr>
 						<th field="title" width="100" align="center">标题</th>

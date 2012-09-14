@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -66,18 +65,16 @@ public class AdminController {
 	 * @throws Exception 
 	 */
 	@RequestMapping(value="back/login", method=RequestMethod.POST)
-	@ResponseBody
-	public int login(@RequestParam("email") String email
+	public String login(@RequestParam("email") String email
 			, @RequestParam("password") String password
-			, HttpServletRequest req, HttpServletResponse rsp) throws Exception{
+			, HttpServletRequest req) throws Exception{
 		HttpSession session=req.getSession();
-		rsp.setContentType("text/html; charset=utf-8");
 		Object obj=session.getAttribute(Constants.PASSWORD_ERROR_COUNT+email);
 		Integer errorCount= obj==null?0:(Integer)obj;
 		Integer answerCode=-3;
 		if (errorCount!=null && errorCount.intValue()>=Constants.MAX_PWD_ERROR_COUNT) {
 			log.error("Limit login:password error count("+errorCount+") >="+Constants.MAX_PWD_ERROR_COUNT);
-//			return answerCode;
+			req.setAttribute("error", "密码连续错误"+Constants.MAX_PWD_ERROR_COUNT+"次，半小时内限制登录");
 		}
 		Map<String, Object> resultMap=adminUserService.login(email, password, req.getRemoteAddr());
 		answerCode=(Integer) resultMap.get(Constants.ANSWER_CODE);
@@ -87,14 +84,21 @@ public class AdminController {
 				AdminUser adminUser=(AdminUser) resultMap.get(email);
 				session.setAttribute(Constants.PASSWORD_ERROR_COUNT+email, 0);
 				session.setAttribute(Constants.ADMIN_USER, adminUser);
-			}
-			if (answerCode.intValue()==0) {// 密码错误
+				req.removeAttribute("error");
+				return "redirect:/admin/index";
+			}else if (answerCode.intValue()==0) {// 密码错误
 				session.setAttribute(Constants.PASSWORD_ERROR_COUNT+email, errorCount+1);
+				req.setAttribute("error", "密码错误");
+			}else if (answerCode.intValue()==-2) {
+				req.setAttribute("error", "账号不存在");
+			}else if (answerCode.intValue()==-1) {
+				req.setAttribute("error", "账号已停用");
+			} else {
+				req.setAttribute("error", "未知错误");
 			}
 		}
-//		rsp.getOutputStream().write(answerCode);
-//		rsp.getWriter().write(answerCode);
-		return answerCode;
+		req.setAttribute("email", email);
+		return "admin/loginForm";
 	}
 	
 	/**

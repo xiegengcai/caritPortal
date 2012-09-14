@@ -1,18 +1,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/jsp/commons/taglibs.jsp"%>
 <!-- 页眉 -->
-<ul class="ym-skiplinks">
-	<li><a class="ym-skip" href="#nav">Skip to navigation (Press Enter)</a></li>
-	<li><a class="ym-skip" href="#main">Skip to main content (Press Enter)</a></li>
-</ul>
 <header>
 	<div class="ym-wrapper">
 		<div class="ym-wbox header-top">
 			<img alt="" src="/resources/public/images/logo.png">
 			<div class="top-right">
 				<form class="ym-searchform">
-					<input class="ym-searchfield" type="search" placeholder="Search..." />
-					<input class="ym-searchbutton" type="submit" value="" />
+					<input class="ym-searchfield" type="search" placeholder="Search..." /><input class="ym-searchbutton" type="submit" value="" />
 				</form>
 				<div class="language">
 				<label><spring:message code="title.language"/></label>

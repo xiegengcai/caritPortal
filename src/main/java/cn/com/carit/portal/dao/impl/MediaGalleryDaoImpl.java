@@ -220,4 +220,20 @@ public class MediaGalleryDaoImpl extends BaseDaoImpl
 		return checkExisted(sql, name);
 	}
 
+	@Override
+	public int checkUsed(String url) {
+		String sql = "select 1 from t_demo_video a,t_banner_ad b,t_product_release c"
+				+" where a.url=? or b.image=? or b.thumb=? or "
+				+"(c.picture like concat('%' ,?, '%') or c.main_pic =? or c.thumb =?) limit 1";
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("\n%1$s\n", sql));
+		}
+		try {
+			return jdbcTemplate.queryForInt(sql, url, url, url, url, url, url);
+		} catch (Exception e) {
+			log.warn("no record existed...", e);
+		}
+		return 0;
+	}
+
 }

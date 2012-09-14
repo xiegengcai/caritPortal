@@ -8,6 +8,9 @@
 		<%@ include file="/WEB-INF/jsp/commons/easyui.jsp"%>
 		<script type="text/javascript">
 		$(function (){
+			if('${error}'==''||'${error}'==null){
+				$('#error').hide();
+			}
 			// 检测是否是超时在iframe显示登录页
 			if($('.easyui-layout', window.parent.document).html()){
 				window.parent.location.reload();
@@ -22,26 +25,12 @@
 				}
 			});
 			$('#reset').bind('click',function(){ $('#loginForm').form('clear');});
+			$('input').click(function(){$('#error').hide();}).blur(function(){$('#error').hide();});
 		});
 		function login(){
-			$('#loginForm').form({
-		    	success:function(data){
-		    		if(data==-3){
-						$.messager.alert('错误', '密码错误次数太多，半小时内限制登录', 'error');
-		    		}else if(data==-2){
-		    			$.messager.alert('提示', '用户不存在！', 'info');
-		    		}else if(data==-1){
-						$.messager.alert('错误', '账号已停用！', 'error');
-					}else if(data==0){
-		    			$.messager.alert('提示', '密码错误！', 'info');
-					}else if(data==1){
-						//登录成功
-						location.href='${ctx}/admin/index'
-					} else {
-						$.messager.alert('异常', '后台系统异常', 'error');
-					}
-			    }
-			}).submit();
+			if($('#loginForm').form('validate')){
+				document.getElementById('loginForm').submit();
+			}
 		}
 		</script>
 	</head>
@@ -56,7 +45,7 @@
 						<label for="email" path="email">邮箱：</label>
 					</td>
 					<td>
-						<input type="text" name="email" class="easyui-validatebox" required="true" validType="email"/>
+						<input type="text" name="email" class="easyui-validatebox" required="true" validType="email" value="${email}"/>
 					</td>
 				</tr>
 				<tr>
@@ -70,6 +59,7 @@
 			</table>
 		</form:form>
 		<div style="text-align: center; padding: 5px;">
+				<p id="error" style="color: #ff0000;">${error}</p>
 				<a href="javascript:void(0);" class="easyui-linkbutton" id="submit"
 					iconCls="icon-search">登 录</a>
 				<a href="javascript:void();" class="easyui-linkbutton" id="reset"

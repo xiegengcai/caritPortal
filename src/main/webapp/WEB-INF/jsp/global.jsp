@@ -22,7 +22,7 @@
 							<c:forEach items="${addressList}" var="addr" varStatus="stat">
 							<div class="ym-g50 ym-gl global-detail">
 								<div class="ym-gl global-serial-number">${stat.count}</div>
-								<div class="ym-gr ym-g95 global-contact">
+								<div class="ym-gr ym-g93 global-contact">
 									<p><spring:message code="title.address"/>${addr.address}</p>
 									<p><spring:message code="title.telephone"/>${addr.telephone}</p>
 									<p><spring:message code="title.fax"/>${addr.fax}</p>

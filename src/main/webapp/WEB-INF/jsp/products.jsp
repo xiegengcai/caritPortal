@@ -24,7 +24,7 @@
 				if(data.rows){
 					var html='';
 					$.each(data.rows, function(i,o){
-						html+='<li><a href="/'+o.language+'/product/'+o.id+'"><img src="'+o.thumb+'"/></a><a href="/${language}/'+o.id+'"><span>'+o.title+'</span></a></li>';
+						html+='<li><a href="/'+o.language+'/product/'+o.id+'"><img src="'+o.thumb+'"/></a><a  href="/'+o.language+'/product/'+o.id+'"><span>'+o.title+'</span></a></li>';
 					});
 					$('#products-list').html(html);
 					if(data.totalPage>1){
@@ -64,10 +64,6 @@
 									<div>
 										<h3 id="catalog_title"></h3>
 										<ul id="products-list">
-											<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
-											<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
-											<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
-											<li><a href=""><img /></a><a href=""><span>dddddddddd</span></a></li>
 										</ul>
 									</div>
 									<div id="pageDiv" class="ym-g90 ym-gl"></div>

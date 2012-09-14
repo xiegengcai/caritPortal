@@ -138,7 +138,7 @@
 			</div>
 			<table id="tt" style="height: auto;" iconCls="icon-blank" title="菜单列表" align="left"  
 			idField="id" url="${ctx}/admin/menu/query" pagination="true" rownumbers="true"
-			fitColumns="true" pageList="[ 5, 10]" sortName="displayIndex" sortOrder="asc">
+			fitColumns="true" pageList="[10,15, 20]" sortName="displayIndex" sortOrder="asc">
 				<thead>
 					<tr>
 						<th field="parentId" width="100" align="center" formatter="parentFormatter">父菜单</th>

@@ -14,20 +14,19 @@
     		   </c:if>
     		   $(this).html(textOverflow($(this).html(),maxLen));
     	   });
-    	   count=$("#banner_list a").length;
-    	   $("#banner_list a:not(:first-child)").hide();
-    	   //$("#banner_info").html($("#banner_list a:first-child").find("img").attr('alt'));
-    	   //$("#banner_info").click(function(){window.open($("#banner_list a:first-child").attr('href'), "_blank")});
+    	   $('#banner-number a').each(function(){
+    		   this.href=this.href.replace('%7Blanguage%7D','${language}');
+    	   });
+    	   count=$("#banner_list img").length;
+    	   $("#banner_list img:not(:first-child)").hide();
     	   $("#banner li").click(function() {
     		   //var i = $(this).text() - 1;//获取Li元素内的值，即1，2，3，4
     		   var i = $(this).val() - 1;//获取Li元素内的值，即1，2，3，4
     		   n = i;
     		   if (i >= count) return;
-    		   $("#banner_info").html($("#banner_list a").eq(i).find("img").attr('alt'));
-    		   $("#banner_info").unbind().click(function(){window.open($("#banner_list a").eq(i).attr('href'), "_blank")})
-    		   $("#banner_list a").filter(":visible").fadeOut(500).parent().children().eq(i).fadeIn(1000);
+    		   $("#banner_list img").filter(":visible").fadeOut(500).parent().children().eq(i).fadeIn(1000);
     		   $('#banner').css('background','');
-    		   $(this).toggleClass("on");
+    		   //$(this).toggleClass("on");
     		   $(this).siblings().removeAttr("class");
     	   }).css('width',$('#banner').width()/count-2);
     	   t = setInterval("showAuto()", timeout);
@@ -49,12 +48,15 @@
 				<div class="ym-grid" id="banner">
 				   <div id="banner_list">
 				        <c:forEach items="${bannerAdList}" var="ad" begin="0" end="4">
-				        <a href="${ad.href}" target="_blank"><img src="${ad.image}" title="${ad.name}" alt="${ad.name}" /></a>
+				        <img src="${ad.image}" title="${ad.name}" alt="${ad.name}" />
 				        </c:forEach>
 					</div>
 				    <ul id="banner-number">
 				        <c:forEach items="${bannerAdList}" var="ad" begin="0" end="4" varStatus="index">
-				         <li <c:if test="${index.count eq 1}">class="on"</c:if> value="${index.count}"><img alt="${ad.name}" src="${ad.thumb}"></li>
+				        <!--
+				         <li <c:if test="${index.count eq 1}">class="on"</c:if> value="${index.count}"><a href="${ad.href}" target="_about"><img alt="${ad.name}" src="${ad.thumb}"/></a></li>
+				         -->
+				         <li value="${index.count}"><a href="${ad.href}" target="_about"><img alt="${ad.name}" src="${ad.thumb}"/></a></li>
 				        </c:forEach>
 				    </ul>
 				</div>

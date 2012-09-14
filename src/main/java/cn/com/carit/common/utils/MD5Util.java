@@ -147,5 +147,6 @@ public class MD5Util {
 		for (String str : arr) {
 			System.out.println("dddddddddddd"+str);
 		}
+		
 	}
 }

@@ -213,7 +213,7 @@
 			</div>
 			<table id="tt" style="height: auto;" iconCls="icon-blank" title="演示视频列表" align="left"  
 			idField="id" url="${ctx}/admin/demo/video/query" pagination="true" rownumbers="true"
-			fitColumns="true" pageList="[ 5, 10]">
+			fitColumns="true" pageList="[10,15, 20]">
 				<thead>
 					<tr>
 						<th field="name" width="100" align="center">名称</th>
@@ -271,7 +271,7 @@
 				</div>
 				<table id="ttt" style="height: auto;" iconCls="icon-blank" title="媒体列表" align="left"  
 				idField="id" url="${ctx}/admin/media/query?type=1" pagination="true" rownumbers="true" singleSelect="true"
-				fitColumns="true" pageList="[ 5, 10]">
+				fitColumns="true" pageList="[10,15, 20]">
 					<thead>
 						<tr>
 							<th field="name" width="100" align="center">名称</th>

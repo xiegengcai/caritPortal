@@ -49,13 +49,16 @@ public class MediaGalleryServiceImpl implements
 			throw new IllegalArgumentException("id must be bigger than 0...");
 		}
 		MediaGallery old=dao.queryById(id);
-		if (old.getType()==MediaGallery.TYPE_FLV) {
-			AttachmentUtil.deleteFlash(old.getUrl());
+		if (old!=null && dao.checkUsed(old.getUrl())==0) {
+			if (old.getType()==MediaGallery.TYPE_FLV) {
+				AttachmentUtil.deleteFlash(old.getUrl());
+			}
+			if (old.getType()==MediaGallery.TYPE_IMG) {
+				AttachmentUtil.deleteImage(old.getUrl());
+			}
+			return dao.delete(id);
 		}
-		if (old.getType()==MediaGallery.TYPE_IMG) {
-			AttachmentUtil.deleteImage(old.getUrl());
-		}
-		return dao.delete(id);
+		return 0;
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)

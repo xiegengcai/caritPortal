@@ -7,4 +7,11 @@ public interface MediaGalleryDao<MediaGallery> extends BaseDao<MediaGallery> {
 	 * @return
 	 */
 	int checkExisted(String name);
+	
+	/**
+	 * 检查是否使用
+	 * @param url
+	 * @return
+	 */
+	int checkUsed(String url);
 }

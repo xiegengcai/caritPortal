@@ -103,7 +103,7 @@
 			</div>
 			<table id="tt" style="height: auto;" iconCls="icon-blank" title="地址列表" align="left"  
 			idField="id" url="${ctx}/admin/address/query" pagination="true" rownumbers="true"
-			fitColumns="true" pageList="[ 5, 10]">
+			fitColumns="true" pageList="[10,15, 20]">
 				<thead>
 					<tr>
 						<th field="language" width="100" align="center" formatter="lanFormatter">语言</th>
