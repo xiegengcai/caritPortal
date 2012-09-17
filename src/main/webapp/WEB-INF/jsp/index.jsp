@@ -28,7 +28,7 @@
     		   $('#banner').css('background','');
     		   //$(this).toggleClass("on");
     		   $(this).siblings().removeAttr("class");
-    	   }).css('width',$('#banner').width()/count-2);
+    	   })/*.css('width',$('#banner').width()/count-2)*/;
     	   t = setInterval("showAuto()", timeout);
     	   $("#banner").hover(function(){clearInterval(t)}, function(){t = setInterval("showAuto()", timeout);});
        });

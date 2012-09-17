@@ -54,6 +54,7 @@
 				$('#editForm').form({
 					onSubmit:function(){
 						contentEditer.sync();
+						buildPic();
 						// 避免 form validate bug
 						$('.combobox-f').each(function(){
 							$(this).val($(this).combobox('getText'));
@@ -98,8 +99,7 @@
 			$('#reset_media').click(function(){$('#mediaSearchForm').form('clear')});
 			//uploadForm
 			$('#upload_reset').click(function(){
-				$('#uploadForm').form('clear');
-				$('#uploadForm textarea').val('');
+				$('#uploadForm input:not(:hidden)').val('');
 			});
 			$('#upload_submit').click(function(){
 				$('#uploadForm').form({
@@ -131,6 +131,7 @@
 							$.messager.alert('错误', "编辑失败", 'error');
 			    		} else if(map.answerCode>0){
 							$.messager.alert('成功', "编辑成功", 'info');
+				        	$('#uploadForm input:not(:hidden)').val('');
 				        	$('#mediaWin').window('close');
 				        	$('#'+updateId).val(map.url).removeClass('validatebox-invalid');
 						}else{
@@ -152,6 +153,9 @@
 			var m = $('#ttt').datagrid('getSelected');
 			$('#'+updateId).val(m.url).removeClass('validatebox-invalid');
 			$('#mediaWin').window('close');
+			buildPic();
+		}
+		function buildPic(){
 			var picture='';
 			$('input[id^=picture_]').each(function(i){
 				if($(this).val()){

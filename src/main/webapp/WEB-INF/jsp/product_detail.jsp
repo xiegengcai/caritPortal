@@ -23,7 +23,7 @@
 				<div class="ym-grid current-position"><a href="/${language}"><spring:message code="Menu.home"/></a> - <a href="/${language}/products"><spring:message code="Menu.products"/></a> - ${product.title}</div>
 				<section class="box" style="margin: 0 auto">
 					<div class="ym-grid product-container">
-						<img class="product-img" alt="${product.title}" src="${product.thumb}"/>
+						<img class="product-img" alt="${product.title}" src="${product.mainPic}"/>
 						<div class="product-content">
 							<h3><spring:message code="title.product.name"/>${product.title}</h3>
 							${product.content}
