@@ -185,6 +185,5 @@ header{height: 100px;background: url(../images/hearder_bg.png);/* for non-css3 b
 .global-contact{margin: 1em 0 0 0;}
 .global-contact p{margin: 0 auto;text-indent: 0;}
 
-.twitter{margin: 1em 1.5em;}
-.twitter span{margin-right: 2em;}
-.twitter span a{font-size: 18px;}
+footer p{text-align: center;}
+footer label{margin: 0 3em;}
