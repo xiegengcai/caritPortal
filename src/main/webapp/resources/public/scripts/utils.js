@@ -27,31 +27,38 @@ function pagination(page,total){
 		if(label==0){
 			label=total/10;
 		} else {
-			label=total/10+1;
+			label=parseInt(total/10)+1;
 		}
+		label=parseInt(label);
 		if(curLabel==0){
 			curLabel=page/10;
 		} else {
-			curLabel=page/10+1;
+			curLabel=parseInt(page/10)+1;
 		}
+		curLabel=parseInt(curLabel);
+		var pageIndex=1;
 		for(var i=1;i<=label;i++){
 			if(i==curLabel){
 				html+='<label id="p_'+i+'" class="cruLabel">';
 			}else{
-				html+='<label id="p_'+i+'">';
+				html+='<label id="p_'+i+'" style="display:none;">';
+			}
+			if(i>1){
+				html+='<span onclick="doPageLabel('+(i-1)+')">«</span>'
 			}
 			for(var j=1;j<=10;j++){
-				if(i>1){
-					html+='<span onclick="doPageLabel("p_"'+(i-1)+')">«</span>'
+				if(pageIndex>total){
+					break;
 				}
-				if(j==page){
-					html+='<span class="selected">'+j+'</span>';
+				if(pageIndex==page){
+					html+='<span class="selected">'+pageIndex+'</span>';
 				}else{
-					html+='<span onclick="doPage('+j+')">'+j+'</span>';
+					html+='<span onclick="doPage('+pageIndex+')">'+pageIndex+'</span>';
 				}
-				if(i<label){
-					html+='<span onclick="doPageLabel("p_"'+(i+1)+')">»</span>'
-				}
+				pageIndex++;
+			}
+			if(i<label){
+				html+='<span onclick="doPageLabel('+(i+1)+')">»</span>'
 			}
 			html+='</label>';
 		}
@@ -64,9 +71,9 @@ function pagination(page,total){
 }
 function doPageLabel(id){
 	$('label[id^=p_]').hide();
-	$('#'+id).show();
+	$('#p_'+id).show();
 	$('#pageDiv label[id^=p_]').removeClass('cruLabel').addClass('hideLabel');  
-    $('#'+target).removeClass('hideLabel').addClass('cruLabel');  
+    $('#p_'+id).removeClass('hideLabel').addClass('cruLabel');  
 }
 
 /**
