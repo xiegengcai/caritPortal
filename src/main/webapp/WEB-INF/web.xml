@@ -66,6 +66,8 @@
 	-->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 
@@ -86,8 +88,6 @@
 		<param-value>zh_CN</param-value>
 	</context-param>
 
-	<welcome-file-list>
-	</welcome-file-list>
 	<!-- Error Page定义 -->
 	<error-page>
 		<error-code>500</error-code>

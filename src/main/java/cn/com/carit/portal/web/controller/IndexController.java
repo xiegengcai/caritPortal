@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import cn.com.carit.common.Constants;
 import cn.com.carit.portal.LanguageConfig;
@@ -25,7 +25,7 @@ import cn.com.carit.portal.web.CacheManager;
 public class IndexController extends BaseController{
 	
 	@Resource(name="localeResolver")
-	private CookieLocaleResolver localeResolver;
+	private SessionLocaleResolver localeResolver;
 	
 	@Resource
 	private NewsService<News> newsService;
@@ -44,7 +44,7 @@ public class IndexController extends BaseController{
 	 */
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String index(){
-		doLocalIndex(getLocaleLanguage());
+		doLocalIndex(getLocaleLanguage(localeResolver.resolveLocale(getRequest())));
 		return "index";
 	}
 	
