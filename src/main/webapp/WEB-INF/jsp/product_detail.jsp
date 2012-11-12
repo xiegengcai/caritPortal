@@ -24,10 +24,12 @@
 				<section class="box" style="margin: 0 auto">
 					<div class="ym-grid product-container">
 						<img class="product-img" alt="${product.title}" src="${product.mainPic}"/>
+						<c:if test="${product.id!=34}">
 						<div class="product-content">
 							<h3><spring:message code="title.product.name"/>${product.title}</h3>
 							${product.content}
 						</div>
+						</c:if>
 						<div class="ym-gl product-detail">
 							<div class="ui-title"><spring:message code="title.ui.screenshot"/></div>
 							<ul class="product-img-list">
