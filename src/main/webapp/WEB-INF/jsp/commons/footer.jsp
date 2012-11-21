@@ -16,6 +16,12 @@
 				</a>
 				<a href="http://www.facebook.com/pages/%E4%B8%AD%E9%80%9A%E7%A6%8F%E7%91%9E/156934537779302" target="_about"><img src="/resources/public/images/facebook.png" alt="Find Me On Facebook" width="20" height="20" align="absmiddle"></a>
 				</label>
+				<script type="text/javascript">
+				// 百度统计
+				var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+				document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F40795d29f7efcc8ec34719108875ab7e' type='text/javascript'%3E%3C/script%3E"));
+				</script>
+				<script src="http://s25.cnzz.com/stat.php?id=4772523&web_id=4772523&show=pic1" language="JavaScript"></script>
 			</p>
 		</div>
 	</div>
