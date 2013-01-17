@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -16,14 +15,14 @@ import cn.com.carit.portal.bean.ProductRelease;
 import cn.com.carit.portal.dao.ProductReleaseDao;
 import cn.com.carit.portal.service.ProductReleaseService;
 @Service
-@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
+@Transactional(readOnly=true)
 public class ProductReleaseServiceImpl implements
 		ProductReleaseService<ProductRelease> {
 	
 	@Resource
 	private ProductReleaseDao<ProductRelease> productReleaseDao;
 
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int saveOrUpdate(ProductRelease t) throws Exception {
 		if (t.getId()>0) {
@@ -33,7 +32,7 @@ public class ProductReleaseServiceImpl implements
 		}
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int delete(int id) {
 		if(id<=0){
@@ -42,7 +41,7 @@ public class ProductReleaseServiceImpl implements
 		return productReleaseDao.delete(id);
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int batchDelete(String ids) {
 		if (StringUtils.hasText(ids)) {

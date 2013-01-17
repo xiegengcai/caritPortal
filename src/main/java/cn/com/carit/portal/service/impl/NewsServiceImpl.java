@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -16,13 +15,13 @@ import cn.com.carit.portal.bean.News;
 import cn.com.carit.portal.dao.NewsDao;
 import cn.com.carit.portal.service.NewsService;
 @Service
-@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
+@Transactional(readOnly=true)
 public class NewsServiceImpl implements NewsService<News> {
 	
 	@Resource
 	private NewsDao<News> newsDao;
 
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int saveOrUpdate(News t) throws Exception {
 		if (t.getId()>0) {
@@ -32,7 +31,7 @@ public class NewsServiceImpl implements NewsService<News> {
 		}
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int delete(int id) {
 		if(id<=0){
@@ -41,7 +40,7 @@ public class NewsServiceImpl implements NewsService<News> {
 		return newsDao.delete(id);
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int batchDelete(String ids) {
 		if (StringUtils.hasText(ids)) {

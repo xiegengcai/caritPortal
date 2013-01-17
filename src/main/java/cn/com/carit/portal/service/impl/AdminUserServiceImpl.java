@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -22,7 +21,7 @@ import cn.com.carit.portal.bean.AdminUser;
 import cn.com.carit.portal.dao.AdminUserDao;
 import cn.com.carit.portal.service.AdminUserService;
 @Service
-@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
+@Transactional(readOnly=true)
 public class AdminUserServiceImpl implements AdminUserService<AdminUser> {
 
 	private final Logger log=LoggerFactory.getLogger(getClass());
@@ -30,7 +29,7 @@ public class AdminUserServiceImpl implements AdminUserService<AdminUser> {
 	@Resource
 	private AdminUserDao<AdminUser> adminUserDao;
 	
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int saveOrUpdate(AdminUser t) throws Exception {
 		String password=t.getPassword();
@@ -53,7 +52,7 @@ public class AdminUserServiceImpl implements AdminUserService<AdminUser> {
 		return adminUserDao.delete(id);
 	}
 	
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int batchDelete(String ids) {
 		if (StringUtils.hasText(ids)) {

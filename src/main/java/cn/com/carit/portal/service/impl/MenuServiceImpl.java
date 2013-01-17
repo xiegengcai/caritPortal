@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -16,13 +15,13 @@ import cn.com.carit.portal.dao.MenuDao;
 import cn.com.carit.portal.service.MenuService;
 
 @Service
-@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
+@Transactional(readOnly=true)
 public class MenuServiceImpl implements MenuService<Menu> {
 	
 	@Resource
 	private MenuDao<Menu> menuDao;
 	
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int saveOrUpdate(Menu t) throws Exception {
 		if (t.getId()>0) {
@@ -32,7 +31,7 @@ public class MenuServiceImpl implements MenuService<Menu> {
 		}
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int delete(int id) {
 		if(id<=0){
@@ -41,7 +40,7 @@ public class MenuServiceImpl implements MenuService<Menu> {
 		return menuDao.delete(id);
 	}
 	
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int batchDelete(String ids) {
 		if (StringUtils.hasText(ids)) {

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -17,14 +16,14 @@ import cn.com.carit.portal.dao.BannerAdDao;
 import cn.com.carit.portal.service.BannerAdService;
 import cn.com.carit.portal.web.CacheManager;
 @Service
-@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
+@Transactional(readOnly=true)
 public class BannerAdServiceImpl implements
 		BannerAdService<BannerAd> {
 
 	@Resource
 	private BannerAdDao<BannerAd> dao;
 	
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int saveOrUpdate(BannerAd t) throws Exception {
 		int rows=0;
@@ -44,7 +43,7 @@ public class BannerAdServiceImpl implements
 		return rows;
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int delete(int id) {
 		if(id<=0){
@@ -60,7 +59,7 @@ public class BannerAdServiceImpl implements
 		return rows;
 	}
 	
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int batchDelete(String ids) {
 		if (StringUtils.hasText(ids)) {

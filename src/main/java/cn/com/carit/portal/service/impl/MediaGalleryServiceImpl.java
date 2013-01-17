@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -16,14 +15,14 @@ import cn.com.carit.portal.bean.MediaGallery;
 import cn.com.carit.portal.dao.MediaGalleryDao;
 import cn.com.carit.portal.service.MediaGalleryService;
 @Service
-@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
+@Transactional(readOnly=true)
 public class MediaGalleryServiceImpl implements
 		MediaGalleryService<MediaGallery> {
 
 	@Resource
 	private MediaGalleryDao<MediaGallery> dao;
 	
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int saveOrUpdate(MediaGallery t) throws Exception {
 		if (t.getId()>0) {
@@ -42,7 +41,7 @@ public class MediaGalleryServiceImpl implements
 		}
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int delete(int id) {
 		if(id<=0){
@@ -61,7 +60,7 @@ public class MediaGalleryServiceImpl implements
 		return 0;
 	}
 	
-	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	@Transactional(readOnly=false)
 	@Override
 	public int batchDelete(String ids) {
 		if (StringUtils.hasText(ids)) {
