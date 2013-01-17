@@ -16,13 +16,13 @@ import cn.com.carit.portal.bean.News;
 import cn.com.carit.portal.dao.NewsDao;
 import cn.com.carit.portal.service.NewsService;
 @Service
-@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 public class NewsServiceImpl implements NewsService<News> {
 	
 	@Resource
 	private NewsDao<News> newsDao;
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int saveOrUpdate(News t) throws Exception {
 		if (t.getId()>0) {
@@ -32,7 +32,7 @@ public class NewsServiceImpl implements NewsService<News> {
 		}
 	}
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int delete(int id) {
 		if(id<=0){
@@ -41,7 +41,7 @@ public class NewsServiceImpl implements NewsService<News> {
 		return newsDao.delete(id);
 	}
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int batchDelete(String ids) {
 		if (StringUtils.hasText(ids)) {

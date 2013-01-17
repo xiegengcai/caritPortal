@@ -17,14 +17,14 @@ import cn.com.carit.portal.dao.BannerAdDao;
 import cn.com.carit.portal.service.BannerAdService;
 import cn.com.carit.portal.web.CacheManager;
 @Service
-@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 public class BannerAdServiceImpl implements
 		BannerAdService<BannerAd> {
 
 	@Resource
 	private BannerAdDao<BannerAd> dao;
 	
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int saveOrUpdate(BannerAd t) throws Exception {
 		int rows=0;
@@ -44,7 +44,7 @@ public class BannerAdServiceImpl implements
 		return rows;
 	}
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int delete(int id) {
 		if(id<=0){

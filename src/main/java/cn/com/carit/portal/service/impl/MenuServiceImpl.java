@@ -16,13 +16,13 @@ import cn.com.carit.portal.dao.MenuDao;
 import cn.com.carit.portal.service.MenuService;
 
 @Service
-@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 public class MenuServiceImpl implements MenuService<Menu> {
 	
 	@Resource
 	private MenuDao<Menu> menuDao;
 	
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int saveOrUpdate(Menu t) throws Exception {
 		if (t.getId()>0) {
@@ -32,7 +32,7 @@ public class MenuServiceImpl implements MenuService<Menu> {
 		}
 	}
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int delete(int id) {
 		if(id<=0){

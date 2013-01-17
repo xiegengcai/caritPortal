@@ -15,13 +15,13 @@ import cn.com.carit.portal.bean.Catalog;
 import cn.com.carit.portal.dao.CatalogDao;
 import cn.com.carit.portal.service.CatalogService;
 @Service
-@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 public class CatalogServiceImpl implements CatalogService<Catalog> {
 	
 	@Resource
 	private CatalogDao<Catalog> catalogDao;
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int saveOrUpdate(Catalog t) throws Exception {
 		if (t.getId()>0) {
@@ -31,7 +31,7 @@ public class CatalogServiceImpl implements CatalogService<Catalog> {
 		}
 	}
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int delete(int id) {
 		if(id<=0){
@@ -40,7 +40,7 @@ public class CatalogServiceImpl implements CatalogService<Catalog> {
 		return catalogDao.delete(id);
 	}
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int batchDelete(String ids) {
 		if (StringUtils.hasText(ids)) {

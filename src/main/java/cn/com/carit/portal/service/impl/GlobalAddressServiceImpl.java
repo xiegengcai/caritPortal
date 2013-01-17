@@ -17,14 +17,14 @@ import cn.com.carit.portal.dao.GlobalAddressDao;
 import cn.com.carit.portal.service.GlobalAddressService;
 import cn.com.carit.portal.web.CacheManager;
 @Service
-@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 public class GlobalAddressServiceImpl implements
 		GlobalAddressService<GlobalAddress> {
 
 	@Resource
 	private GlobalAddressDao<GlobalAddress> dao;
 	
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int saveOrUpdate(GlobalAddress t) throws Exception {
 		if (t.getId()>0) {
@@ -34,7 +34,7 @@ public class GlobalAddressServiceImpl implements
 		}
 	}
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int delete(int id) {
 		if(id<=0){

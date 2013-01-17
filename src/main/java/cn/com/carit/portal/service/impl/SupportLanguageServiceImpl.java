@@ -16,14 +16,14 @@ import cn.com.carit.portal.dao.SupportLanguageDao;
 import cn.com.carit.portal.service.SupportLanguageService;
 
 @Service
-@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 public class SupportLanguageServiceImpl implements
 		SupportLanguageService<SupportLanguage> {
 
 	@Resource
 	private SupportLanguageDao<SupportLanguage> supportLanguageDao;
 	
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int saveOrUpdate(SupportLanguage t) throws Exception {
 		if (t.getId()>0) {
@@ -33,7 +33,7 @@ public class SupportLanguageServiceImpl implements
 		}
 	}
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int delete(int id) {
 		if(id<=0){
@@ -42,7 +42,7 @@ public class SupportLanguageServiceImpl implements
 		return supportLanguageDao.delete(id);
 	}
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int batchDelete(String ids) {
 		if (StringUtils.hasText(ids)) {

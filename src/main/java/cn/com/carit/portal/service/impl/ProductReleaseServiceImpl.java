@@ -16,14 +16,14 @@ import cn.com.carit.portal.bean.ProductRelease;
 import cn.com.carit.portal.dao.ProductReleaseDao;
 import cn.com.carit.portal.service.ProductReleaseService;
 @Service
-@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 public class ProductReleaseServiceImpl implements
 		ProductReleaseService<ProductRelease> {
 	
 	@Resource
 	private ProductReleaseDao<ProductRelease> productReleaseDao;
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int saveOrUpdate(ProductRelease t) throws Exception {
 		if (t.getId()>0) {
@@ -33,7 +33,7 @@ public class ProductReleaseServiceImpl implements
 		}
 	}
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int delete(int id) {
 		if(id<=0){
@@ -42,7 +42,7 @@ public class ProductReleaseServiceImpl implements
 		return productReleaseDao.delete(id);
 	}
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int batchDelete(String ids) {
 		if (StringUtils.hasText(ids)) {

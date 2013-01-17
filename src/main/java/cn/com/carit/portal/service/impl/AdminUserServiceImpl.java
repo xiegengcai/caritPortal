@@ -22,7 +22,7 @@ import cn.com.carit.portal.bean.AdminUser;
 import cn.com.carit.portal.dao.AdminUserDao;
 import cn.com.carit.portal.service.AdminUserService;
 @Service
-@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 public class AdminUserServiceImpl implements AdminUserService<AdminUser> {
 
 	private final Logger log=LoggerFactory.getLogger(getClass());

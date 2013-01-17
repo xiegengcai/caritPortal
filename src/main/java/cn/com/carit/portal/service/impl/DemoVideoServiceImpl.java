@@ -16,14 +16,14 @@ import cn.com.carit.portal.dao.DemoVideoDao;
 import cn.com.carit.portal.service.DemoVideoService;
 import cn.com.carit.portal.web.CacheManager;
 @Service
-@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 public class DemoVideoServiceImpl implements
 		DemoVideoService<DemoVideo> {
 
 	@Resource
 	private DemoVideoDao<DemoVideo> dao;
 	
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int saveOrUpdate(DemoVideo t) throws Exception {
 		int rows=0;
@@ -38,7 +38,7 @@ public class DemoVideoServiceImpl implements
 		return rows;
 	}
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int delete(int id) {
 		if(id<=0){

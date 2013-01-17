@@ -16,14 +16,14 @@ import cn.com.carit.portal.bean.MediaGallery;
 import cn.com.carit.portal.dao.MediaGalleryDao;
 import cn.com.carit.portal.service.MediaGalleryService;
 @Service
-@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 public class MediaGalleryServiceImpl implements
 		MediaGalleryService<MediaGallery> {
 
 	@Resource
 	private MediaGalleryDao<MediaGallery> dao;
 	
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int saveOrUpdate(MediaGallery t) throws Exception {
 		if (t.getId()>0) {
@@ -42,7 +42,7 @@ public class MediaGalleryServiceImpl implements
 		}
 	}
 
-	@Transactional(propagation=Propagation.SUPPORTS,readOnly=false)
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public int delete(int id) {
 		if(id<=0){
